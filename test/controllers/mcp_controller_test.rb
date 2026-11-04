@@ -336,34 +336,47 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     transient = [
       ActiveRecord::AdapterTimeout,
       ActiveRecord::ConnectionNotEstablished,
+      ActiveRecord::ConnectionFailed,
       ActiveRecord::Deadlocked,
       ActiveRecord::LockWaitTimeout,
       ActiveRecord::QueryCanceled,
       ActiveRecord::StatementTimeout
     ]
+    messages = []
+    logger = Rails.logger
 
-    transient.each do |error_class|
-      raise_always = ->(*) { raise error_class, 'counter unavailable' }
-      Rails.cache.stub(:increment, raise_always) do
-        post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+    logger.stub(:error, ->(*arguments) { messages << arguments.first if arguments.any? }) do
+      transient.each do |error_class|
+        messages.clear
+        raise_always = ->(*) { raise error_class, 'counter unavailable' }
+        Rails.cache.stub(:increment, raise_always) do
+          post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+        end
+        assert_response :service_unavailable, error_class.name
+        assert_includes messages.grep(/mcp_audit/).join, '"result":"unavailable"', error_class.name
       end
-      assert_response :service_unavailable, error_class.name
-    end
 
-    raise_on_global = lambda do |key, *_args, **_kwargs|
-      raise ActiveRecord::ConnectionNotEstablished, 'counter unavailable' if key.to_s.include?(':global:')
+      [ActiveRecord::ConnectionNotEstablished, ActiveRecord::ConnectionFailed].each do |error_class|
+        messages.clear
+        raise_on_global = lambda do |key, *_args, **_kwargs|
+          raise error_class, 'counter unavailable' if key.to_s.include?(':global:')
 
-      1
-    end
-    Rails.cache.stub(:increment, raise_on_global) do
-      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
-    end
-    assert_response :service_unavailable
+          1
+        end
+        Rails.cache.stub(:increment, raise_on_global) do
+          post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+        end
+        assert_response :service_unavailable, error_class.name
+        assert_includes messages.grep(/mcp_audit/).join, '"result":"unavailable"', error_class.name
 
-    Rails.cache.stub(:increment, ->(*) { raise ActiveRecord::ConnectionNotEstablished, 'counter unavailable' }) do
-      post '/mcp', params: initialize_request, as: :json
+        messages.clear
+        Rails.cache.stub(:increment, ->(*) { raise error_class, 'counter unavailable' }) do
+          post '/mcp', params: initialize_request, as: :json
+        end
+        assert_response :service_unavailable, error_class.name
+        assert_includes messages.grep(/mcp_audit/).join, '"result":"unavailable"', error_class.name
+      end
     end
-    assert_response :service_unavailable
   end
 
   test 'MCP does not convert unexpected counter errors into 503' do

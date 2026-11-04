@@ -98,20 +98,29 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'DCR treats transient counter errors as unavailable without registering a client' do
-    [
-      ActiveRecord::AdapterTimeout,
-      ActiveRecord::ConnectionNotEstablished,
-      ActiveRecord::Deadlocked,
-      ActiveRecord::LockWaitTimeout,
-      ActiveRecord::QueryCanceled,
-      ActiveRecord::StatementTimeout
-    ].each do |error_class|
-      assert_no_difference -> { Doorkeeper::Application.count }, error_class.name do
-        Rails.cache.stub(:increment, ->(*) { raise error_class, 'counter unavailable' }) do
-          post '/oauth/register', params: registration_params, as: :json
+    messages = []
+    logger = Rails.logger
+
+    logger.stub(:error, ->(*arguments) { messages << arguments.first if arguments.any? }) do
+      [
+        ActiveRecord::AdapterTimeout,
+        ActiveRecord::ConnectionNotEstablished,
+        ActiveRecord::ConnectionFailed,
+        ActiveRecord::Deadlocked,
+        ActiveRecord::LockWaitTimeout,
+        ActiveRecord::QueryCanceled,
+        ActiveRecord::StatementTimeout
+      ].each do |error_class|
+        messages.clear
+        assert_no_difference -> { Doorkeeper::Application.count }, error_class.name do
+          Rails.cache.stub(:increment, ->(*) { raise error_class, 'counter unavailable' }) do
+            post '/oauth/register', params: registration_params, as: :json
+          end
         end
+        assert_response :service_unavailable, error_class.name
+        assert_includes messages.grep(/mcp_audit/).join, '"event":"mcp.dcr_rate_limit"', error_class.name
+        assert_includes messages.grep(/mcp_audit/).join, '"result":"unavailable"', error_class.name
       end
-      assert_response :service_unavailable, error_class.name
     end
   end
 

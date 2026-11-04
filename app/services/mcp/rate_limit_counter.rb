@@ -15,16 +15,19 @@ module Mcp
   # complete counter key. The lock is released automatically when the
   # transaction commits or rolls back, including when increment raises.
   class RateLimitCounter
-    # Transient errors that make the shared counter unusable. This mirrors
-    # SolidCache::Store::Failsafe::TRANSIENT_ACTIVE_RECORD_ERRORS in Solid Cache
-    # 1.0.10, which treats them as handled and makes the cache return nil. The
-    # advisory lock below runs outside Solid Cache, so callers that increment
-    # the counter rescue these errors around the increment. Anything else, such
-    # as NoMethodError or a schema-level StatementInvalid, is a defect and must
-    # propagate.
+    # Transient errors that make the shared counter unusable. Solid Cache
+    # 1.0.10 handles SolidCache::Store::Failsafe::TRANSIENT_ACTIVE_RECORD_ERRORS
+    # and makes the cache return nil for them. The advisory lock below runs
+    # outside Solid Cache, so callers that increment the counter rescue those
+    # errors around the increment. ActiveRecord::ConnectionFailed is included
+    # because Rails translates a PostgreSQL connection lost while sending or
+    # receiving a query (PG::ConnectionBad) into it, and the counter cannot be
+    # used then either. Anything else, such as NoMethodError or a schema-level
+    # StatementInvalid, is a defect and must propagate.
     COUNTER_UNAVAILABLE_ERRORS = [
       ActiveRecord::AdapterTimeout,
       ActiveRecord::ConnectionNotEstablished,
+      ActiveRecord::ConnectionFailed,
       ActiveRecord::Deadlocked,
       ActiveRecord::LockWaitTimeout,
       ActiveRecord::QueryCanceled,
