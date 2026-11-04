@@ -1,0 +1,5 @@
+= turbo_stream.replace dom_id(@comment) do
+  = render 'comments/comment',
+    comment: @comment,
+    user: current_user,
+    hidden: false

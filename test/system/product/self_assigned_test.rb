@@ -132,7 +132,7 @@ class Product::SelfAssignedTest < ApplicationSystemTestCase
     )
     visit_with_auth "/products/#{product.id}", 'mentormentaro'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     click_button 'コメントする'
     visit_with_auth '/products/self_assigned?target=self_assigned_all', 'mentormentaro'

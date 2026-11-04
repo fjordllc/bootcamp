@@ -32,7 +32,7 @@ class API::CommentsController < API::BaseController
     @comment.user = current_user
     @comment.commentable = commentable
     if @comment.save
-      render_created_comment
+      render json: comment_json(@comment), status: :created
     else
       render_validation_errors(@comment)
     end
@@ -40,7 +40,7 @@ class API::CommentsController < API::BaseController
 
   def update
     if @comment.update(comment_params)
-      request.format.json? ? render(json: comment_json(@comment), status: :ok) : head(:ok)
+      render(json: comment_json(@comment), status: :ok)
     else
       render_validation_errors(@comment)
     end
@@ -48,7 +48,7 @@ class API::CommentsController < API::BaseController
 
   def destroy
     @comment.destroy!
-    request.format.json? ? render(json: { id: @comment.id }, status: :ok) : head(:no_content)
+    render(json: { id: @comment.id }, status: :ok)
   end
 
   private
@@ -74,7 +74,7 @@ class API::CommentsController < API::BaseController
     end
     response.set_header('X-Comment-Remaining', comment_remaining.to_s)
     render partial: 'comments/comment', collection: @comments, as: :comment,
-           locals: { user: current_user, latest_comment: nil }
+           locals: { user: current_user }
   end
 
   def authorize_commentable
@@ -101,16 +101,6 @@ class API::CommentsController < API::BaseController
   def set_my_comment
     @comment = current_user.admin? || current_user.mentor? ? Comment.find_by(id: params[:id]) : current_user.comments.find_by(id: params[:id])
     render_not_found('コメントが見つかりません。') unless @comment
-  end
-
-  def render_created_comment
-    if request.format.json?
-      render json: comment_json(@comment), status: :created
-    else
-      render partial: 'comments/comment',
-             locals: { commentable:, comment: @comment, user: current_user, latest_comment: @comment },
-             status: :created
-    end
   end
 
   def comment_json(comment)

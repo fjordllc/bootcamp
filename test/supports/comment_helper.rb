@@ -4,15 +4,15 @@ module CommentHelper
   def post_comment(comment)
     wait_for_comments
 
-    assert_selector('textarea[name="new_comment[description]"]')
+    assert_selector('textarea[name="comment[description]"]')
 
-    fill_in('new_comment[description]', with: comment)
+    fill_in('comment[description]', with: comment)
     click_button 'コメントする'
   end
 
   def wait_for_comment_form
     wait_for_comments
-    assert_selector('textarea[name="new_comment[description]"]')
+    assert_selector('textarea[name="comment[description]"]')
   end
 
   def wait_for_comments
