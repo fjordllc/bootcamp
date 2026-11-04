@@ -82,20 +82,51 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       assert_response :created
     end
 
-    post '/oauth/register', params: registration_params, as: :json
-    assert_response :too_many_requests
+    assert_no_difference -> { Doorkeeper::Application.count } do
+      post '/oauth/register', params: registration_params, as: :json
+      assert_response :too_many_requests
+    end
   end
 
-  test 'DCR fails closed with 503 when the rate counter is unavailable' do
-    Rails.cache.stub(:increment, nil) do
-      post '/oauth/register', params: registration_params, as: :json
+  test 'DCR fails closed with 503 without registering a client when the rate counter is unavailable' do
+    assert_no_difference -> { Doorkeeper::Application.count } do
+      Rails.cache.stub(:increment, nil) do
+        post '/oauth/register', params: registration_params, as: :json
+      end
     end
     assert_response :service_unavailable
+  end
 
-    Rails.cache.stub(:increment, ->(*) { raise ActiveRecord::ConnectionNotEstablished }) do
-      post '/oauth/register', params: registration_params, as: :json
+  test 'DCR treats transient counter errors as unavailable without registering a client' do
+    [
+      ActiveRecord::AdapterTimeout,
+      ActiveRecord::ConnectionNotEstablished,
+      ActiveRecord::Deadlocked,
+      ActiveRecord::LockWaitTimeout,
+      ActiveRecord::QueryCanceled,
+      ActiveRecord::StatementTimeout
+    ].each do |error_class|
+      assert_no_difference -> { Doorkeeper::Application.count }, error_class.name do
+        Rails.cache.stub(:increment, ->(*) { raise error_class, 'counter unavailable' }) do
+          post '/oauth/register', params: registration_params, as: :json
+        end
+      end
+      assert_response :service_unavailable, error_class.name
     end
-    assert_response :service_unavailable
+  end
+
+  test 'DCR propagates unexpected counter errors instead of converting them to 503' do
+    application_count = Doorkeeper::Application.count
+
+    [NoMethodError, ActiveRecord::StatementInvalid].each do |error_class|
+      assert_raises(error_class, error_class.name) do
+        Rails.cache.stub(:increment, ->(*) { raise error_class, 'counter bug' }) do
+          post '/oauth/register', params: registration_params, as: :json
+        end
+      end
+    end
+
+    assert_equal application_count, Doorkeeper::Application.count
   end
 
   test 'metadata advertises DCR, S256, and only the supported grant and scope' do

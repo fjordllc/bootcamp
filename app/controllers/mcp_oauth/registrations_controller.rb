@@ -100,21 +100,22 @@ module McpOauth
 
     def registration_limit_status
       key = "mcp-oauth-dcr:#{Digest::SHA256.hexdigest(request.remote_ip)}:#{Time.current.to_i / 60}"
-      count = Mcp::RateLimitCounter.increment(key)
+      count = increment_registration_counter(key)
       unless count
         Rails.logger.error(audit_log(event: 'mcp.dcr_rate_limit', result: 'unavailable'))
         return :unavailable
       end
 
       count > MAX_REGISTRATIONS_PER_MINUTE ? :limited : :allowed
-    rescue StandardError => e
-      Rails.logger.error(audit_log(
-                           event: 'mcp.dcr_rate_limit',
-                           result: 'unavailable',
-                           exception_class: e.class.name,
-                           location: safe_backtrace_location(e)
-                         ))
-      :unavailable
+    end
+
+    def increment_registration_counter(key)
+      Mcp::RateLimitCounter.increment(key)
+    rescue *Mcp::RateLimitCounter::COUNTER_UNAVAILABLE_ERRORS => e
+      Rails.logger.warn(
+        "mcp_dcr_rate_limit_counter_unavailable #{e.class}: #{safe_backtrace_location(e)}"
+      )
+      nil
     end
 
     def registration_response(application, client)
