@@ -21,8 +21,12 @@ module Mcp
     def with_statement_timeout
       timeout_ms = Integer(Rails.configuration.x.mcp.statement_timeout_ms)
       ActiveRecord::Base.transaction(requires_new: true) do
-        ActiveRecord::Base.connection.execute("SET LOCAL statement_timeout = #{timeout_ms}")
-        yield
+        connection = ActiveRecord::Base.connection
+        previous_timeout = connection.select_value("SELECT current_setting('statement_timeout')")
+        connection.execute("SET LOCAL statement_timeout = #{connection.quote(timeout_ms)}")
+        result = yield
+        connection.execute("SET LOCAL statement_timeout = #{connection.quote(previous_timeout)}")
+        result
       end
     rescue ActiveRecord::QueryCanceled
       error_response("The practice query exceeded the #{timeout_ms}ms time limit. Try again with a narrower request.")

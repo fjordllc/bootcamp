@@ -3,26 +3,32 @@
 require 'digest'
 
 module McpRateLimiting
+  # Transient errors that make the shared counter unusable. This mirrors
+  # SolidCache::Store::Failsafe::TRANSIENT_ACTIVE_RECORD_ERRORS in Solid Cache
+  # 1.0.10, which treats them as handled and makes the cache return nil. The
+  # advisory lock in Mcp::RateLimitCounter runs outside Solid Cache, so the
+  # same errors are caught here. Anything else, such as NoMethodError or a
+  # schema-level StatementInvalid, is a defect and must propagate.
+  COUNTER_UNAVAILABLE_ERRORS = [
+    ActiveRecord::AdapterTimeout,
+    ActiveRecord::ConnectionNotEstablished,
+    ActiveRecord::Deadlocked,
+    ActiveRecord::LockWaitTimeout,
+    ActiveRecord::QueryCanceled,
+    ActiveRecord::StatementTimeout
+  ].freeze
+
   private
 
   # Requests exceeding a caller's user or source-IP limit must not consume
   # the allowance shared by all MCP users.
   def within_global_request_limit?
     window = Time.current.to_i / 60
-    count = Mcp::RateLimitCounter.increment("mcp-request:global:#{window}")
+    count = increment_request_counter("mcp-request:global:#{window}")
     return limit_unavailable unless count
     return true if count <= Rails.configuration.x.mcp.global_requests_per_minute
 
     global_rate_limited
-    false
-  rescue StandardError => e
-    Rails.logger.error(audit_log(
-                         event: 'mcp.rate_limit',
-                         result: 'unavailable',
-                         exception_class: e.class.name,
-                         location: safe_backtrace_location(e)
-                       ))
-    head :service_unavailable
     false
   end
 
@@ -41,7 +47,7 @@ module McpRateLimiting
   def within_unauthenticated_ip_limit?
     window = Time.current.to_i / 60
     key = "mcp-request:unauthenticated-ip:#{Digest::SHA256.hexdigest(request.remote_ip.to_s)}:#{window}"
-    count = Mcp::RateLimitCounter.increment(key)
+    count = increment_request_counter(key)
     return limit_unavailable unless count
     return true if count <= Rails.configuration.x.mcp.unauthenticated_ip_requests_per_minute
 
@@ -49,15 +55,6 @@ module McpRateLimiting
     false
   rescue ActionDispatch::RemoteIp::IpSpoofAttackError
     invalid_remote_ip
-    false
-  rescue StandardError => e
-    Rails.logger.error(audit_log(
-                         event: 'mcp.rate_limit',
-                         result: 'unavailable',
-                         exception_class: e.class.name,
-                         location: safe_backtrace_location(e)
-                       ))
-    head :service_unavailable
     false
   end
 
@@ -91,22 +88,21 @@ module McpRateLimiting
     head :too_many_requests
   end
 
-  def request_limit_status(user_id, application_id)
+  def request_limit_status(user_id)
     window = Time.current.to_i / 60
-    count = Mcp::RateLimitCounter.increment("mcp-request:#{user_id}:#{window}")
+    count = increment_request_counter("mcp-request:#{user_id}:#{window}")
     return :unavailable unless count
 
     count > Rails.configuration.x.mcp.requests_per_minute ? :limited : :allowed
-  rescue StandardError => e
-    Rails.logger.error(audit_log(
-                         event: 'mcp.rate_limit',
-                         user_id:,
-                         application_id:,
-                         result: 'unavailable',
-                         exception_class: e.class.name,
-                         location: safe_backtrace_location(e)
-                       ))
-    :unavailable
+  end
+
+  def increment_request_counter(key)
+    Mcp::RateLimitCounter.increment(key)
+  rescue *COUNTER_UNAVAILABLE_ERRORS => e
+    Rails.logger.warn(
+      "mcp_rate_limit_counter_unavailable #{e.class}: #{safe_backtrace_location(e)}"
+    )
+    nil
   end
 
   def rate_limit_unavailable(context)
@@ -129,7 +125,5 @@ module McpRateLimiting
     )
     response.headers['Retry-After'] = (60 - Time.current.to_i % 60).to_s
     head :too_many_requests
-  rescue StandardError
-    head :service_unavailable
   end
 end

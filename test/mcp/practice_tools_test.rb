@@ -222,6 +222,77 @@ class McpPracticeToolsTest < ActiveSupport::TestCase
 
     assert_equal configured.to_s, during
     assert_not_equal during, before
+    assert_equal before, current_statement_timeout
+  end
+
+  test 'the statement timeout is limited to the tool call inside an outer transaction' do
+    configured = Rails.configuration.x.mcp.statement_timeout_ms
+    during = nil
+    probe = lambda do |practice, **_kwargs|
+      during = current_statement_timeout
+      { 'id' => practice.id }
+    end
+
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute('SET LOCAL statement_timeout = 1234')
+      Mcp::PracticeSerializer.stub(:detail, probe) do
+        Mcp::GetPractice.call(practice_id: practices(:practice1).id, server_context: server_context)
+      end
+
+      assert_equal configured.to_s, during
+      assert_equal '1234', current_statement_timeout
+    end
+  end
+
+  test 'with_statement_timeout returns the block value after restoring the timeout' do
+    tool = Mcp::GetPractice.new
+
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute('SET LOCAL statement_timeout = 1234')
+
+      assert_equal :value, tool.send(:with_statement_timeout) { :value }
+      assert_equal '1234', current_statement_timeout
+    end
+  end
+
+  test 'a non-timeout error propagates and restores the outer transaction timeout and connection' do
+    failure = Class.new(StandardError)
+    raising = ->(*) { raise failure, 'query failed' }
+    practice_id = practices(:practice1).id
+
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute('SET LOCAL statement_timeout = 1234')
+      assert_raises(failure) do
+        Practice.stub(:find_by, raising) do
+          Mcp::GetPractice.call(practice_id:, server_context: server_context)
+        end
+      end
+
+      assert_equal '1234', current_statement_timeout
+      assert_equal 1, ActiveRecord::Base.connection.select_value('SELECT 1')
+    end
+  end
+
+  test 'a real statement timeout inside an outer transaction restores the timeout and connection' do
+    previous_timeout = Rails.configuration.x.mcp.statement_timeout_ms
+    Rails.configuration.x.mcp.statement_timeout_ms = 50
+    practice_id = practices(:practice1).id
+    slow_query = ->(*) { ActiveRecord::Base.connection.select_value('SELECT pg_sleep(0.5)') }
+    response = nil
+
+    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute('SET LOCAL statement_timeout = 0')
+      Practice.stub(:find_by, slow_query) do
+        response = Mcp::GetPractice.call(practice_id:, server_context: server_context)
+      end
+
+      assert response.error?
+      assert_includes response.content.first.fetch(:text), 'time limit'
+      assert_equal '0', current_statement_timeout
+      assert_equal 1, ActiveRecord::Base.connection.select_value('SELECT 1')
+    end
+  ensure
+    Rails.configuration.x.mcp.statement_timeout_ms = previous_timeout
   end
 
   test 'a query cancelled by the statement timeout returns a tool error' do

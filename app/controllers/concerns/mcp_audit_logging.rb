@@ -4,7 +4,7 @@ module McpAuditLogging
   private
 
   def audit_request(context:, status:, body:, started_at:, result: nil)
-    metadata = request.env['mcp.audit_metadata'].is_a?(Hash) ? request.env['mcp.audit_metadata'] : {}
+    metadata = audit_metadata
     duration_ms = ((Process.clock_gettime(Process::CLOCK_MONOTONIC) - started_at) * 1000).round
     user = context.fetch(:user)
     result ||= audit_result(status, body)
@@ -53,6 +53,23 @@ module McpAuditLogging
         location: safe_backtrace_location(error)
       )
     )
+
+    # The SDK converts exceptions raised by tools into JSON-RPC error responses,
+    # so they never reach Rails' automatic exception reporting. Report them once
+    # here with the same request metadata the audit log already treats as safe;
+    # never the request body, tool arguments, or bearer token.
+    metadata = audit_metadata
+    Rollbar.error(
+      error,
+      request_id: request.request_id,
+      mcp_method: metadata[:method],
+      mcp_tool_name: metadata[:tool_name],
+      mcp_target_id: metadata[:target_id]
+    )
+  end
+
+  def audit_metadata
+    request.env['mcp.audit_metadata'].is_a?(Hash) ? request.env['mcp.audit_metadata'] : {}
   end
 
   def safe_backtrace_location(error)
