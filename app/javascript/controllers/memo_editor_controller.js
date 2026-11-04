@@ -28,7 +28,7 @@ export default class extends Controller {
   ]
 
   connect() {
-    this.#savedMemo = this.editorTextareaContentTarget.value
+    this.#savedMemo = this.editorTextareaContentTarget.defaultValue
     this.#renderMemo(this.#savedMemo)
     TextareaInitializer.initialize(this.editorTextareaSelectorValue)
   }
@@ -77,10 +77,8 @@ export default class extends Controller {
   }
 
   #renderMemo(memo) {
-    const renderedMemo = this.#markdownInitializer.render(memo)
-
-    this.displayContentTarget.innerHTML = renderedMemo
-    this.editorPreviewContentTarget.innerHTML = renderedMemo
+    this.displayContentTarget.innerHTML = this.#markdownInitializer.render(memo)
+    this.updateEditorPreviewContent()
   }
 
   #showDisplay() {
