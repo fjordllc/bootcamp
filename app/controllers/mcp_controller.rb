@@ -11,14 +11,6 @@ class McpController < ActionController::API
   def process_request
     response.headers['Cache-Control'] = 'no-store'
     validate_and_process_request
-  rescue StandardError => e
-    Rails.logger.error(audit_log(
-                         event: 'mcp.request',
-                         result: 'internal_error',
-                         exception_class: e.class.name,
-                         location: safe_backtrace_location(e)
-                       ))
-    head :internal_server_error
   end
 
   private
@@ -50,7 +42,7 @@ class McpController < ActionController::API
   def process_authorized_request(user, application_id)
     context = { user:, application_id: }
 
-    case request_limit_status(user.id, application_id)
+    case request_limit_status(user.id)
     when :limited then return rate_limited(context)
     when :unavailable then return rate_limit_unavailable(context)
     end

@@ -325,10 +325,72 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :service_unavailable
 
-    Rails.cache.stub(:increment, ->(*) { raise StandardError, 'cache down' }) do
+    Rails.cache.stub(:increment, ->(*) { raise ActiveRecord::ConnectionNotEstablished, 'cache down' }) do
       post '/mcp', params: initialize_request, as: :json
     end
     assert_response :service_unavailable
+  end
+
+  test 'MCP treats transient counter errors as unavailable on every limit path' do
+    token = create_mcp_token
+    transient = [
+      ActiveRecord::AdapterTimeout,
+      ActiveRecord::ConnectionNotEstablished,
+      ActiveRecord::Deadlocked,
+      ActiveRecord::LockWaitTimeout,
+      ActiveRecord::QueryCanceled,
+      ActiveRecord::StatementTimeout
+    ]
+
+    transient.each do |error_class|
+      raise_always = ->(*) { raise error_class, 'counter unavailable' }
+      Rails.cache.stub(:increment, raise_always) do
+        post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      end
+      assert_response :service_unavailable, error_class.name
+    end
+
+    raise_on_global = lambda do |key, *_args, **_kwargs|
+      raise ActiveRecord::ConnectionNotEstablished, 'counter unavailable' if key.to_s.include?(':global:')
+
+      1
+    end
+    Rails.cache.stub(:increment, raise_on_global) do
+      post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+    end
+    assert_response :service_unavailable
+
+    Rails.cache.stub(:increment, ->(*) { raise ActiveRecord::ConnectionNotEstablished, 'counter unavailable' }) do
+      post '/mcp', params: initialize_request, as: :json
+    end
+    assert_response :service_unavailable
+  end
+
+  test 'MCP does not convert unexpected counter errors into 503' do
+    token = create_mcp_token
+
+    assert_raises(NoMethodError) do
+      Rails.cache.stub(:increment, ->(*) { raise NoMethodError, 'counter bug' }) do
+        post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      end
+    end
+
+    raise_on_global = lambda do |key, *_args, **_kwargs|
+      raise ActiveRecord::StatementInvalid, 'relation "mcp_entries" does not exist' if key.to_s.include?(':global:')
+
+      1
+    end
+    assert_raises(ActiveRecord::StatementInvalid) do
+      Rails.cache.stub(:increment, raise_on_global) do
+        post '/mcp', params: initialize_request, as: :json, headers: mcp_headers(token)
+      end
+    end
+
+    assert_raises(NoMethodError) do
+      Rails.cache.stub(:increment, ->(*) { raise NoMethodError, 'counter bug' }) do
+        post '/mcp', params: initialize_request, as: :json
+      end
+    end
   end
 
   test 'MCP rejects spoofed client IP headers as a client error without touching counters' do
@@ -538,6 +600,37 @@ class McpControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes messages.join, 'exception-secret-marker'
     assert_not_includes messages.join, 'get_practice'
     assert_not_includes response.body, 'exception-secret-marker'
+  end
+
+  test 'SDK exceptions are reported once to Rollbar with request metadata but no request contents' do
+    token = create_mcp_token
+    practice_id = 12_345
+    reports = []
+    request_body = {
+      jsonrpc: '2.0',
+      id: 4,
+      method: 'tools/call',
+      params: { name: 'get_practice', arguments: { practice_id: } }
+    }
+
+    Rollbar.stub(:error, ->(*arguments) { reports << arguments }) do
+      Practice.stub(:find_by, ->(*) { raise StandardError, 'exception-secret-marker' }) do
+        post '/mcp', params: request_body, as: :json, headers: mcp_headers(token)
+      end
+    end
+
+    assert_response :ok
+    assert_equal 1, reports.size
+    error, extra = reports.first
+    assert_equal %i[request_id mcp_method mcp_tool_name mcp_target_id].sort, extra.keys.sort
+    assert_equal 'exception-secret-marker', error.message
+    assert_equal 'tools/call', extra.fetch(:mcp_method)
+    assert_equal 'get_practice', extra.fetch(:mcp_tool_name)
+    assert_equal practice_id, extra.fetch(:mcp_target_id)
+    assert extra.fetch(:request_id).present?
+    sent = extra.values.map(&:to_s).join(' ')
+    assert_not_includes sent, token.token
+    assert_not_includes sent, 'exception-secret-marker'
   end
 
   private
