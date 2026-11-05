@@ -138,12 +138,15 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
     mentor = users(:mentormentaro)
     sign_in(mentor)
     mentor.update!(hibernated_at: Time.current)
+    state = 'inactive & state'
 
-    get '/oauth/authorize', params: authorization_params(application)
-    assert_response :forbidden
+    %i[get post].each do |method|
+      assert_no_difference -> { Doorkeeper::AccessGrant.count } do
+        public_send(method, '/oauth/authorize', params: authorization_params(application, state:))
+      end
 
-    post '/oauth/authorize', params: authorization_params(application)
-    assert_response :forbidden
+      assert_authorization_error_redirect('access_denied', state:)
+    end
   end
 
   test 'OAuth Basic client authentication does not bypass inactive-owner checks at token exchange' do
@@ -177,21 +180,17 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
     application = create_mcp_application
     sign_in(users(:mentormentaro))
 
-    get '/oauth/authorize', params: authorization_params(application).except(:code_challenge, :code_challenge_method)
-    assert_response :bad_request
-    assert_equal 'invalid_request', response.parsed_body.fetch('error')
+    %i[get post].each do |method|
+      invalid_requests = [
+        authorization_params(application).except(:code_challenge, :code_challenge_method),
+        authorization_params(application, code_challenge_method: 'plain')
+      ]
+      invalid_requests.each do |params|
+        public_send(method, '/oauth/authorize', params:)
 
-    get '/oauth/authorize', params: authorization_params(application, code_challenge_method: 'plain')
-    assert_response :bad_request
-    assert_equal 'invalid_request', response.parsed_body.fetch('error')
-
-    post '/oauth/authorize', params: authorization_params(application).except(:code_challenge, :code_challenge_method)
-    assert_response :bad_request
-    assert_equal 'invalid_request', response.parsed_body.fetch('error')
-
-    post '/oauth/authorize', params: authorization_params(application, code_challenge_method: 'plain')
-    assert_response :bad_request
-    assert_equal 'invalid_request', response.parsed_body.fetch('error')
+        assert_authorization_error_redirect('invalid_request')
+      end
+    end
   end
 
   test 'an access token without an owner is forbidden at the MCP HTTP boundary' do
@@ -235,6 +234,7 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
     %w[http://localhost:49321/other http://127.0.0.1:49321/callback https://localhost:49321/callback].each do |uri|
       get '/oauth/authorize', params: authorization_params(application, redirect_uri: uri)
       assert_response :bad_request, uri
+      assert_nil response.location, uri
     end
   end
 
@@ -248,9 +248,31 @@ class McpAuthorizationTest < ActionDispatch::IntegrationTest
       client_id: application.uid, redirect_uri: 'http://localhost:49321/callback', response_type: 'code', scope: 'read'
     }
     assert_response :bad_request
+    assert_nil response.location
   end
 
   private
+
+  def assert_authorization_error_redirect(error, state: 'test-state', callback: CALLBACK)
+    assert_response :redirect
+    assert response.location.start_with?("#{callback}?"), response.location
+    query = Rack::Utils.parse_query(URI(response.location).query)
+    assert_equal error, query.fetch('error')
+    assert_equal state, query.fetch('state')
+    assert_not query.key?('code')
+    description = query.fetch('error_description')
+    assert_predicate description, :present?
+    assert_not_includes description, 'Translation missing'
+    assert_not_includes description, '{'
+    assert_not_includes description, '=>'
+    expected_description =
+      if error == 'invalid_request'
+        I18n.t('doorkeeper.errors.messages.invalid_request.unknown', raise: true)
+      else
+        I18n.t("doorkeeper.errors.messages.#{error}", raise: true)
+      end
+    assert_equal expected_description, description
+  end
 
   def initialize_request
     {
