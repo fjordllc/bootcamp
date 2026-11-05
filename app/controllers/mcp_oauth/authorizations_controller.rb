@@ -91,7 +91,21 @@ module McpOauth
     end
 
     def render_oauth_error(error, status = :bad_request)
-      render json: { error: }, status: status
+      return render json: { error: }, status: status unless redirectable_mcp_authorization_error?
+
+      redirect_or_render(oauth_error_response(error))
+    end
+
+    def oauth_error_response(error)
+      attributes = { state: params[:state], redirect_uri: params[:redirect_uri] }
+      return Doorkeeper::OAuth::InvalidRequestResponse.new(**attributes) if error == 'invalid_request'
+
+      Doorkeeper::OAuth::ErrorResponse.new(**attributes, name: error.to_sym)
+    end
+
+    def redirectable_mcp_authorization_error?
+      application = Doorkeeper::Application.find_by(uid: params[:client_id])
+      application&.mcp_client? && registered_redirect_uri?(application, params[:redirect_uri])
     end
   end
 end

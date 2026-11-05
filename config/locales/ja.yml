@@ -613,6 +613,10 @@ ja:
         invalid_client: アプリの認証に失敗しました
         invalid_redirect_uri: Redirect URLが無効です
         invalid_scope: スコープが無効です
+        invalid_request:
+          unknown: リクエストが無効です
+        invalid_target: リソースが無効です
+        access_denied: アクセスが拒否されました
     flash:
       applications:
         create:

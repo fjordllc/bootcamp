@@ -280,13 +280,11 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     sign_in(users(:mentormentaro))
 
     get '/oauth/authorize', params: authorization_params(application, scope: 'read')
-    assert_response :bad_request
-    assert_equal 'invalid_scope', response.parsed_body.fetch('error')
+    assert_authorization_error_redirect('invalid_scope')
 
     params = authorization_params(application)
     get '/oauth/authorize', params: params.except(:code_challenge_method)
-    assert_response :bad_request
-    assert_equal 'invalid_request', response.parsed_body.fetch('error')
+    assert_authorization_error_redirect('invalid_request')
 
     get '/oauth/authorize', params: params
     assert_response :ok
@@ -321,8 +319,7 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     ['!', CHALLENGE[0, 42], "#{CHALLENGE}A", "#{CHALLENGE[0, 42]}="].each do |challenge|
       get '/oauth/authorize', params: authorization_params(application, code_challenge: challenge)
 
-      assert_response :bad_request, challenge
-      assert_equal 'invalid_request', response.parsed_body.fetch('error')
+      assert_authorization_error_redirect('invalid_request')
     end
   end
 
@@ -364,9 +361,11 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     get '/oauth/authorize', params: authorization_params(application, redirect_uri: 'http://127.0.0.1:49321/other')
     assert_response :bad_request
+    assert_nil response.location
 
     get '/oauth/authorize', params: authorization_params(application, redirect_uri: "#{CALLBACK}?extra=1")
     assert_response :bad_request
+    assert_nil response.location
 
     get '/oauth/authorize', params: authorization_params(application, redirect_uri: 'http://127.0.0.1:49321/callback')
     assert_response :ok
@@ -378,8 +377,72 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     get '/oauth/authorize', params: authorization_params(application, resource: 'http://www.example.com/other', scope: 'read')
 
-    assert_response :bad_request
-    assert_equal 'invalid_target', response.parsed_body.fetch('error')
+    assert_authorization_error_redirect('invalid_target')
+  end
+
+  test 'authorization returns each MCP failure to a registered callback with state and no grant' do
+    application = register_mcp_client
+    sign_in(users(:mentormentaro))
+    failures = [
+      ['invalid_target', { resource: 'http://www.example.com/other' }],
+      ['invalid_scope', { scope: 'read' }],
+      ['invalid_request', { code_challenge_method: 'plain' }]
+    ]
+
+    %i[get post].each do |method|
+      failures.each do |error, overrides|
+        state = "#{method}-#{error} & 日本語"
+        params = authorization_params(application, state:).merge(overrides)
+
+        assert_no_difference -> { Doorkeeper::AccessGrant.count } do
+          public_send(method, '/oauth/authorize', params:)
+        end
+
+        assert_authorization_error_redirect(error, state:)
+      end
+    end
+  end
+
+  test 'authorization errors use the requested loopback redirect port' do
+    application = register_mcp_client
+    sign_in(users(:mentormentaro))
+    requested = 'http://127.0.0.1:49321/callback'
+
+    params = authorization_params(application, redirect_uri: requested, code_challenge_method: 'plain')
+    post '/oauth/authorize', params: params
+
+    assert_authorization_error_redirect('invalid_request', callback: requested)
+  end
+
+  test 'authorization does not redirect invalid redirect URIs or unknown clients' do
+    application = register_mcp_client
+    sign_in(users(:mentormentaro))
+    invalid_redirects = [
+      [nil, { resource: 'http://www.example.com/other', scope: 'read' }],
+      ['not a valid uri', { resource: 'http://www.example.com/other', scope: 'read' }],
+      ['http://127.0.0.1:49321/other', { resource: 'http://www.example.com/other', scope: 'read' }],
+      ["#{CALLBACK}?extra=1", { resource: 'http://www.example.com/other', scope: 'read' }]
+    ]
+
+    %i[get post].each do |method|
+      invalid_redirects.each do |redirect_uri, overrides|
+        params = authorization_params(application, redirect_uri:, **overrides)
+        public_send(method, '/oauth/authorize', params: params)
+
+        assert_response :bad_request
+        assert_nil response.location
+      end
+
+      public_send(method, '/oauth/authorize', params: authorization_params(
+        application,
+        client_id: 'unknown-client',
+        resource: 'http://www.example.com/other',
+        scope: "#{PRACTICES_SCOPE} read"
+      ))
+
+      assert_response :bad_request
+      assert_nil response.location
+    end
   end
 
   test 'token exchange requires the grant resource and matching PKCE verifier' do
@@ -433,14 +496,15 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test 'authorization rejects an ineligible user' do
     application = register_mcp_client
     sign_in(users(:advijirou))
+    state = 'denied & state'
 
-    get '/oauth/authorize', params: authorization_params(application)
+    %i[get post].each do |method|
+      assert_no_difference -> { Doorkeeper::AccessGrant.count } do
+        public_send(method, '/oauth/authorize', params: authorization_params(application, state:))
+      end
 
-    assert_response :forbidden
-    assert_equal 'access_denied', response.parsed_body.fetch('error')
-
-    post '/oauth/authorize', params: authorization_params(application)
-    assert_response :forbidden
+      assert_authorization_error_redirect('access_denied', state:)
+    end
   end
 
   test 'browser login returns to the MCP authorization request' do
@@ -460,6 +524,27 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def assert_authorization_error_redirect(error, state: 'test-state', callback: CALLBACK)
+    assert_response :redirect
+    assert response.location.start_with?("#{callback}?"), response.location
+    query = Rack::Utils.parse_query(URI(response.location).query)
+    assert_equal error, query.fetch('error')
+    assert_equal state, query.fetch('state')
+    assert_not query.key?('code')
+    description = query.fetch('error_description')
+    assert_predicate description, :present?
+    assert_not_includes description, 'Translation missing'
+    assert_not_includes description, '{'
+    assert_not_includes description, '=>'
+    expected_description =
+      if error == 'invalid_request'
+        I18n.t('doorkeeper.errors.messages.invalid_request.unknown', raise: true)
+      else
+        I18n.t("doorkeeper.errors.messages.#{error}", raise: true)
+      end
+    assert_equal expected_description, description
+  end
 
   def registration_params(**overrides)
     {

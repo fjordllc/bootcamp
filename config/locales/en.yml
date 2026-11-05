@@ -32,6 +32,9 @@
 en:
   hello: "Hello world"
   doorkeeper:
+    errors:
+      messages:
+        invalid_target: Invalid target resource
     authorizations:
       new:
         able_to: This application is requesting the following permissions
