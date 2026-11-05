@@ -51,8 +51,10 @@ steps:
   - Build
 - id: WriteSubstitutionEnv
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  entrypoint: python3
+  entrypoint: bash
   args:
+  - ".cloudbuild/with-cloud-sdk-python"
+  - python3
   - ".cloudbuild/cloud-build-env"
   - write
   - ".cloudbuild/substitutions.env"
@@ -170,6 +172,8 @@ steps:
   automapSubstitutions: true
   entrypoint: bash
   args:
+  - ".cloudbuild/with-cloud-sdk-python"
+  - bash
   - ".cloudbuild/deploy-cloud-run"
   - review
   waitFor:

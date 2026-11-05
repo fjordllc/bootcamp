@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+python_location=$(gcloud info --format='value(basic.python_location)')
+PATH="$(dirname "$python_location"):$PATH"
+export PATH
+
+exec "$@"
