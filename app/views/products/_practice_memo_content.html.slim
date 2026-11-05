@@ -2,6 +2,7 @@ div(
   id=dom_id(practice)
   data-controller='memo-editor'
   data-memo-editor-editor-textarea-selector-value='#js-practice-memo'
+  data-memo-editor-has-memo-value=!practice.memo.to_s.empty?
 )
   = form_with url: api_practice_path(practice),
     method: :patch,

@@ -9,7 +9,8 @@ export default class extends Controller {
   #savedMemo = ''
 
   static values = {
-    editorTextareaSelector: String
+    editorTextareaSelector: String,
+    hasMemo: Boolean
   }
 
   static targets = [
@@ -82,10 +83,11 @@ export default class extends Controller {
   }
 
   #showDisplay() {
-    const hasMemo = this.#savedMemo !== ''
-
-    this.displayWithMemoTarget.classList.toggle('is-hidden', !hasMemo)
-    this.displayWithoutMemoTarget.classList.toggle('is-hidden', hasMemo)
+    this.displayWithMemoTarget.classList.toggle('is-hidden', !this.hasMemoValue)
+    this.displayWithoutMemoTarget.classList.toggle(
+      'is-hidden',
+      this.hasMemoValue
+    )
     this.displayTarget.classList.remove('is-hidden')
     this.editorTarget.classList.add('is-hidden')
   }
