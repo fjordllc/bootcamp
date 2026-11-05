@@ -297,4 +297,24 @@ class RegularEventTest < ActiveSupport::TestCase
     assert_not_includes events, wip_event
     assert_not_includes events, finished_event
   end
+
+  test 'thumbnail_url returns custom thumbnail when attached' do
+    regular_event = regular_events(:regular_event1)
+    regular_event.thumbnail.attach(
+      io: File.open(Rails.root.join('test/fixtures/files/articles/ogp_images/test.jpg')),
+      filename: 'test.jpg',
+      content_type: 'image/jpeg'
+    )
+
+    assert regular_event.thumbnail.attached?
+    assert regular_event.thumbnail_url.present?
+    assert_no_match(/work-blank/, regular_event.thumbnail_url)
+  end
+
+  test 'thumbnail_url returns default image when custom thumbnail is not attached' do
+    regular_event = regular_events(:regular_event1)
+    regular_event.thumbnail.purge
+
+    assert_match(/work-blank/, regular_event.thumbnail_url)
+  end
 end
