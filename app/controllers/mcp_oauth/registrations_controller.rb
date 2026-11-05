@@ -19,6 +19,7 @@ module McpOauth
       case registration_limit_status
       when :limited then return head :too_many_requests
       when :unavailable then return head :service_unavailable
+      when :invalid_remote_ip then return head :bad_request
       end
 
       client = registration_params
@@ -107,6 +108,9 @@ module McpOauth
       end
 
       count > MAX_REGISTRATIONS_PER_MINUTE ? :limited : :allowed
+    rescue ActionDispatch::RemoteIp::IpSpoofAttackError
+      Rails.logger.info(audit_log(event: 'mcp.dcr_rate_limit', result: 'invalid_remote_ip'))
+      :invalid_remote_ip
     end
 
     def increment_registration_counter(key)

@@ -149,31 +149,70 @@ class McpRequestBodyLimitTest < ActiveSupport::TestCase
 
   test 'a spoofed source IP on /mcp is rejected with 400 instead of propagating' do
     app = ->(_env) { raise ActionDispatch::RemoteIp::IpSpoofAttackError, 'IP spoofing attack?!' }
+    messages = []
+    logger = Rails.logger
+    original_info = logger.method(:info)
 
-    status, headers, body = Mcp::RequestBodyLimit.new(app).call(
-      'PATH_INFO' => '/mcp',
-      'REQUEST_METHOD' => 'POST',
-      'CONTENT_LENGTH' => '',
-      'rack.input' => StringIO.new('')
-    )
+    logger.stub(:info, lambda do |*arguments, &block|
+      messages << arguments.first if arguments.any?
+      original_info.call(*arguments, &block)
+    end) do
+      status, headers, body = Mcp::RequestBodyLimit.new(app).call(
+        'PATH_INFO' => '/mcp',
+        'REQUEST_METHOD' => 'POST',
+        'CONTENT_LENGTH' => '',
+        'rack.input' => StringIO.new('')
+      )
 
-    assert_equal 400, status
-    assert_equal 'no-store', headers.fetch('cache-control')
-    assert_empty body.each.to_a
+      assert_equal 400, status
+      assert_equal 'no-store', headers.fetch('cache-control')
+      assert_empty body.each.to_a
+    end
+
+    audit = messages.grep(/mcp_audit/).join
+    assert_includes audit, '"event":"mcp.rate_limit"'
+    assert_includes audit, '"result":"invalid_remote_ip"'
   end
 
-  test 'a spoofed source IP outside /mcp is re-raised unchanged' do
+  test 'a spoofed source IP on DCR paths is rejected with 400 and a DCR audit event' do
     app = ->(_env) { raise ActionDispatch::RemoteIp::IpSpoofAttackError, 'IP spoofing attack?!' }
+    messages = []
+    logger = Rails.logger
+    original_info = logger.method(:info)
 
-    ['/oauth/register', '/other'].each do |path|
-      assert_raises(ActionDispatch::RemoteIp::IpSpoofAttackError) do
-        Mcp::RequestBodyLimit.new(app).call(
+    logger.stub(:info, lambda do |*arguments, &block|
+      messages << arguments.first if arguments.any?
+      original_info.call(*arguments, &block)
+    end) do
+      ['/oauth/register', '/oauth/register/', '//oauth/register'].each do |path|
+        messages.clear
+        status, headers, body = Mcp::RequestBodyLimit.new(app).call(
           'PATH_INFO' => path,
           'REQUEST_METHOD' => 'POST',
           'CONTENT_LENGTH' => '',
           'rack.input' => StringIO.new('')
         )
+
+        assert_equal 400, status, path
+        assert_equal 'no-store', headers.fetch('cache-control'), path
+        assert_empty body.each.to_a, path
+        audit = messages.grep(/mcp_audit/).join
+        assert_includes audit, '"event":"mcp.dcr_rate_limit"', path
+        assert_includes audit, '"result":"invalid_remote_ip"', path
       end
+    end
+  end
+
+  test 'a spoofed source IP outside MCP and DCR is re-raised unchanged' do
+    app = ->(_env) { raise ActionDispatch::RemoteIp::IpSpoofAttackError, 'IP spoofing attack?!' }
+
+    assert_raises(ActionDispatch::RemoteIp::IpSpoofAttackError) do
+      Mcp::RequestBodyLimit.new(app).call(
+        'PATH_INFO' => '/other',
+        'REQUEST_METHOD' => 'POST',
+        'CONTENT_LENGTH' => '',
+        'rack.input' => StringIO.new('')
+      )
     end
   end
 

@@ -129,6 +129,115 @@ class McpOauth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal application_count, Doorkeeper::Application.count
   end
 
+  test 'DCR rejects spoofed client IP headers before touching counters' do
+    counted_keys = []
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      1
+    end
+    spoofed_headers = {
+      'REMOTE_ADDR' => '127.0.0.1',
+      'X-Forwarded-For' => '203.0.113.10, 198.51.100.20',
+      'Client-Ip' => '203.0.113.99'
+    }
+    messages = []
+    error_messages = []
+    reports = []
+    logger = Rails.logger
+    original_info = logger.method(:info)
+    previous_level = logger.level
+
+    begin
+      logger.level = Logger::INFO
+      assert_no_difference -> { Doorkeeper::Application.count } do
+        logger.stub(:error, ->(*arguments) { error_messages << arguments.first if arguments.any? }) do
+          logger.stub(:warn, ->(*arguments) { error_messages << arguments.first if arguments.any? }) do
+            Rollbar.stub(:error, ->(*arguments) { reports << arguments }) do
+              logger.stub(:info, lambda do |*arguments, &block|
+                messages << arguments.first if arguments.any?
+                original_info.call(*arguments, &block)
+              end) do
+                Rails.cache.stub(:increment, counting) do
+                  post '/oauth/register', params: registration_params, as: :json, headers: spoofed_headers
+                end
+              end
+            end
+          end
+        end
+      end
+    ensure
+      logger.level = previous_level
+    end
+
+    assert_response :bad_request
+    assert_empty counted_keys
+    assert_empty error_messages
+    assert_empty reports
+    audit = messages.grep(/mcp_audit/).join
+    assert_includes audit, '"event":"mcp.dcr_rate_limit"'
+    assert_includes audit, '"result":"invalid_remote_ip"'
+    assert_not_includes audit, '203.0.113.99'
+    assert_not_includes audit, '198.51.100.20'
+  end
+
+  test 'DCR rejects spoofed client IP headers when the controller first resolves remote_ip' do
+    counted_keys = []
+    counting = lambda do |key, *_args, **_kwargs|
+      counted_keys << key.to_s
+      1
+    end
+    spoofed_headers = {
+      'REMOTE_ADDR' => '127.0.0.1',
+      'X-Forwarded-For' => '203.0.113.10, 198.51.100.20',
+      'Client-Ip' => '203.0.113.99'
+    }
+    messages = []
+    error_messages = []
+    reports = []
+    logger = Rails.logger
+    original_info = logger.method(:info)
+    previous_level = logger.level
+    previous_show_exceptions = Rails.application.env_config['action_dispatch.show_exceptions']
+
+    begin
+      logger.level = Logger::WARN
+      Rails.application.env_config['action_dispatch.show_exceptions'] = :all
+      assert_no_difference -> { Doorkeeper::Application.count } do
+        logger.stub(:error, ->(*arguments) { error_messages << arguments.first if arguments.any? }) do
+          logger.stub(:warn, ->(*arguments) { error_messages << arguments.first if arguments.any? }) do
+            Rollbar.stub(:error, ->(*arguments) { reports << arguments }) do
+              logger.stub(:info, lambda do |*arguments, &block|
+                messages << arguments.first if arguments.any?
+                original_info.call(*arguments, &block)
+              end) do
+                Rails.cache.stub(:increment, counting) do
+                  post '/oauth/register',
+                       params: registration_params,
+                       as: :json,
+                       headers: spoofed_headers
+                end
+              end
+            end
+          end
+        end
+      end
+      assert_equal :all, request.env['action_dispatch.show_exceptions']
+    ensure
+      Rails.application.env_config['action_dispatch.show_exceptions'] = previous_show_exceptions
+      logger.level = previous_level
+    end
+
+    assert_response :bad_request
+    assert_empty counted_keys
+    assert_empty error_messages
+    assert_empty reports
+    audit = messages.grep(/mcp_audit/).join
+    assert_includes audit, '"event":"mcp.dcr_rate_limit"'
+    assert_includes audit, '"result":"invalid_remote_ip"'
+    assert_not_includes audit, '203.0.113.99'
+    assert_not_includes audit, '198.51.100.20'
+  end
+
   test 'metadata advertises DCR, S256, and only the supported grant and scope' do
     get '/.well-known/oauth-authorization-server'
 
