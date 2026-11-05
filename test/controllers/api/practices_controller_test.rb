@@ -75,6 +75,38 @@ class API::PracticesControllerTest < ActionDispatch::IntegrationTest
     assert_equal mentor, practice.last_updated_user
   end
 
+  test 'PATCH /api/practices/1234.html redirects to the referring product' do
+    practice = practices(:practice1)
+    memo = 'HTMLリクエストで更新したメモ'
+    token = create_token('mentormentaro', 'testtest')
+    referer = product_url(products(:product1))
+
+    patch api_practice_path(practice, format: :html),
+          params: { practice: { memo: } },
+          headers: {
+            Authorization: "Bearer #{token}",
+            Referer: referer
+          }
+
+    assert_response :see_other
+    assert_redirected_to referer
+    assert_equal memo, practice.reload.memo
+  end
+
+  test 'PATCH /api/practices/1234.html redirects to the practice without a referer' do
+    practice = practices(:practice1)
+    memo = 'Refererなしで更新したメモ'
+    token = create_token('mentormentaro', 'testtest')
+
+    patch api_practice_path(practice, format: :html),
+          params: { practice: { memo: } },
+          headers: { Authorization: "Bearer #{token}" }
+
+    assert_response :see_other
+    assert_redirected_to practice_path(practice)
+    assert_equal memo, practice.reload.memo
+  end
+
   test 'PATCH /api/practices/1234.turbo_stream replaces the practice memo' do
     practice = practices(:practice1)
     memo = 'Turbo Streamで更新したメモ'

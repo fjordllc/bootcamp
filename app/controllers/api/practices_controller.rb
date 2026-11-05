@@ -25,9 +25,19 @@ class API::PracticesController < API::BaseController
     respond_to do |format|
       if @practice.update(practice_params)
         format.turbo_stream
+        format.html do
+          redirect_to url_from(request.referer) || practice_path(@practice),
+                      notice: '保存しました！',
+                      status: :see_other
+        end
         format.any { head :ok }
       else
         format.turbo_stream { head :unprocessable_entity }
+        format.html do
+          redirect_to url_from(request.referer) || practice_path(@practice),
+                      alert: 'メモの保存に失敗しました',
+                      status: :see_other
+        end
         format.any { head :bad_request }
       end
     end
