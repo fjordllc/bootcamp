@@ -1,0 +1,8 @@
+/* Loaded only without JavaScript. Keep the regular loading UI unchanged. */
+[data-controller~="answer-loading"] > .loading-content {
+  display: none;
+}
+
+[data-controller~="answer-loading"] > .answer-content.is-hidden {
+  display: block !important;
+}

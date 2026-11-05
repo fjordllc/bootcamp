@@ -3,5 +3,6 @@
 //= link_directory ../builds .css
 //= link choices.min.css
 //= link tagify.css
+//= link answer-fallback.css
 //= link_tree ../../../app/javascript .js
 //= link_tree ../../../vendor/javascript .js

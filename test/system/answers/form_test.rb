@@ -210,6 +210,13 @@ module Answers
       page.go_back
       assert_current_path question_path(question), ignore_query: true
       assert_field 'js-new-comment'
+      page.go_forward
+      assert_current_path question_path(questions(:question4))
+      assert_field 'js-new-comment'
+      assert_no_selector '.loading-content'
+      page.go_back
+      assert_current_path question_path(question), ignore_query: true
+      assert_field 'js-new-comment'
       assert page.evaluate_script('window.answerPageMarker')
 
       fill_in 'js-new-comment', with: '**履歴復元後の回答**'
@@ -223,6 +230,27 @@ module Answers
         click_button 'キャンセル'
         assert_selector '.answer-display'
       end
+    end
+
+    test 'HTML fallback works when Turbo is disabled on the form' do
+      question = questions(:question2)
+      visit_with_auth question_path(question), 'komagata'
+      count = question.answers.count
+      page.execute_script("document.querySelector('.new-answer form').dataset.turbo = 'false'")
+      fill_in 'js-new-comment', with: '   '
+      click_button 'コメントする'
+      assert_text '入力内容にエラーがありました'
+      assert_current_path api_answers_path
+      assert_field 'js-new-comment', with: '   '
+      assert_selector '.answers-list .answer', count: count
+
+      page.execute_script("document.querySelector('.new-answer form').dataset.turbo = 'false'")
+      fill_in 'js-new-comment', with: '**HTML送信の回答**'
+      click_button 'コメントする'
+      assert_current_path question_path(question), ignore_query: true
+      assert_text '回答を投稿しました！'
+      assert_selector '.answer-text strong', text: 'HTML送信の回答'
+      assert_selector '.answers-list .answer', count: count + 1
     end
   end
 end

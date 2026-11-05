@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
+  include QuestionShowPreparation
   include Rails.application.routes.url_helpers
   before_action :set_question, only: %i[show destroy]
   before_action :set_editable_question, only: %i[edit update]
@@ -8,8 +9,6 @@ class QuestionsController < ApplicationController
   before_action :set_watch, only: %i[show]
   before_action :require_admin_or_mentor_login, only: [:destroy]
   skip_before_action :require_active_user_login, only: %i[show]
-
-  MAX_PRACTICE_QUESTIONS_DISPLAYED = 20
 
   def index
     @tag = ActsAsTaggableOn::Tag.find_by(name: params[:tag])
@@ -26,14 +25,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @practice_questions = Question
-                          .not_wip
-                          .where(practice: @question.practice)
-                          .where.not(id: @question.id)
-                          .includes(:correct_answer)
-                          .latest_update_order
-                          .limit(MAX_PRACTICE_QUESTIONS_DISPLAYED)
-    @answers = @question.answers.order(created_at: :asc)
+    prepare_question_show
+    @answer = Answer.new
     respond_to do |format|
       format.html
       format.md
