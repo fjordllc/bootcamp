@@ -6,7 +6,7 @@ import { replaceLinkToCard } from 'replace-link-to-card'
 
 export default class extends Controller {
   #markdownInitializer = new MarkdownInitializer()
-  #savedMemo = ''
+  #savedMemo
 
   static values = {
     editorTextareaSelector: String,
