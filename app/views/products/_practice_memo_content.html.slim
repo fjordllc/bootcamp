@@ -15,12 +15,12 @@ div(
       .card-body
         .card-body__description(
           data-memo-editor-target='displayWithMemo'
-          class=('is-hidden' if practice.memo.blank?)
+          class=('is-hidden' if practice.memo.to_s.empty?)
         )
           .a-long-text.is-sm(data-memo-editor-target='displayContent')
         .card-list(
           data-memo-editor-target='displayWithoutMemo'
-          class=('is-hidden' if practice.memo.present?)
+          class=('is-hidden' unless practice.memo.to_s.empty?)
         )
           .card-list__message
             .container
