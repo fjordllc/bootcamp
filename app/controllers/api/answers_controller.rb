@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class API::AnswersController < API::BaseController
+  include QuestionShowPreparation
   include Rails.application.routes.url_helpers
   before_action :set_answer, only: %i[update destroy]
   before_action :set_available_emojis, only: %i[index create]
@@ -31,11 +32,9 @@ class API::AnswersController < API::BaseController
     @answer.user = current_user
     if @answer.save
       ActiveSupport::Notifications.instrument('answer.create', answer: @answer)
-      render_created_answer(@question)
-    elsif request.format.turbo_stream?
-      render :create, status: :unprocessable_entity
+      render_created_answer
     else
-      render_validation_errors(@answer)
+      render_invalid_answer
     end
   end
 
@@ -68,13 +67,25 @@ class API::AnswersController < API::BaseController
     params.require(:answer).permit(:description)
   end
 
-  def render_created_answer(question)
-    if request.format.turbo_stream?
-      render :create, status: :created
-    elsif request.format.json?
-      render json: answer_json(@answer), status: :created
-    else
-      render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
+  def render_created_answer
+    respond_to do |format|
+      format.turbo_stream { render :create, status: :created }
+      format.json { render json: answer_json(@answer), status: :created }
+      format.html do
+        redirect_to question_path(@question, anchor: "answer_#{@answer.id}"),
+                    status: :see_other, notice: '回答を投稿しました！'
+      end
+    end
+  end
+
+  def render_invalid_answer
+    respond_to do |format|
+      format.turbo_stream { render :create, status: :unprocessable_entity }
+      format.json { render_validation_errors(@answer) }
+      format.html do
+        prepare_question_show
+        render 'questions/show', status: :unprocessable_entity
+      end
     end
   end
 

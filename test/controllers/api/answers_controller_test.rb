@@ -107,4 +107,43 @@ class API::AnswersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :unauthorized
   end
+
+  test 'HTML create redirects to the saved answer' do
+    sign_in(:hajime)
+    question = questions(:question2)
+
+    assert_difference -> { Answer.count }, 1 do
+      post api_answers_path, params: { question_id: question.id, answer: { description: 'HTMLで投稿した回答' } }
+    end
+
+    answer = question.answers.order(:id).last
+    assert_response :see_other
+    assert_redirected_to question_path(question, anchor: "answer_#{answer.id}")
+    assert_equal '回答を投稿しました！', flash[:notice]
+    follow_redirect!
+    assert_response :success
+    assert_select "#answer_#{answer.id} .answer-text", text: 'HTMLで投稿した回答'
+  end
+
+  test 'invalid HTML create renders the question with the input and errors' do
+    sign_in(:hajime)
+    question = questions(:question2)
+    description = " \n "
+
+    assert_no_difference -> { Answer.count } do
+      post api_answers_path, params: { question_id: question.id, answer: { description: } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_equal 'text/html', response.media_type
+    assert_select '.page-content-header__title', text: /#{Regexp.escape(question.title)}/
+    assert_select '.new-answer .errors'
+    assert_select '.new-answer textarea' do |elements|
+      assert_equal description, elements.first.content
+    end
+    assert_select '.answers-list .answer', count: question.answers.count
+    assert_select '.a-side-nav__body'
+    assert_select '.new-answer form[action=?]', api_answers_path
+    assert_select '.new-answer input[name="question_id"][value=?]', question.id.to_s
+  end
 end
