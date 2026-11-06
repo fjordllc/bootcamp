@@ -15,6 +15,22 @@ module Answers
                 javaScriptEnabled: false
               }
 
+    test 'select and cancel a best answer without JavaScript' do
+      answer = answers(:answer1)
+      visit_with_auth question_path(answer.question), 'komagata'
+      within("#answer_#{answer.id}") { click_button 'ベストアンサーにする' }
+      assert_current_path question_path(answer.question)
+      assert_selector '.js-solved-status', text: '解決済'
+      assert_selector "#answer_badge_#{answer.id}.correct-answer"
+      assert_selector '.question .js-markdown-view', text: answer.question.description.squish
+      assert_no_button 'ベストアンサーにする'
+      within("#answer_#{answer.id}") { click_button 'ベストアンサーを取り消す' }
+      assert_current_path question_path(answer.question)
+      assert_selector '.js-solved-status', text: '未解決'
+      assert_selector "#answer_#{answer.id} .make-best-answer"
+      assert_no_selector "#answer_badge_#{answer.id}"
+    end
+
     test 'delete an answer without JavaScript or a confirmation dialog' do
       answer = answers(:answer1)
       question = answer.question

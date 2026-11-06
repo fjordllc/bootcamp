@@ -16,13 +16,7 @@ article.thread-comment.answer[
         img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
     .a-card.is-answer.answer-display class=(editing ? 'is-hidden' : nil) data-answer-editor-target="display"
-      .answer-badge.best-answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
-        .answer-badge__icon
-          i.fa-solid.fa-star
-        .answer-badge__label
-          | ベスト
-          br
-          | アンサー
+      = render 'questions/answer_badge', answer: answer
       header.card-header
         h2.thread-comment__title
           a.thread-comment__title-user-link.is-hidden-md-up href="#{answer.user.url}"
