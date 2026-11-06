@@ -13,7 +13,10 @@ module MarkdownHelper
       img.remove_attribute('height')
       img['style'] = [img['style'], 'max-width: 100%;'].compact.join(' ')
     end
-    raw(doc.to_html) # rubocop:disable Rails/OutputSafety
+    sanitize(doc.to_html,
+             tags: %w[a abbr b blockquote br code dd del details div dl dt em figcaption figure h1 h2 h3 h4 h5 h6 hr i img
+                      li ol p pre s small span strong sub summary sup table tbody td th thead tr ul],
+             attributes: %w[alt class colspan href rel rowspan src style target title])
   end
 
   def md_summary(comment, word_count)
