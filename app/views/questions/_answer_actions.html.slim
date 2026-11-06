@@ -1,0 +1,19 @@
+ul.card-main-actions__items id="answer_actions_#{answer.id}"
+  - if question.user == user || user.admin? || user.mentor?
+    li.card-main-actions__item.make-best-answer-button class=(question.correct_answer.nil? ? '' : 'is-hidden')
+      button.card-main-actions__action.a-button.is-sm.is-warning.is-block.make-best-answer
+        | ベストアンサーにする
+    li.card-main-actions__item.cancel-best-answer-button class=(answer.type == 'CorrectAnswer' ? '' : 'is-hidden')
+      button.card-main-actions__action.a-button.is-sm.is-muted.is-block.cancel-best-answer
+        | ベストアンサーを取り消す
+  - if answer.user == user || user.admin? || user.mentor?
+    li.card-main-actions__item
+      = link_to question_path(question, edit_answer_id: answer.id, anchor: "answer_#{answer.id}"),
+        class: 'card-main-actions__action a-button is-sm is-secondary is-block edit-button',
+        data: { turbo: false, action: 'click->answer-editor#edit' } do
+        i.fa-solid.fa-pen
+        | 内容修正
+    li.card-main-actions__item.is-sub
+      = button_to '削除する', api_answer_path(answer), method: :delete,
+        class: 'card-main-actions__muted-action delete-button',
+        form: { data: { turbo: true, turbo_confirm: '本当に宜しいですか？', controller: 'answer-delete', action: 'turbo:submit-end->answer-delete#submitEnd' } }

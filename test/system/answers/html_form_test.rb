@@ -15,6 +15,19 @@ module Answers
                 javaScriptEnabled: false
               }
 
+    test 'delete an answer without JavaScript or a confirmation dialog' do
+      answer = answers(:answer1)
+      question = answer.question
+      count = question.answers.count
+      visit_with_auth question_path(question), 'komagata'
+      assert_selector '.question .js-markdown-view', text: question.description.squish, normalize_ws: true
+      within("#answer_#{answer.id}") { click_button '削除する' }
+      assert_current_path question_path(question)
+      assert_selector '.question .js-markdown-view', text: question.description.squish, normalize_ws: true
+      assert_no_selector "#answer_#{answer.id}"
+      assert_selector '.js-answer-count', exact_text: (count - 1).to_s
+    end
+
     test 'post and correct an invalid answer without JavaScript' do
       question = questions(:question2)
       visit_with_auth question_path(question), 'komagata'

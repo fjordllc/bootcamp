@@ -1,0 +1,9 @@
+- if question.correct_answer.present?
+  span.a-title-label.is-solved.is-success.js-solved-status id=dom_id(question, :solved_status)
+    | 解決済
+- elsif question.wip?
+  span.a-title-label.is-wip id=dom_id(question, :solved_status)
+    | WIP
+- else
+  span.a-title-label.is-solved.is-danger.js-solved-status id=dom_id(question, :solved_status)
+    | 未解決
