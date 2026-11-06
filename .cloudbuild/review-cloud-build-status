@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""Review App専用: 0=成功、3=待機、1=ビルド失敗、2=状態取得異常。"""
+
+import json
+import re
+import subprocess
+import sys
+
+FAILURES = {"FAILURE", "CANCELLED", "TIMEOUT", "INTERNAL_ERROR", "EXPIRED"}
+PENDING = {"PENDING", "QUEUED", "WORKING"}
+STATUSES = FAILURES | PENDING | {"SUCCESS", "STATUS_UNKNOWN"}
+MAX_DIAGNOSTIC_BYTES = 262144
+DIAGNOSTIC_TIMEOUT_SECONDS = 10
+
+
+def describe(build_id, output_format, *, timeout=None):
+    # substitutions、args、envやログは要求しない。SDKのstderrも秘密を含み得る。
+    try:
+        result = subprocess.run(
+            [
+                "gcloud", "builds", "describe", build_id,
+                "--project=bootcamp-224405", "--region=asia-northeast1",
+                f"--format={output_format}",
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            check=False,
+            timeout=timeout,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        # runは期限超過した子プロセスをkillし、waitで回収してから例外を送出する。
+        return None
+    return result.stdout if result.returncode == 0 else None
+
+
+def failed_steps(raw, build_id, status):
+    if raw is None or len(raw) > MAX_DIAGNOSTIC_BYTES:
+        raise ValueError
+    build = json.loads(raw)
+    if not isinstance(build, dict) or build.get("id") != build_id or build.get("status") != status:
+        raise ValueError
+    steps = build.get("steps", [])
+    if not isinstance(steps, list) or len(steps) > 1000:
+        raise ValueError
+    lines = []
+    for step in steps:
+        if not isinstance(step, dict):
+            raise ValueError
+        step_status = step.get("status", "STATUS_UNKNOWN")
+        if not isinstance(step_status, str) or step_status not in STATUSES:
+            raise ValueError
+        if step_status not in FAILURES:
+            continue
+        step_id = step.get("id", "[unnamed]")
+        if step_id != "[unnamed]" and (
+            not isinstance(step_id, str) or re.fullmatch(r"[A-Za-z0-9_][A-Za-z0-9_.-]{0,99}", step_id) is None
+        ):
+            raise ValueError
+        exit_code = step.get("exitCode")
+        if exit_code is not None and (type(exit_code) is not int or not -(2**31) <= exit_code < 2**31):
+            raise ValueError
+        lines.append(f"Step ID: {step_id} status: {step_status} exitCode: {exit_code if exit_code is not None else 'unavailable'}")
+    return lines
+
+
+def main():
+    if len(sys.argv) != 2 or re.fullmatch(r"[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}", sys.argv[1]) is None:
+        print("Invalid Review App build ID", file=sys.stderr)
+        return 2
+    build_id = sys.argv[1]
+    print(f"Build ID: {build_id}")
+    print(f"Build console: https://console.cloud.google.com/cloud-build/builds;region=asia-northeast1/{build_id}?project=bootcamp-224405")
+    raw_status = describe(build_id, "value(status)")
+    if raw_status is None:
+        print("Build status unavailable: gcloud read failed (check authentication/API access)", file=sys.stderr)
+        return 2
+    # 改行はSDK出力末尾の1つだけ許可し、制御文字や未知の値は出力しない。
+    raw_status = raw_status.removesuffix(b"\n")
+    allowed = {value.encode(): value for value in FAILURES | PENDING | {"SUCCESS"}}
+    status = allowed.get(raw_status)
+    if status is None:
+        print("Build status unavailable: invalid build status", file=sys.stderr)
+        return 2
+    print(f"Build status: {status}")
+    if status == "SUCCESS":
+        return 0
+    if status in PENDING:
+        return 3
+    raw = describe(build_id, "json(id,status,steps[].id,steps[].status,steps[].exitCode)",
+                   timeout=DIAGNOSTIC_TIMEOUT_SECONDS)
+    try:
+        lines = failed_steps(raw, build_id, status)
+    except (ValueError, UnicodeDecodeError, RecursionError):
+        # 診断不能でも元のビルド失敗は維持し、生データや例外本文は出力しない。
+        print("Build diagnostics unavailable; inspect the build console with authorized access", file=sys.stderr)
+    else:
+        print("\n".join(lines) if lines else "No failed step metadata available; inspect the build console")
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
