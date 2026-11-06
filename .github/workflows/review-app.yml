@@ -95,17 +95,15 @@ jobs:
 
           # ビルド完了をポーリングで待つ（最大60分、30秒間隔）
           for i in $(seq 1 120); do
-            STATUS=$(gcloud builds describe "$BUILD_ID" \
-              --project=bootcamp-224405 \
-              --region=asia-northeast1 \
-              --format='value(status)' 2>/dev/null || true)
-            echo "[$i] Build status: $STATUS"
-            if [ "$STATUS" = "SUCCESS" ]; then
+            echo "[$i] Checking Cloud Build"
+            if python3 .cloudbuild/review-cloud-build-status "$BUILD_ID"; then
               echo "Build succeeded!"
               exit 0
-            elif [ "$STATUS" = "FAILURE" ] || [ "$STATUS" = "CANCELLED" ] || [ "$STATUS" = "TIMEOUT" ] || [ "$STATUS" = "INTERNAL_ERROR" ] || [ "$STATUS" = "EXPIRED" ]; then
-              echo "Build failed with status: $STATUS"
-              exit 1
+            else
+              POLL_STATUS=$?
+              if [ "$POLL_STATUS" -ne 3 ]; then
+                exit "$POLL_STATUS"
+              fi
             fi
             sleep 30
           done

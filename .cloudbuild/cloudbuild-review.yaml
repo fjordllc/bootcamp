@@ -124,6 +124,7 @@ steps:
     echo "Database $_DB_NAME created successfully"
   waitFor:
   - WaitForProxy
+  - WriteSubstitutionEnv
   volumes:
   - name: db
     path: "/cloudsql"
