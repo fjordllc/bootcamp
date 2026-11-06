@@ -4,7 +4,7 @@ class API::AnswersController < API::BaseController
   include QuestionShowPreparation
   include Rails.application.routes.url_helpers
   before_action :set_answer, only: %i[update destroy]
-  before_action :set_available_emojis, only: %i[index create]
+  before_action :set_available_emojis, only: %i[index create update]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   def index
@@ -39,10 +39,12 @@ class API::AnswersController < API::BaseController
   end
 
   def update
+    @question = @answer.question
     if @answer.update(answer_params)
-      request.format.json? ? render(json: answer_json(@answer), status: :ok) : head(:ok)
+      render_updated_answer
     else
-      render_validation_errors(@answer)
+      @editing_answer = @answer
+      render_invalid_update
     end
   end
 
@@ -84,6 +86,26 @@ class API::AnswersController < API::BaseController
       format.json { render_validation_errors(@answer) }
       format.html do
         prepare_question_show
+        render 'questions/show', status: :unprocessable_entity
+      end
+    end
+  end
+
+  def render_updated_answer
+    respond_to do |format|
+      format.turbo_stream
+      format.json { render json: answer_json(@answer), status: :ok }
+      format.html { redirect_to question_path(@question, anchor: "answer_#{@answer.id}"), status: :see_other }
+    end
+  end
+
+  def render_invalid_update
+    respond_to do |format|
+      format.turbo_stream { render :update, status: :unprocessable_entity }
+      format.json { render_validation_errors(@answer) }
+      format.html do
+        prepare_question_show
+        @answer = Answer.new
         render 'questions/show', status: :unprocessable_entity
       end
     end

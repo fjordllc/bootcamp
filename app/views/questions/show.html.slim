@@ -34,7 +34,7 @@
               | 回答・コメント
           .answers-list id=dom_id(@question, :answers)
             - @answers.each do |answer|
-              = render 'questions/answer', question: @question, user: current_user, answer: answer
+              = render 'questions/answer', question: @question, user: current_user, answer: answer, editing_answer: @editing_answer
           .new-answer-container data-controller='new-answer' data-new-answer-question-id-value=@question.id data-action='turbo:submit-end->new-answer#submitEnd'
             = render 'questions/new_answer', question: @question, user: current_user, answer: @answer
       nav.a-side-nav aria-label="関連する質問"

@@ -48,7 +48,7 @@ class API::AnswersControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
     answer = question.answers.order(:id).last
     assert_turbo_stream(status: :created, action: 'append', target: dom_id(question, :answers)) do
-      assert_select "template #answer_#{answer.id}[data-controller='answer']"
+      assert_select "template #answer_#{answer.id}[data-controller~='answer']"
     end
     assert_turbo_stream(status: :created, action: 'replace', target: dom_id(question, :answer_count)) do
       assert_select 'template .js-answer-count', text: (count + 1).to_s

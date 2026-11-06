@@ -1,0 +1,6 @@
+- if @answer.errors.empty?
+  = turbo_stream.replace "answer_#{@answer.id}" do
+    = render 'questions/answer', question: @question, answer: @answer, user: current_user
+- else
+  = turbo_stream.replace "answer_editor_#{@editing_answer.id}" do
+    = render 'questions/answer_editor', question: @question, answer: @editing_answer, editing: true
