@@ -6,3 +6,7 @@
 [data-controller~="answer-loading"] > .answer-content.is-hidden {
   display: block !important;
 }
+
+.question .js-markdown-view {
+  display: block;
+}

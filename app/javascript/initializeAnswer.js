@@ -1,5 +1,4 @@
 import CSRF from 'csrf'
-import updateAnswerCount from 'updateAnswerCount'
 import MarkdownInitializer from 'markdown-initializer'
 
 export default function initializeAnswer(answer) {
@@ -19,13 +18,14 @@ export default function initializeAnswer(answer) {
     )
   }
 
-  const makeBestAnswerButton = answerDisplay.querySelector('.make-best-answer')
-  const cancelBestAnswerButton = answerDisplay.querySelector(
-    '.cancel-best-answer'
-  )
-  const answerBadgeElement = answerDisplay.querySelector('.best-answer-badge')
-  if (makeBestAnswerButton) {
-    listen(makeBestAnswerButton, 'click', () => {
+  listen(answerDisplay, 'click', (event) => {
+    const makeBestAnswerButton =
+      answerDisplay.querySelector('.make-best-answer')
+    const cancelBestAnswerButton = answerDisplay.querySelector(
+      '.cancel-best-answer'
+    )
+    const answerBadgeElement = answerDisplay.querySelector('.best-answer-badge')
+    if (event.target.closest('.make-best-answer')) {
       if (window.confirm('本当に宜しいですか？')) {
         makeToBestAnswer(answerId, questionId)
         answerBadgeElement.classList.remove('is-hidden')
@@ -44,10 +44,8 @@ export default function initializeAnswer(answer) {
           }
         })
       }
-    })
-  }
-  if (cancelBestAnswerButton) {
-    listen(cancelBestAnswerButton, 'click', () => {
+    }
+    if (event.target.closest('.cancel-best-answer')) {
       if (window.confirm('本当に宜しいですか？')) {
         cancelBestAnswer(answerId, questionId)
         answerBadgeElement.classList.remove('correct-answer')
@@ -66,27 +64,8 @@ export default function initializeAnswer(answer) {
           }
         })
       }
-    })
-  }
-
-  const deleteButton = answerDisplay.querySelector('.delete-button')
-  if (deleteButton) {
-    listen(deleteButton, 'click', () => {
-      if (window.confirm('本当に宜しいですか？')) {
-        deleteAnswer(answerId)
-        if (answerBadgeElement.classList.contains('correct-answer')) {
-          const otherCancelBestAnswerButtons = document.querySelectorAll(
-            '.make-best-answer-button'
-          )
-          otherCancelBestAnswerButtons.forEach((button) => {
-            if (button.closest('.answer').dataset.answer_id !== answerId) {
-              button.classList.remove('is-hidden')
-            }
-          })
-        }
-      }
-    })
-  }
+    }
+  })
 
   const createdAtElement = answer.querySelector('.created-at')
   if (createdAtElement && navigator.clipboard) {
@@ -119,32 +98,6 @@ export default function initializeAnswer(answer) {
     elements.forEach((element) => {
       element.classList.toggle(className)
     })
-  }
-
-  function deleteAnswer(answerId) {
-    fetch(`/api/answers/${answerId}.json`, {
-      method: 'DELETE',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual'
-    })
-      .then(() => {
-        const deletedAnswer = document.querySelector(
-          `.thread-comment.answer[data-answer_id='${answerId}']`
-        )
-
-        if (deletedAnswer) {
-          deletedAnswer.parentNode.removeChild(deletedAnswer)
-        }
-
-        updateAnswerCount(false)
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
   }
 
   function makeToBestAnswer(answerId, questionId) {

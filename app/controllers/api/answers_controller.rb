@@ -49,9 +49,9 @@ class API::AnswersController < API::BaseController
   end
 
   def destroy
-    @answer.destroy
-    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: current_action_name) if @answer.type == 'CorrectAnswer'
-    request.format.json? ? render(json: { id: @answer.id }, status: :ok) : head(:no_content)
+    destroyed = @answer.destroy
+    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: current_action_name) if destroyed && @answer.type == 'CorrectAnswer'
+    render_destroy
   end
 
   private
@@ -107,6 +107,19 @@ class API::AnswersController < API::BaseController
         prepare_question_show
         @answer = Answer.new
         render 'questions/show', status: :unprocessable_entity
+      end
+    end
+  end
+
+  def render_destroy
+    @question = @answer.question.reload
+    respond_to do |format|
+      format.turbo_stream { @answer.destroyed? ? render(:destroy) : head(:unprocessable_entity) }
+      format.json { @answer.destroyed? ? render(json: { id: @answer.id }, status: :ok) : render_validation_errors(@answer) }
+      format.html do
+        anchor = @answer.destroyed? ? helpers.dom_id(@question, :answers) : "answer_#{@answer.id}"
+        redirect_to question_path(@question, anchor: anchor), status: :see_other,
+                                                              alert: @answer.destroyed? ? nil : '回答を削除できませんでした。'
       end
     end
   end
