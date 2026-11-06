@@ -1,4 +1,12 @@
-article.thread-comment.answer data-controller="answer" id="answer_#{answer.id}" data-question_id="#{question.id}" data-answer_id="#{answer.id}" data-answer_description="#{answer.description}"
+- editing = local_assigns[:editing_answer]&.id == answer.id
+article.thread-comment.answer[
+  id="answer_#{answer.id}"
+  data-controller="answer answer-editor"
+  data-answer-editor-cancel-url-value=question_path(question, anchor: "answer_#{answer.id}")
+  data-question_id=question.id
+  data-answer_id=answer.id
+  data-answer_description=answer.description
+  data-answer-url=question_url(question, anchor: "answer_#{answer.id}")]
   .thread-comment__start
     a.thread-comment__user-link href="#{answer.user.url}"
       span class="#{answer.user.user_icon_frame_class}"
@@ -7,7 +15,7 @@ article.thread-comment.answer data-controller="answer" id="answer_#{answer.id}" 
       a.thread-comment__company-link href="#{company_path(answer.user.company)}"
         img.thread-comment__company-logo src="#{answer.user.company.logo_url}"
   .thread-comment__end
-    .a-card.is-answer.answer-display
+    .a-card.is-answer.answer-display class=(editing ? 'is-hidden' : nil) data-answer-editor-target="display"
       .answer-badge.best-answer-badge class=(answer.type == 'CorrectAnswer' ? 'correct-answer' : 'is-hidden')
         .answer-badge__icon
           i.fa-solid.fa-star
@@ -49,38 +57,12 @@ article.thread-comment.answer data-controller="answer" id="answer_#{answer.id}" 
                       | ベストアンサーを取り消す
                 - if answer.user == user || user.admin? || user.mentor?
                   li.card-main-actions__item
-                    button.card-main-actions__action.a-button.is-sm.is-secondary.is-block.edit-button
+                    = link_to question_path(question, edit_answer_id: answer.id, anchor: "answer_#{answer.id}"),
+                      class: 'card-main-actions__action a-button is-sm is-secondary is-block edit-button',
+                      data: { turbo: false, action: 'click->answer-editor#edit' } do
                       i.fa-solid.fa-pen
                       | 内容修正
                   li.card-main-actions__item.is-sub
                     button.card-main-actions__muted-action.delete-button
                       | 削除する
-    .a-card.is-answer.answer-editor.is-hidden
-      .thread-comment-form__form
-        .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab.edit-answer-tab.is-active
-            | コメント
-          .a-form-tabs__tab.js-tabs__tab.answer-preview-tab
-            | プレビュー
-        .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
-            .form-textarea
-              .form-textarea__body
-                textarea.a-text-input.a-markdown-input__textarea.markdown-textarea id="js-comment-#{answer.id}" data-preview="#js-comment-preview-#{answer.id}" data-input=".js-comment-file-input-#{answer.id}" name='answer[description]'
-                  = answer.description
-              .form-textarea__footer
-                .form-textarea__insert
-                  label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
-                    | ファイルを挿入
-                    input(class="js-comment-file-input-#{answer.id}" type='file' multiple)
-          .a-markdown-input__inner.is-preview.js-tabs__content.preview-content
-            .js-preview.a-long-text.is-md.a-markdown-input__preview.markdown-preview id="js-comment-preview-#{answer.id}"
-        .card-footer
-          .card-main-actions
-            .card-main-actions__items
-              .card-main-actions__item
-                button.a-button.is-sm.is-primary.is-block.save-button
-                  | 保存する
-              .card-main-actions__item
-                button.a-button.is-sm.is-secondary.is-block.cancel-button
-                  | キャンセル
+    = render 'questions/answer_editor', answer: editing ? editing_answer : answer, question: question, editing: editing

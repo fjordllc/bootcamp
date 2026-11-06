@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
   before_action :set_editable_question, only: %i[edit update]
   before_action :set_categories, only: %i[new show create]
   before_action :set_watch, only: %i[show]
+  before_action :set_editing_answer, only: :show, if: -> { logged_in? && params[:edit_answer_id].present? }
   before_action :require_admin_or_mentor_login, only: [:destroy]
   skip_before_action :require_active_user_login, only: %i[show]
 
@@ -76,6 +77,12 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_editing_answer
+    scope = current_user.admin? ? @question.answers : current_user.answers.where(question: @question)
+    @editing_answer = scope.find_by(id: params[:edit_answer_id])
+    head :not_found unless @editing_answer
   end
 
   def set_editable_question

@@ -38,7 +38,7 @@ module Answers
     test 'edit answer form has comment tab and preview tab' do
       visit_with_auth "/questions/#{questions(:question3).id}", 'komagata'
       within('.thread-comment:first-child') do
-        click_button '内容修正'
+        click_on '内容修正'
         assert_text 'コメント'
         assert_text 'プレビュー'
       end
@@ -84,9 +84,12 @@ module Answers
         assert_selector '.is-selected [data-reaction-kind="smile"].is-reacted'
         find('.is-selected [data-reaction-kind="smile"]').click
         assert_no_selector '.is-selected [data-reaction-kind="smile"].is-reacted'
-        click_button '内容修正'
+        click_on '内容修正'
         fill_in 'answer[description]', with: '投稿後に編集'
         click_button '保存する'
+      end
+      assert_selector "#answer_#{answer.id} .answer-text", text: '投稿後に編集'
+      within "#answer_#{answer.id}" do
         assert_text '投稿後に編集'
         accept_confirm { click_button 'ベストアンサーにする' }
         assert_selector '.best-answer-badge.correct-answer'
@@ -124,7 +127,7 @@ module Answers
       visit_with_auth question_path(question), 'komagata'
       answer = answers(:answer1)
       within "#answer_#{answer.id}" do
-        click_button '内容修正'
+        click_on '内容修正'
         fill_in 'answer[description]', with: '編集中の回答'
       end
       within '.new-answer' do
@@ -206,16 +209,20 @@ module Answers
         })
       JS
       assert_current_path question_path(questions(:question4))
+      assert_selector '.page-content-header__title', text: questions(:question4).title
       assert_field 'js-new-comment'
       page.go_back
       assert_current_path question_path(question), ignore_query: true
+      assert_selector '.page-content-header__title', text: question.title
       assert_field 'js-new-comment'
       page.go_forward
       assert_current_path question_path(questions(:question4))
+      assert_selector '.page-content-header__title', text: questions(:question4).title
       assert_field 'js-new-comment'
       assert_no_selector '.loading-content'
       page.go_back
       assert_current_path question_path(question), ignore_query: true
+      assert_selector '.page-content-header__title', text: question.title
       assert_field 'js-new-comment'
       assert page.evaluate_script('window.answerPageMarker')
 
@@ -225,9 +232,9 @@ module Answers
       assert_selector '.answers-list .answer', count: count + 1
       assert_selector '.js-answer-count', exact_text: (count + 1).to_s
       within '.answers-list .answer:last-child' do
-        click_button '内容修正'
+        click_on '内容修正'
         assert_field 'answer[description]', with: '**履歴復元後の回答**'
-        click_button 'キャンセル'
+        click_on 'キャンセル'
         assert_selector '.answer-display'
       end
     end

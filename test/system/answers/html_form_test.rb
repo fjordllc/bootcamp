@@ -42,5 +42,49 @@ module Answers
       page.refresh
       assert_selector '.answers-list .answer', count: count + 1
     end
+
+    test 'edit and correct an answer in the question page without JavaScript' do
+      answer = answers(:answer1)
+      visit_with_auth question_path(answer.question), 'komagata'
+      within "#answer_#{answer.id}" do
+        click_on '内容修正'
+      end
+      assert_current_path question_path(answer.question, edit_answer_id: answer.id)
+      within "#answer_#{answer.id}" do
+        assert_field 'answer[description]', with: answer.description
+        fill_in 'answer[description]', with: '   '
+        click_button '保存する'
+      end
+      assert_current_path api_answer_path(answer)
+      within "#answer_#{answer.id}" do
+        assert_text '入力内容にエラーがありました'
+        assert_field 'answer[description]', with: '   '
+      end
+      assert_field 'js-new-comment', with: ''
+      assert_equal 'atom一択です！', answer.reload.description
+      within "#answer_#{answer.id}" do
+        fill_in 'answer[description]', with: 'HTMLで編集した回答'
+        click_button '保存する'
+      end
+      assert_current_path question_path(answer.question)
+      assert_selector "#answer_#{answer.id} .answer-text", text: 'HTMLで編集した回答'
+      assert_no_selector "#answer_editor_#{answer.id}:not(.is-hidden)"
+    end
+
+    test 'cancel after an HTML validation error returns to the saved answer' do
+      answer = answers(:answer1)
+      visit_with_auth question_path(answer.question, edit_answer_id: answer.id), 'komagata'
+      within "#answer_#{answer.id}" do
+        fill_in 'answer[description]', with: '   '
+        click_button '保存する'
+      end
+      assert_text '入力内容にエラーがありました'
+      within "#answer_#{answer.id}" do
+        click_on 'キャンセル'
+      end
+      assert_current_path question_path(answer.question)
+      assert_selector "#answer_#{answer.id} .answer-text", text: answer.description
+      assert_no_selector "#answer_editor_#{answer.id}:not(.is-hidden)"
+    end
   end
 end

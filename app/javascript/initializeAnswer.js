@@ -1,6 +1,5 @@
 import CSRF from 'csrf'
 import updateAnswerCount from 'updateAnswerCount'
-import TextareaInitializer from 'textarea-initializer'
 import MarkdownInitializer from 'markdown-initializer'
 
 export default function initializeAnswer(answer) {
@@ -12,60 +11,13 @@ export default function initializeAnswer(answer) {
   const questionId = answer.dataset.question_id
   const answerId = answer.dataset.answer_id
   const answerDescription = answer.dataset.answer_description
-  let savedAnswer = ''
-  const cleanupTextarea = TextareaInitializer.initialize(
-    `#js-comment-${answerId}`
-  )
-  const markdownInitializer = new MarkdownInitializer()
-
   const answerDisplay = answer.querySelector('.answer-display')
-  const answerEditor = answer.querySelector('.answer-editor')
   const answerDisplayContent = answerDisplay.querySelector('.answer-text')
-
-  const answerEditorPreview = answerEditor.querySelector('.markdown-preview')
-  const editorTextarea = answerEditor.querySelector('.markdown-textarea')
-
   if (answerDescription) {
-    answerDisplayContent.innerHTML =
-      markdownInitializer.render(answerDescription)
-    answerEditorPreview.innerHTML =
-      markdownInitializer.render(answerDescription)
-  }
-
-  const editButton = answerDisplay.querySelector('.edit-button')
-  const modalElements = [answerDisplay, answerEditor]
-  if (editButton) {
-    listen(editButton, 'click', () => {
-      if (!savedAnswer) {
-        savedAnswer = editorTextarea.value
-      }
-      toggleVisibility(modalElements, 'is-hidden')
-    })
-  }
-
-  const saveButton = answerEditor.querySelector('.save-button')
-  if (saveButton) {
-    listen(saveButton, 'click', () => {
-      toggleVisibility(modalElements, 'is-hidden')
-      savedAnswer = editorTextarea.value
-      answer.dataset.answer_description = savedAnswer
-      updateAnswer(answerId, savedAnswer)
-      answerDisplayContent.innerHTML = markdownInitializer.render(savedAnswer)
-    })
-  }
-
-  const cancelButton = answerEditor.querySelector('.cancel-button')
-  listen(cancelButton, 'click', () => {
-    toggleVisibility(modalElements, 'is-hidden')
-    editorTextarea.value = savedAnswer
-    answerEditorPreview.innerHTML = markdownInitializer.render(savedAnswer)
-  })
-
-  listen(editorTextarea, 'input', () => {
-    answerEditorPreview.innerHTML = markdownInitializer.render(
-      editorTextarea.value
+    answerDisplayContent.innerHTML = new MarkdownInitializer().render(
+      answerDescription
     )
-  })
+  }
 
   const makeBestAnswerButton = answerDisplay.querySelector('.make-best-answer')
   const cancelBestAnswerButton = answerDisplay.querySelector(
@@ -136,20 +88,10 @@ export default function initializeAnswer(answer) {
     })
   }
 
-  const editTab = answerEditor.querySelector('.edit-answer-tab')
-  const editorTabContent = answerEditor.querySelector('.is-editor')
-  const previewTab = answerEditor.querySelector('.answer-preview-tab')
-  const previewTabContent = answerEditor.querySelector('.preview-content')
-
-  const tabElements = [editTab, editorTabContent, previewTab, previewTabContent]
-  listen(editTab, 'click', () => toggleVisibility(tabElements, 'is-active'))
-
-  listen(previewTab, 'click', () => toggleVisibility(tabElements, 'is-active'))
-
   const createdAtElement = answer.querySelector('.created-at')
   if (createdAtElement && navigator.clipboard) {
     listen(createdAtElement, 'click', () => {
-      const answerURL = location.href.split('#')[0] + '#answer_' + answerId
+      const answerURL = answer.dataset.answerUrl
       navigator.clipboard
         .writeText(answerURL)
         .then(() => {
@@ -171,35 +113,11 @@ export default function initializeAnswer(answer) {
     events.abort()
     copyTimeouts.forEach((timeout) => clearTimeout(timeout))
     copyTimeouts.clear()
-    cleanupTextarea?.()
   }
 
   function toggleVisibility(elements, className) {
     elements.forEach((element) => {
       element.classList.toggle(className)
-    })
-  }
-
-  function updateAnswer(answerId, description) {
-    if (description.length < 1) {
-      return null
-    }
-    const params = {
-      id: answerId,
-      answer: { description }
-    }
-    fetch(`/api/answers/${answerId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': CSRF.getToken()
-      },
-      credentials: 'same-origin',
-      redirect: 'manual',
-      body: JSON.stringify(params)
-    }).catch((error) => {
-      console.warn(error)
     })
   }
 

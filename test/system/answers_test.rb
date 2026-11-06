@@ -48,7 +48,7 @@ class AnswersTest < ApplicationSystemTestCase
     assert_text 'atom一択です！'
     answer_by_user = page.all('.thread-comment')[0]
     within answer_by_user do
-      click_button '内容修正'
+      click_on '内容修正'
     end
     test_target_label = page.all('.a-file-insert')[0]
     within test_target_label do
