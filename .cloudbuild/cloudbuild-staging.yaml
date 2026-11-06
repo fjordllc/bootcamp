@@ -59,8 +59,10 @@ steps:
   - Build
 - id: WriteSubstitutionEnv
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  entrypoint: python3
+  entrypoint: bash
   args:
+  - ".cloudbuild/with-cloud-sdk-python"
+  - python3
   - ".cloudbuild/cloud-build-env"
   - write
   - ".cloudbuild/substitutions.env"
@@ -91,7 +93,7 @@ steps:
       echo "Cloud Run service does not exist yet. Skipping delete."
     fi
   waitFor:
-  - Push
+  - WriteSubstitutionEnv
 - id: SqlProxy
   name: gcr.io/cloudsql-docker/gce-proxy:1.16
   args:
@@ -233,6 +235,8 @@ steps:
   automapSubstitutions: true
   entrypoint: bash
   args:
+  - ".cloudbuild/with-cloud-sdk-python"
+  - bash
   - ".cloudbuild/deploy-cloud-run"
   - staging
 - id: Notify

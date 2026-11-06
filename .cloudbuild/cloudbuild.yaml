@@ -26,8 +26,10 @@ steps:
   - asia.gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
 - id: WriteSubstitutionEnv
   name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  entrypoint: python3
+  entrypoint: bash
   args:
+  - ".cloudbuild/with-cloud-sdk-python"
+  - python3
   - ".cloudbuild/cloud-build-env"
   - write
   - ".cloudbuild/substitutions.env"
@@ -74,6 +76,8 @@ steps:
   waitFor:
   - DB_Migrate
   args:
+  - ".cloudbuild/with-cloud-sdk-python"
+  - bash
   - ".cloudbuild/deploy-cloud-run"
   - production
 - id: Data_Migrate
@@ -109,6 +113,8 @@ steps:
   waitFor:
   - Deploy
   args:
+  - .cloudbuild/with-cloud-sdk-python
+  - bash
   - "-c"
   - |
     set -euo pipefail

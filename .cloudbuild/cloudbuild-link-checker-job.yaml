@@ -4,6 +4,8 @@ steps:
     automapSubstitutions: true
     entrypoint: bash
     args:
+      - .cloudbuild/with-cloud-sdk-python
+      - bash
       - '-c'
       - |
         set -euo pipefail
