@@ -35,6 +35,99 @@ security:
   - sessionCookie: []
   - oauth2: []
 paths:
+  /api/announcements:
+    get:
+      tags: [Content]
+      summary: 公開済みのお知らせを公開日時・IDの降順で取得する。
+      description: |
+        .json付きも同じJSONを返す。WIP、公開日時なし、未来の公開日時を除外する。
+        targetは通知先の分類であり閲覧制限ではない。足跡は記録しない。
+        通常のAPI認証を必要とし、inactive利用者・MCPトークンを拒否する。
+      security:
+        - sessionCookie: []
+        - oauth2: [read]
+      parameters:
+        - $ref: '#/components/parameters/ListingPage'
+        - $ref: '#/components/parameters/ListingPerPage'
+      responses:
+        '200':
+          description: 公開済みのお知らせ。空の一覧のtotal_pagesは0。
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [announcements, total_pages]
+                additionalProperties: false
+                properties:
+                  announcements:
+                    type: array
+                    maxItems: 100
+                    items:
+                      $ref: '#/components/schemas/PublishedAnnouncement'
+                  total_pages:
+                    type: integer
+                    minimum: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /api/events:
+    get:
+      tags: [Content]
+      summary: 特別イベントと定期イベントの発生回を開始日時・種別・元IDの昇順で取得する。
+      description: |
+        .json付きも同じJSONを返す。日付はAsia/Tokyoで解釈し、from/to両端を含む最大31日。
+        特別イベントは期間に重なる未終了のもの（期間前に開始した開催中のものも含む）。
+        定期イベントは期間内の予定日を既存の繰り返しルールで展開する。
+        WIP、finishedの定期イベント、end_atが現在時刻以前の発生回は除外する。
+        祝日・個別休みは削除せずheld=falseとする。kind・id・start_atで発生回を識別する。
+        足跡は記録しない。inactive利用者・MCPトークンを拒否する。
+      security:
+        - sessionCookie: []
+        - oauth2: [read]
+      parameters:
+        - $ref: '#/components/parameters/ListingPage'
+        - $ref: '#/components/parameters/ListingPerPage'
+        - name: from
+          in: query
+          description: 厳密なYYYY-MM-DD（0001〜9999年）。省略時はTokyoの今日。
+          schema:
+            type: string
+            format: date
+            pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+        - name: to
+          in: query
+          description: 厳密なYYYY-MM-DD（0001〜9999年）。省略時はfromの6日後。fromより前は不可。
+          schema:
+            type: string
+            format: date
+            pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+      responses:
+        '200':
+          description: 予定一覧。空の一覧のtotal_pagesは0。
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [events, total_pages]
+                additionalProperties: false
+                properties:
+                  events:
+                    type: array
+                    maxItems: 100
+                    items:
+                      $ref: '#/components/schemas/EventOccurrence'
+                  total_pages:
+                    type: integer
+                    minimum: 0
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
   /api/session:
     post:
       tags: [Session]
@@ -1272,6 +1365,24 @@ components:
             read: APIリソースを読み取る。
             write: APIリソースを作成、更新、削除する。
   parameters:
+    ListingPage:
+      name: page
+      in: query
+      description: 正の10進整数のみ。配列・オブジェクト・空文字は400。範囲外ページは空の一覧。
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000000
+        default: 1
+    ListingPerPage:
+      name: per_page
+      in: query
+      description: 正の10進整数のみ。配列・オブジェクト・空文字は400。
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
     Id:
       name: id
       in: path
@@ -1467,6 +1578,55 @@ components:
                 type: object
                 additionalProperties: true
   schemas:
+    PublishedAnnouncement:
+      type: object
+      required: [id, title, description, published_at, target, url]
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+          description: Markdownの原文。
+        published_at:
+          type: string
+          format: date-time
+        target:
+          type: string
+          enum: [all, students, job_seekers]
+          description: 通知先の分類。閲覧制限や共有画面への再配布許可ではない。
+        url:
+          type: string
+          description: Bootcamp内の相対パス。
+    EventOccurrence:
+      type: object
+      required: [kind, id, title, url, start_at, end_at, held]
+      additionalProperties: false
+      properties:
+        kind:
+          type: string
+          enum: [event, regular_event]
+        id:
+          type: integer
+          description: 元の特別イベントまたは定期イベントのID。
+        title:
+          type: string
+        url:
+          type: string
+          description: Bootcamp内の相対パス。
+        start_at:
+          type: string
+          format: date-time
+          description: 発生回の開始日時。ISO8601、Tokyoの+09:00。
+        end_at:
+          type: string
+          format: date-time
+          description: 発生回の終了日時。ISO8601、Tokyoの+09:00。
+        held:
+          type: boolean
+          description: 既存予定モデルでその日に開催するか。falseは祝日または個別休みであり一般的な取消状態ではない。
     ApiObject:
       type: object
       additionalProperties: true
