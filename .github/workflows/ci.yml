@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, production]
   push:
     branches: [main]
   workflow_dispatch:
@@ -89,7 +89,8 @@ jobs:
         run: node --test test/javascript/performance_test.mjs
 
   test:
-    runs-on: ubuntu-latest
+    # The pinned Playwright version does not support Ubuntu 26.04 yet.
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     needs: build
 
