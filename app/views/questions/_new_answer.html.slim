@@ -1,30 +1,33 @@
-.thread-comment-form.new-answer data-question_id="#{question.id}"
+.thread-comment-form.new-answer id=dom_id(question, :new_answer) data-controller="answer-form" data-action="turbo:submit-start->answer-form#submitStart turbo:submit-end->answer-form#submitEnd"
   .thread-comment__start
     span class=user.user_icon_frame_class
       img.thread-comment__user-icon.a-user-icon src="#{user.avatar_url}" alt="#{current_user.icon_title}"
   .thread-comment__end
     .answer-editor
-      .thread-comment-form__form.a-card
+      = form_with model: answer, url: api_answers_path, local: true, html: { class: 'thread-comment-form__form a-card' }, data: { turbo: true } do |f|
+        = hidden_field_tag :question_id, question.id
+        = render 'errors', object: answer
         .a-form-tabs.js-tabs
-          .a-form-tabs__tab.js-tabs__tab.edit-answer-tab.is-active
+          .a-form-tabs__tab.js-tabs__tab.edit-answer-tab.is-active data-answer-form-target="editTab" data-action="click->answer-form#edit"
             | コメント
-          .a-form-tabs__tab.js-tabs__tab.answer-preview-tab
+          .a-form-tabs__tab.js-tabs__tab.answer-preview-tab data-answer-form-target="previewTab" data-action="click->answer-form#preview"
             | プレビュー
         .a-markdown-input.js-markdown-parent
-          .a-markdown-input__inner.is-editor.js-tabs__content.is-active
+          .a-markdown-input__inner.is-editor.js-tabs__content.is-active data-answer-form-target="editor"
             .form-textarea
               .form-textarea__body
-                textarea#js-new-comment.a-text-input.js-warning-form.a-markdown-input__textarea name='answer[description]' data-preview='#new-comment-preview' data-input='.new-comment-file-input'
+                = f.text_area :description, id: 'js-new-comment', class: 'a-text-input js-warning-form a-markdown-input__textarea',
+                  data: { preview: '#new-comment-preview', input: '.new-comment-file-input', answer_form_target: 'textarea', action: 'input->answer-form#input' }
               .form-textarea__footer
                 .form-textarea__insert
                   label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
                     | ファイルを挿入
                     input.new-comment-file-input(type='file' multiple)
-          .a-markdown-input__inner.is-preview.js-tabs__content
-            #new-comment-preview.a-long-text.is-md.a-markdown-input__preview
+          .a-markdown-input__inner.is-preview.js-tabs__content data-answer-form-target="previewPanel"
+            #new-comment-preview.a-long-text.is-md.a-markdown-input__preview data-answer-form-target="previewContent"
         .card-footer
           .card-main-actions
             .card-main-actions__items
               .card-main-actions__item
-                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block disabled=true
+                button#js-shortcut-post-comment.a-button.is-sm.is-primary.is-block type="submit" data-answer-form-target="submit"
                     | コメントする

@@ -1,0 +1,9 @@
+= turbo_stream.remove "answer_#{@answer.id}"
+= turbo_stream.replace dom_id(@question, :answer_count) do
+  = render 'questions/answer_count', question: @question
+- if @answer.type == 'CorrectAnswer'
+  = turbo_stream.replace dom_id(@question, :solved_status) do
+    = render 'questions/solved_status', question: @question
+  - @question.answers.each do |answer|
+    = turbo_stream.replace "answer_actions_#{answer.id}" do
+      = render 'questions/answer_actions', answer: answer, question: @question, user: current_user
