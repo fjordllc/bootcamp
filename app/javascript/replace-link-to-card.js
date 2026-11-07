@@ -13,7 +13,7 @@ export default (selector) => {
   })
 }
 
-const replaceLinkToCard = () => {
+export const replaceLinkToCard = () => {
   const elements = document.querySelectorAll('.a-long-text')
   elements.forEach((element) => {
     render(element)
