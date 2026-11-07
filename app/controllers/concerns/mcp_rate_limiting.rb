@@ -3,21 +3,6 @@
 require 'digest'
 
 module McpRateLimiting
-  # Transient errors that make the shared counter unusable. This mirrors
-  # SolidCache::Store::Failsafe::TRANSIENT_ACTIVE_RECORD_ERRORS in Solid Cache
-  # 1.0.10, which treats them as handled and makes the cache return nil. The
-  # advisory lock in Mcp::RateLimitCounter runs outside Solid Cache, so the
-  # same errors are caught here. Anything else, such as NoMethodError or a
-  # schema-level StatementInvalid, is a defect and must propagate.
-  COUNTER_UNAVAILABLE_ERRORS = [
-    ActiveRecord::AdapterTimeout,
-    ActiveRecord::ConnectionNotEstablished,
-    ActiveRecord::Deadlocked,
-    ActiveRecord::LockWaitTimeout,
-    ActiveRecord::QueryCanceled,
-    ActiveRecord::StatementTimeout
-  ].freeze
-
   private
 
   # Requests exceeding a caller's user or source-IP limit must not consume
@@ -98,7 +83,7 @@ module McpRateLimiting
 
   def increment_request_counter(key)
     Mcp::RateLimitCounter.increment(key)
-  rescue *COUNTER_UNAVAILABLE_ERRORS => e
+  rescue *Mcp::RateLimitCounter::COUNTER_UNAVAILABLE_ERRORS => e
     Rails.logger.warn(
       "mcp_rate_limit_counter_unavailable #{e.class}: #{safe_backtrace_location(e)}"
     )

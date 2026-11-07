@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   mount Switchlet::Engine => "/switchlet"
   mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
 
+  post '/oauth/register', format: false, to: 'mcp_oauth/registrations#create'
+  get '/.well-known/oauth-authorization-server', to: 'mcp_oauth/metadata#authorization_server'
+  get '/.well-known/oauth-protected-resource/mcp', to: 'mcp_oauth/metadata#protected_resource'
+  match '/mcp', format: false, to: 'mcp#process_request', via: :all
+
   root to: "home#index"
 
   get "welcome", to: "welcome#index", as: "welcome"

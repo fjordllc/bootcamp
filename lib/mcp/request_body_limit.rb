@@ -38,9 +38,9 @@ module Mcp
     def call_app(env, path)
       @app.call(env)
     rescue ActionDispatch::RemoteIp::IpSpoofAttackError
-      raise unless path == '/mcp'
+      raise unless %w[/mcp /oauth/register].include?(path)
 
-      invalid_remote_ip
+      invalid_remote_ip(path)
     end
 
     def normalize_path(path)
@@ -61,12 +61,13 @@ module Mcp
     # resolution the first time request.remote_ip is read. That happens
     # in request-lifecycle middleware (e.g. the request log line) before
     # the controller runs, so a controller-level rescue cannot catch it;
-    # this middleware is the narrowest MCP-scoped layer that wraps it.
+    # this middleware is the narrowest MCP/DCR-scoped layer that wraps it.
     # The failure occurs before any rate-limit counter is touched, so it
     # is a client error, not cache unavailability: fail with 400 and
     # audit at info level instead of logging a per-request error/stack.
-    def invalid_remote_ip
-      Rails.logger.info("mcp_audit #{{ event: 'mcp.rate_limit', result: 'invalid_remote_ip' }.to_json}")
+    def invalid_remote_ip(path)
+      event = path == '/mcp' ? 'mcp.rate_limit' : 'mcp.dcr_rate_limit'
+      Rails.logger.info("mcp_audit #{{ event:, result: 'invalid_remote_ip' }.to_json}")
       [400, { 'cache-control' => 'no-store', 'content-length' => '0' }, []]
     end
 
