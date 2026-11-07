@@ -194,6 +194,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_checked_field?('retire_checkbox', visible: false)
     uncheck 'retire_checkbox', allow_label_click: true, visible: false
     assert has_unchecked_field?('retire_checkbox', visible: false)
+    assert_no_selector '#user_retired_on'
     check 'retire_checkbox', allow_label_click: true, visible: false
     assert has_field?('user_retired_on', with: '')
   end
@@ -245,8 +246,68 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     uncheck 'graduation_checkbox', allow_label_click: true, visible: false
     assert has_unchecked_field?('graduation_checkbox', visible: false)
+    assert_no_selector '#user_graduated_on'
     check 'graduation_checkbox', allow_label_click: true, visible: false
     assert has_field?('user_graduated_on', with: '')
+  end
+
+  test 'hide input for scheduled return date when unchecked' do
+    user = users(:hatsuno)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    assert has_unchecked_field?('hibernate-user', visible: false)
+    assert_no_selector '#scheduled_return_on'
+  end
+
+  test 'show input for scheduled return date when checked' do
+    user = users(:hatsuno)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    check 'hibernate-user', allow_label_click: true, visible: false
+    assert_selector '#scheduled_return_on'
+  end
+
+  test 'hide and reset scheduled return date when unchecked' do
+    user = users(:hatsuno)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    check 'hibernate-user', allow_label_click: true, visible: false
+    fill_in 'scheduled_return_on', with: '2030-01-01'.to_date
+    uncheck 'hibernate-user', allow_label_click: true, visible: false
+    assert has_unchecked_field?('hibernate-user', visible: false)
+    assert_no_selector '#scheduled_return_on'
+    check 'hibernate-user', allow_label_click: true, visible: false
+    assert has_field?('scheduled_return_on', with: '')
+  end
+
+  test 'toggle date inputs independently' do
+    user = users(:hatsuno)
+    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
+    date_fields = {
+      'retire_checkbox' => %w[user_retired_on 2030-01-01],
+      'graduation_checkbox' => %w[user_graduated_on 2030-02-01],
+      'hibernate-user' => %w[scheduled_return_on 2030-03-01]
+    }
+
+    date_fields.each do |checkbox, (field, date)|
+      check checkbox, allow_label_click: true, visible: false
+      fill_in field, with: date.to_date
+    end
+
+    # 1つの日付欄の切り替えがほかの欄に影響しないか確認するため、先にすべての日付欄に入力する
+    date_fields.each do |checkbox, (field, date)| # rubocop:disable Style/CombinableLoops
+      uncheck checkbox, allow_label_click: true, visible: false
+      assert_no_selector "##{field}"
+      date_fields.except(checkbox).each do |other_checkbox, (other_field, other_date)|
+        assert has_checked_field?(other_checkbox, visible: false)
+        assert has_field?(other_field, with: other_date)
+      end
+
+      check checkbox, allow_label_click: true, visible: false
+      assert has_field?(field, with: '')
+      date_fields.except(checkbox).each do |other_checkbox, (other_field, other_date)|
+        assert has_checked_field?(other_checkbox, visible: false)
+        assert has_field?(other_field, with: other_date)
+      end
+      fill_in field, with: date.to_date
+    end
   end
 
   test 'make user graduated' do
