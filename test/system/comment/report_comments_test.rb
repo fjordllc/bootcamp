@@ -25,11 +25,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
-    fill_in_with_autocomplete(
-      '#js-new-comment',
-      input_text: "login_nameの補完テスト: @koma\n",
-      expected_value: 'login_nameの補完テスト: @komagata '
-    )
+    textarea = find('#js-new-comment[data-tribute]')
+    textarea.send_keys('login_nameの補完テスト: @koma')
+    assert_selector '.tribute-container li .mention', text: 'komagata', exact_text: true
+    textarea.send_keys(:enter)
+    assert_field 'comment[description]', with: 'login_nameの補完テスト: @komagata '
 
     click_button 'コメントする'
     assert_text 'login_nameの補完テスト: @komagata'
@@ -41,11 +41,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
-    fill_in_with_autocomplete(
-      '#js-new-comment',
-      input_text: "login_nameの補完テスト: @men\n",
-      expected_value: 'login_nameの補完テスト: @mentor '
-    )
+    textarea = find('#js-new-comment[data-tribute]')
+    textarea.send_keys('login_nameの補完テスト: @men')
+    assert_selector '.tribute-container li .mention', text: 'mentor', exact_text: true
+    textarea.send_keys(:enter)
+    assert_field 'comment[description]', with: 'login_nameの補完テスト: @mentor '
 
     click_button 'コメントする'
     assert_text 'login_nameの補完テスト: @mentor'
@@ -60,11 +60,11 @@ class ReportCommentsTest < ApplicationSystemTestCase
 
     wait_for_comments
 
-    fill_in_with_autocomplete(
-      '#js-new-comment',
-      input_text: "絵文字の補完テスト: :cat\n",
-      expected_value: '絵文字の補完テスト: 😺 '
-    )
+    textarea = find('#js-new-comment[data-tribute]')
+    textarea.send_keys('絵文字の補完テスト: :cat')
+    assert_selector '.tribute-container li .emoji', text: 'smiley_cat', exact_text: true
+    textarea.send_keys(:enter)
+    assert_field 'comment[description]', with: '絵文字の補完テスト: 😺 '
 
     click_button 'コメントする'
     assert_text '絵文字の補完テスト: 😺'
