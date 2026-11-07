@@ -4,7 +4,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show created]
   before_action :prepare_registration_invitation, only: %i[new]
   before_action :require_registration_invitation, only: %i[create]
-  before_action :set_user, only: %w[show]
 
   PAGER_NUMBER = 24
 
@@ -14,20 +13,18 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @entered_tag = params[:tag]
     @watch = params[:watch]
 
-    target_users = fetch_target_users
+    target_users = TargetUsersQuery.new(
+      current_user: current_user,
+      target: @target,
+      watch: @watch,
+      entered_tag: @entered_tag,
+      allowed_targets: target_allowlist
+    ).call(search_word: params[:search_word])
 
-    if params[:search_word]
-      search_user = SearchUser.new(word: params[:search_word], users: target_users, target: @target)
-      @users = search_user.search
-                          .page(params[:page]).per(PAGER_NUMBER)
-                          .preload(:avatar_attachment, :course, :taggings)
-                          .order(updated_at: :desc)
-    else
-      @users = target_users
-               .page(params[:page]).per(PAGER_NUMBER)
-               .preload(:avatar_attachment, :course, :taggings)
-               .order(updated_at: :desc)
-    end
+    @users = target_users
+             .page(params[:page]).per(PAGER_NUMBER)
+             .preload(:avatar_attachment, :course, :taggings)
+             .order(updated_at: :desc)
 
     @random_tags = User.tags.sample(20)
     @top3_tags_counts = User.tags.limit(3).map(&:count).uniq
@@ -35,6 +32,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   def show
+    @user = User.find_by(id: params[:id]) || User.find_by!(login_name: params[:id])
     @completed_learnings = @user
                            .learnings
                            .includes(:practice)
@@ -58,20 +56,17 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   def new
     @user = User.new(@registration_invitation || params.permit(:course_id, :company_id))
-    assign_role(@user)
+    @user.assign_role
   end
 
   def create
     logger.info "[Signup] 1. start create. #{user_params[:email]}"
 
-    @user = User.new(user_params)
-    @user.assign_attributes(@registration_invitation) if @registration_invitation
-    assign_role(@user)
-    @user.course_id ||= Course.first.id
-    @user.build_discord_profile
-    @user.credit_card_payment = params[:credit_card_payment]
-    @user.uploaded_avatar = user_params[:avatar]
-    @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
+    @user = UserRegistrationPreparation.new(
+      user_params: user_params,
+      registration_invitation: @registration_invitation,
+      credit_card_payment: params[:credit_card_payment]
+    ).call
 
     if @user.staff? || @user.trainee?
       create_free_user!
@@ -94,17 +89,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
   private
 
-  def fetch_target_users
-    if @target == 'followings'
-      current_user.followees_list(watch: @watch)
-    elsif @entered_tag
-      User.active_tagged_with(@entered_tag)
-    else
-      users = User.users_role(@target, allowed_targets: target_allowlist)
-      @target == 'inactive' ? users.order(:last_activity_at) : users
-    end
-  end
-
   def target_allowlist
     target_allowlist = %w[student_and_trainee student trainee followings mentor graduate adviser year_end_party]
     target_allowlist.push('job_seeking') if current_user.adviser?
@@ -118,67 +102,40 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       session.delete(:registration_invitation)
       logger.info "[Signup] 3. after save free user. #{@user.email}"
       UserMailer.welcome(@user).deliver_now
-      notify_to_mentors(@user)
-      notify_to_chat(@user)
+      UserRegistrationNotifier.new.call(@user, url_for(@user))
       ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
       logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
       flash[:signup_email] = @user.email
-      redirect_to created_users_path(role: determine_user_role(@user))
+      redirect_to created_users_path(role: @user.determine_user_role)
     else
       render 'new', locals: { user: @user }
     end
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
   def create_user!
-    logger.info "[Signup] 2. start create user. #{@user.email}"
-    @user.with_lock do
-      unless @user.validate
-        render 'new'
-        return false
-      end
+    result = PaidUserRegistration.call(
+      user: @user,
+      stripe_token: params[:stripeToken],
+      idempotency_token: params[:idempotency_token]
+    )
 
-      if Card.new.search(email: @user.email)
-        logger.error '[Payment] 同じメールアドレスの顧客が既に登録済みです。'
-        @user.errors.add :base, '同じメールアドレスの顧客が既に登録済みです。'
-        render 'new'
-        return false
-      end
-
-      token = params[:idempotency_token]
-
-      logger.info "[Signup] 3. before create subscription. #{@user.email}"
-      begin
-        customer = Card.new.create(@user, params[:stripeToken], token)
-        subscription = Subscription.new.create(customer['id'], "#{token}-subscription")
-      rescue Stripe::CardError => e
-        logger.error "[Payment] customerの作成時にエラーが発生しました: #{e.message}"
-        @user.errors.add :base, I18n.translate("stripe.errors.#{e.code}")
-        render 'new'
-        return false
-      end
-      logger.info "[Signup] 4. after create subscription.#{@user.email}"
-
-      @user.customer_id = customer['id']
-      @user.subscription_id = subscription['id']
-
-      if @user.save
-        logger.info "[Signup] 5. after save user. #{@user.email}"
-        UserMailer.welcome(@user).deliver_now
-        notify_to_mentors(@user)
-        notify_to_chat(@user)
-        ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
-        send_affiliate_kickback(@user)
-        flash[:x_conversion] = 'signup'
-        flash[:signup_email] = @user.email
-        logger.info "[Signup] 8. after create times channel. #{@user.email}"
-        redirect_to created_users_path(role: determine_user_role(@user))
-      else
-        render 'new'
-      end
+    unless result.success?
+      render 'new'
+      return
     end
+
+    UserMailer.welcome(@user).deliver_now
+    UserRegistrationNotifier.new.call(@user, url_for(@user))
+    ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
+    send_affiliate_kickback(@user)
+
+    flash[:x_conversion] = 'signup'
+    flash[:signup_email] = @user.email
+
+    logger.info "[Signup] 8. after create times channel. #{@user.email}"
+
+    redirect_to created_users_path(role: @user.determine_user_role)
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
   def send_affiliate_kickback(user)
     rd_code = session[:affiliate_rd_code]
@@ -186,16 +143,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     AffiliateKickbackJob.perform_later(user.id, rd_code)
     session.delete(:affiliate_rd_code)
-  end
-
-  def notify_to_mentors(user)
-    User.mentor.each do |mentor|
-      ActivityDelivery.with(sender: user, receiver: mentor, sender_roles: user.roles_to_s).notify(:signed_up)
-    end
-  end
-
-  def notify_to_chat(user)
-    ChatNotifier.message "#{user.login_name}さん#{user.roles_to_s.empty? ? '' : "（#{user.roles_to_s}）"}が新たなメンバーとしてJOINしました🎉\r<#{url_for(user)}>"
   end
 
   def user_params
@@ -214,10 +161,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       :referral_source, :other_referral_source,
       authored_books_attributes: %i[id cover title url _destroy]
     )
-  end
-
-  def set_user
-    @user = User.where(id: params[:id]).or(User.where(login_name: params[:id])).first!
   end
 
   def prepare_registration_invitation
@@ -260,28 +203,5 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   def reject_registration_invitation
     session.delete(:registration_invitation)
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
-  end
-
-  def assign_role(user)
-    case user.role
-    when 'adviser'
-      user.adviser = true
-    when 'trainee_invoice_payment', 'trainee_credit_card_payment', 'trainee_select_a_payment_method'
-      user.trainee = true
-    when 'mentor'
-      user.mentor = true
-    end
-  end
-
-  def determine_user_role(user)
-    if user.adviser?
-      'adviser'
-    elsif user.trainee?
-      'trainee'
-    elsif user.mentor?
-      'mentor'
-    else
-      'student'
-    end
   end
 end
