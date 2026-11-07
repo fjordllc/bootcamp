@@ -15,8 +15,8 @@ class Practice::MemoTest < ApplicationSystemTestCase
 
     memo = '**更新したメモ**'
     fill_in 'practice[memo]', with: memo
-    find('[data-memo-editor-target="editorPreviewTab"]').click
-    within '[data-memo-editor-target="editorPreviewContent"]' do
+    find('[data-memo-editor-target="previewTab"]').click
+    within '[data-memo-editor-target="previewContent"]' do
       assert_selector 'strong', text: '更新したメモ'
     end
 

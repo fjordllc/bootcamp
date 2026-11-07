@@ -1,7 +1,7 @@
 div(
   id=dom_id(practice)
   data-controller='memo-editor'
-  data-memo-editor-editor-textarea-selector-value='#js-practice-memo'
+  data-memo-editor-textarea-selector-value='#js-practice-memo'
   data-memo-editor-has-memo-value=!practice.memo.to_s.empty?
 )
   = form_with url: api_practice_path(practice),
@@ -48,29 +48,29 @@ div(
       hr.a-border-tint
       .form-tabs.js-tabs
         .form-tabs__tab.js-tabs__tab.is-active(
-          data-memo-editor-target='editorTextareaTab'
-          data-action='click->memo-editor#showEditorTextarea'
+          data-memo-editor-target='inputTab'
+          data-action='click->memo-editor#showInputPanel'
         )
           | メモ
         .form-tabs__tab.js-tabs__tab(
-          data-memo-editor-target='editorPreviewTab'
-          data-action='click->memo-editor#showEditorPreview'
+          data-memo-editor-target='previewTab'
+          data-action='click->memo-editor#showPreviewPanel'
         )
           | プレビュー
       .card-body
         .card-body__description
           .a-markdown-input.js-markdown-parent
-            .a-markdown-input__inner.is-editor.js-tabs__content.is-active(data-memo-editor-target='editorTextarea')
+            .a-markdown-input__inner.is-editor.js-tabs__content.is-active(data-memo-editor-target='inputPanel')
               = f.text_area :memo,
                             id: 'js-practice-memo',
                             value: practice.memo,
                             class: 'a-text-input a-markdown-input__textarea',
                             data: { \
-                              'memo-editor-target': 'editorTextareaContent editorControl', \
-                              action: 'input->memo-editor#updateEditorPreviewContent' \
+                              'memo-editor-target': 'textarea editorControl', \
+                              action: 'input->memo-editor#updatePreviewContent' \
                             }
-            .a-markdown-input__inner.is-preview.js-tabs__content(data-memo-editor-target='editorPreview')
-              .a-long-text.a-markdown-input__preview(data-memo-editor-target='editorPreviewContent')
+            .a-markdown-input__inner.is-preview.js-tabs__content(data-memo-editor-target='previewPanel')
+              .a-long-text.a-markdown-input__preview(data-memo-editor-target='previewContent')
       hr.a-border-tint
       .card-footer
         .card-main-actions

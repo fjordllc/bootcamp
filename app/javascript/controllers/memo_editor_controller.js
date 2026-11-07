@@ -9,7 +9,7 @@ export default class extends Controller {
   #savedMemo
 
   static values = {
-    editorTextareaSelector: String,
+    textareaSelector: String,
     hasMemo: Boolean
   }
 
@@ -19,19 +19,19 @@ export default class extends Controller {
     'displayWithoutMemo',
     'displayContent',
     'editor',
-    'editorTextarea',
-    'editorTextareaContent',
-    'editorTextareaTab',
-    'editorPreview',
-    'editorPreviewContent',
-    'editorPreviewTab',
+    'inputPanel',
+    'textarea',
+    'inputTab',
+    'previewPanel',
+    'previewContent',
+    'previewTab',
     'editorControl'
   ]
 
   connect() {
-    this.#savedMemo = this.editorTextareaContentTarget.defaultValue
+    this.#savedMemo = this.textareaTarget.defaultValue
     this.#renderMemo(this.#savedMemo)
-    TextareaInitializer.initialize(this.editorTextareaSelectorValue)
+    TextareaInitializer.initialize(this.textareaSelectorValue)
   }
 
   submitStart() {
@@ -52,34 +52,35 @@ export default class extends Controller {
   }
 
   handleClickCancelButton() {
-    this.editorTextareaContentTarget.value = this.#savedMemo
+    this.textareaTarget.value = this.#savedMemo
     this.#renderMemo(this.#savedMemo)
     this.#showDisplay()
     replaceLinkToCard()
   }
 
-  showEditorTextarea() {
-    this.editorTextareaTarget.classList.add('is-active')
-    this.editorTextareaTabTarget.classList.add('is-active')
-    this.editorPreviewTarget.classList.remove('is-active')
-    this.editorPreviewTabTarget.classList.remove('is-active')
+  showInputPanel() {
+    this.inputPanelTarget.classList.add('is-active')
+    this.inputTabTarget.classList.add('is-active')
+    this.previewPanelTarget.classList.remove('is-active')
+    this.previewTabTarget.classList.remove('is-active')
   }
 
-  showEditorPreview() {
-    this.editorTextareaTarget.classList.remove('is-active')
-    this.editorTextareaTabTarget.classList.remove('is-active')
-    this.editorPreviewTarget.classList.add('is-active')
-    this.editorPreviewTabTarget.classList.add('is-active')
+  showPreviewPanel() {
+    this.inputPanelTarget.classList.remove('is-active')
+    this.inputTabTarget.classList.remove('is-active')
+    this.previewPanelTarget.classList.add('is-active')
+    this.previewTabTarget.classList.add('is-active')
   }
 
-  updateEditorPreviewContent() {
-    this.editorPreviewContentTarget.innerHTML =
-      this.#markdownInitializer.render(this.editorTextareaContentTarget.value)
+  updatePreviewContent() {
+    this.previewContentTarget.innerHTML = this.#markdownInitializer.render(
+      this.textareaTarget.value
+    )
   }
 
   #renderMemo(memo) {
     this.displayContentTarget.innerHTML = this.#markdownInitializer.render(memo)
-    this.updateEditorPreviewContent()
+    this.updatePreviewContent()
   }
 
   #showDisplay() {
