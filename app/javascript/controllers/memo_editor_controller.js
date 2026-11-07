@@ -59,17 +59,11 @@ export default class extends Controller {
   }
 
   showInputPanel() {
-    this.inputPanelTarget.classList.add('is-active')
-    this.inputTabTarget.classList.add('is-active')
-    this.previewPanelTarget.classList.remove('is-active')
-    this.previewTabTarget.classList.remove('is-active')
+    this.#setActiveTab('input')
   }
 
   showPreviewPanel() {
-    this.inputPanelTarget.classList.remove('is-active')
-    this.inputTabTarget.classList.remove('is-active')
-    this.previewPanelTarget.classList.add('is-active')
-    this.previewTabTarget.classList.add('is-active')
+    this.#setActiveTab('preview')
   }
 
   updatePreviewContent() {
@@ -102,5 +96,15 @@ export default class extends Controller {
     this.editorControlTargets.forEach((control) => {
       control.disabled = isDisabled
     })
+  }
+
+  #setActiveTab(tab) {
+    const isInputActive = tab === 'input'
+    const isPreviewActive = tab === 'preview'
+
+    this.inputTabTarget.classList.toggle('is-active', isInputActive)
+    this.inputPanelTarget.classList.toggle('is-active', isInputActive)
+    this.previewTabTarget.classList.toggle('is-active', isPreviewActive)
+    this.previewPanelTarget.classList.toggle('is-active', isPreviewActive)
   }
 }
