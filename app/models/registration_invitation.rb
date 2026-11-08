@@ -5,6 +5,32 @@ class RegistrationInvitation
   EXPIRES_IN = 30.days
   CLAIM_KEYS = %w[role company_id course_id].freeze
 
+  attr_reader :claims
+
+  def initialize(claims)
+    @claims = claims
+  end
+
+  def matching_invitation_query?(params)
+    RegistrationInvitation::CLAIM_KEYS.all? do |key|
+      provided = params[key]
+      provided = 'trainee_select_a_payment_method' if key == 'role' && provided == 'trainee'
+      !params.key?(key) || provided.to_s == @claims[key].to_s
+    end
+  end
+
+  def matching_invitation_form?(params)
+    attributes = params.require(:user)
+    valid_role = params[:invitation_role].to_s == @claims['role'].to_s &&
+                 attributes.fetch(:role, @claims['role']).to_s == @claims['role'].to_s
+
+    valid_context = @claims.except('role').all? do |key, value|
+      attributes.fetch(key, value).to_s == value.to_s
+    end
+
+    valid_role && valid_context
+  end
+
   class << self
     def generate(role:, company_id: nil, course_id: nil)
       claims = { 'role' => normalize_role(role) }
@@ -19,25 +45,7 @@ class RegistrationInvitation
       return unless token.is_a?(String) && token.present?
 
       claims = verifier.verified(token, purpose: PURPOSE)
-      claims if valid_claims?(claims)
-    end
-
-    def matching_invitation_query?(registration_invitation, params)
-      RegistrationInvitation::CLAIM_KEYS.all? do |key|
-        provided = params[key]
-        provided = 'trainee_select_a_payment_method' if key == 'role' && provided == 'trainee'
-        !params.key?(key) || provided.to_s == registration_invitation[key].to_s
-      end
-    end
-
-    def matching_invitation_form?(invitation, params)
-      attributes = params.require(:user)
-      valid_role = params[:invitation_role].to_s == invitation['role'].to_s &&
-                   attributes.fetch(:role, invitation['role']).to_s == invitation['role'].to_s
-      valid_context = invitation.except('role').all? do |key, value|
-        attributes.fetch(key, value).to_s == value.to_s
-      end
-      valid_role && valid_context
+      RegistrationInvitation.new(claims) if valid_claims?(claims)
     end
 
     private

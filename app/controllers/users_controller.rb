@@ -55,7 +55,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   end
 
   def new
-    @user = User.new(@registration_invitation || params.permit(:course_id, :company_id))
+    @user = User.new(@registration_invitation&.claims || params.permit(:course_id, :company_id))
     @user.assign_role
   end
 
@@ -64,7 +64,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
 
     @user = UserRegistrationPreparation.new(
       user_params: user_params,
-      registration_invitation: @registration_invitation,
+      registration_invitation: @registration_invitation&.claims,
       credit_card_payment: params[:credit_card_payment]
     ).call
 
@@ -168,7 +168,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     return unless params.key?(:role) || params.key?(:token)
 
     @registration_invitation = RegistrationInvitation.verify(params[:token])
-    return reject_registration_invitation unless @registration_invitation && RegistrationInvitation.matching_invitation_query?(@registration_invitation, params)
+    return reject_registration_invitation unless @registration_invitation&.matching_invitation_query?(params)
 
     session[:registration_invitation] = params[:token]
   end
@@ -177,7 +177,10 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     token = session[:registration_invitation]
     @registration_invitation = RegistrationInvitation.verify(token)
     return reject_registration_invitation if token && !@registration_invitation
-    return if !params.key?(:role) && RegistrationInvitation.matching_invitation_form?(@registration_invitation || {}, params)
+
+    @registration_invitation ||= RegistrationInvitation.new({})
+
+    return if !params.key?(:role) && @registration_invitation.matching_invitation_form?(params)
 
     reject_registration_invitation
   end
