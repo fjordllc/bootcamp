@@ -344,6 +344,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
     uncheck 'checkbox_trainee', allow_label_click: true, visible: false
     assert has_unchecked_field?('checkbox_trainee', visible: false)
+    assert_selector '.js-training-info-block', visible: :hidden
     check 'checkbox_trainee', allow_label_click: true, visible: false
     assert has_checked_field?('checkbox_trainee', visible: false)
     assert has_field?('user_training_ends_on', with: '')
