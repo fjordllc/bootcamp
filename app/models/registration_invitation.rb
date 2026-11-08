@@ -22,6 +22,14 @@ class RegistrationInvitation
       claims if valid_claims?(claims)
     end
 
+    def matching_invitation_query?(registration_invitation, params)
+      RegistrationInvitation::CLAIM_KEYS.all? do |key|
+        provided = params[key]
+        provided = 'trainee_select_a_payment_method' if key == 'role' && provided == 'trainee'
+        !params.key?(key) || provided.to_s == registration_invitation[key].to_s
+      end
+    end
+
     private
 
     def verifier

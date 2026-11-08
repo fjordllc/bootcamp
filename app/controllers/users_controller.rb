@@ -168,17 +168,9 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     return unless params.key?(:role) || params.key?(:token)
 
     @registration_invitation = RegistrationInvitation.verify(params[:token])
-    return reject_registration_invitation unless @registration_invitation && matching_invitation_query?
+    return reject_registration_invitation unless @registration_invitation && RegistrationInvitation.matching_invitation_query?(@registration_invitation, params)
 
     session[:registration_invitation] = params[:token]
-  end
-
-  def matching_invitation_query?
-    RegistrationInvitation::CLAIM_KEYS.all? do |key|
-      provided = params[key]
-      provided = 'trainee_select_a_payment_method' if key == 'role' && provided == 'trainee'
-      !params.key?(key) || provided.to_s == @registration_invitation[key].to_s
-    end
   end
 
   def require_registration_invitation
