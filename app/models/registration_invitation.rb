@@ -30,6 +30,16 @@ class RegistrationInvitation
       end
     end
 
+    def matching_invitation_form?(invitation, params)
+      attributes = params.require(:user)
+      valid_role = params[:invitation_role].to_s == invitation['role'].to_s &&
+                   attributes.fetch(:role, invitation['role']).to_s == invitation['role'].to_s
+      valid_context = invitation.except('role').all? do |key, value|
+        attributes.fetch(key, value).to_s == value.to_s
+      end
+      valid_role && valid_context
+    end
+
     private
 
     def verifier

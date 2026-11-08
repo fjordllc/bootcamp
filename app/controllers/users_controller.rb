@@ -177,19 +177,9 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     token = session[:registration_invitation]
     @registration_invitation = RegistrationInvitation.verify(token)
     return reject_registration_invitation if token && !@registration_invitation
-    return if !params.key?(:role) && matching_invitation_form?(@registration_invitation || {})
+    return if !params.key?(:role) && RegistrationInvitation.matching_invitation_form?(@registration_invitation || {}, params)
 
     reject_registration_invitation
-  end
-
-  def matching_invitation_form?(invitation)
-    attributes = params.require(:user)
-    valid_role = params[:invitation_role].to_s == invitation['role'].to_s &&
-                 attributes.fetch(:role, invitation['role']).to_s == invitation['role'].to_s
-    valid_context = invitation.except('role').all? do |key, value|
-      attributes.fetch(key, value).to_s == value.to_s
-    end
-    valid_role && valid_context
   end
 
   def reject_registration_invitation
