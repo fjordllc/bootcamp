@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
+class UsersController < ApplicationController
   skip_before_action :require_active_user_login, raise: false, only: %i[new create show created]
   before_action :prepare_registration_invitation, only: %i[new]
   before_action :require_registration_invitation, only: %i[create]
@@ -68,11 +68,20 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
       credit_card_payment: params[:credit_card_payment]
     ).call
 
-    if @user.staff? || @user.trainee?
-      create_free_user!
-    else
-      create_user!
+    result = UserRegistration.new(@user, params[:stripeToken], params[:idempotency_token], url_for(@user), session[:affiliate_rd_code]).call
+
+    unless result.success?
+      render 'new', locals: { user: @user }
+      return
     end
+
+    session.delete(:registration_invitation) if result.free?
+    session.delete(:affiliate_rd_code) if !result.free? && session[:affiliate_rd_code].present?
+
+    flash[:x_conversion] = 'signup' unless result.free?
+    flash[:signup_email] = @user.email
+
+    redirect_to created_users_path(role: @user.determine_user_role)
   end
 
   def created
@@ -94,55 +103,6 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     target_allowlist.push('job_seeking') if current_user.adviser?
     target_allowlist.concat(%w[job_seeking hibernated retired inactive all]) if current_user.mentor? || current_user.admin?
     target_allowlist
-  end
-
-  def create_free_user!
-    logger.info "[Signup] 2. start create free user. #{@user.email}"
-    if @user.save
-      session.delete(:registration_invitation)
-      logger.info "[Signup] 3. after save free user. #{@user.email}"
-      UserMailer.welcome(@user).deliver_now
-      UserRegistrationNotifier.new.call(@user, url_for(@user))
-      ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.trainee?
-      logger.info "[Signup] 4. after create times channel for free user. #{@user.email}"
-      flash[:signup_email] = @user.email
-      redirect_to created_users_path(role: @user.determine_user_role)
-    else
-      render 'new', locals: { user: @user }
-    end
-  end
-
-  def create_user!
-    result = PaidUserRegistration.call(
-      user: @user,
-      stripe_token: params[:stripeToken],
-      idempotency_token: params[:idempotency_token]
-    )
-
-    unless result.success?
-      render 'new'
-      return
-    end
-
-    UserMailer.welcome(@user).deliver_now
-    UserRegistrationNotifier.new.call(@user, url_for(@user))
-    ActiveSupport::Notifications.instrument('student_or_trainee.create', user: @user) if @user.student?
-    send_affiliate_kickback(@user)
-
-    flash[:x_conversion] = 'signup'
-    flash[:signup_email] = @user.email
-
-    logger.info "[Signup] 8. after create times channel. #{@user.email}"
-
-    redirect_to created_users_path(role: @user.determine_user_role)
-  end
-
-  def send_affiliate_kickback(user)
-    rd_code = session[:affiliate_rd_code]
-    return if rd_code.blank?
-
-    AffiliateKickbackJob.perform_later(user.id, rd_code)
-    session.delete(:affiliate_rd_code)
   end
 
   def user_params
