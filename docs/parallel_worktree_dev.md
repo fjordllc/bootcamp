@@ -1,7 +1,7 @@
 # git worktree並列開発 (Linux + Docker)
 
 複数機能を git worktree で並列開発するための、Linux用Docker環境です。
-macOS版(`doc/development_on_docker.md`)やホストPostgreSQL直接利用とは別系統の、独立したセットアップです。
+macOS版の[Docker環境構築手順](development_on_docker.md)やホストPostgreSQL直接利用とは別系統の、独立したセットアップです。
 
 ## 前提
 
@@ -11,7 +11,7 @@ macOS版(`doc/development_on_docker.md`)やホストPostgreSQL直接利用とは
 
 ## 関連ファイル
 
-- `Dockerfile.dev` - dev用軽量イメージ (Ruby 3.4.12 + Node 22)
+- `Dockerfile.dev` - dev用軽量イメージ (Ruby 4.0.9 + Node 22)
 - `docker-compose.yml` - web + db サービス定義
 
 ## 並列運用の仕組み

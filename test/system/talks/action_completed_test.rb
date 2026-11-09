@@ -9,7 +9,7 @@ module Talks
       decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
       visit_with_auth "/talks/#{user.talk.id}", 'kimura'
       within('.thread-comment-form__form') do
-        fill_in('new_comment[description]', with: 'test')
+        fill_in('comment[description]', with: 'test')
       end
       all('.a-form-tabs__tab.js-tabs__tab')[1].click
       assert_text 'test'
@@ -26,7 +26,7 @@ module Talks
       decorated_user = ActiveDecorator::Decorator.instance.decorate(user)
       visit_with_auth "/talks/#{user.talk.id}", 'komagata'
       within('.thread-comment-form__form') do
-        fill_in('new_comment[description]', with: 'test')
+        fill_in('comment[description]', with: 'test')
       end
       all('.a-form-tabs__tab.js-tabs__tab')[1].click
       assert_text 'test'

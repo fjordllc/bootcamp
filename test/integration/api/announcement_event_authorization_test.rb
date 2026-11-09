@@ -49,6 +49,15 @@ class API::AnnouncementEventAuthorizationTest < ActionDispatch::IntegrationTest
       assert_response :unauthorized
     end
 
+    test "#{resource} rejects MCP scope and MCP applications even with an active session" do
+      sign_in(:kimura)
+      [{ scopes: 'mcp:practices:read' }, { mcp_client: true }].each do |options|
+        get "/api/#{resource}", headers: oauth_headers(**options)
+        assert_response :unauthorized
+        assert_equal 'invalid_token', response.parsed_body.fetch('error')
+      end
+    end
+
     test "#{resource} has no show or write API routes" do
       sign_in(:kimura)
       assert_no_difference(['Announcement.count', 'Event.count', 'RegularEvent.count', 'Footprint.count']) do
@@ -66,9 +75,9 @@ class API::AnnouncementEventAuthorizationTest < ActionDispatch::IntegrationTest
 
   private
 
-  def oauth_headers(scopes: 'read')
+  def oauth_headers(scopes: 'read', mcp_client: false)
     application = Doorkeeper::Application.create!(
-      name: 'Read-only lists test', redirect_uri: 'https://example.com/callback', scopes:
+      name: 'Read-only lists test', redirect_uri: 'https://example.com/callback', scopes:, mcp_client:
     )
     token = Doorkeeper::AccessToken.create!(application:, resource_owner_id: users(:kimura).id, scopes:)
     { Authorization: "Bearer #{token.token}" }

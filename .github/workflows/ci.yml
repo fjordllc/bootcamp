@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  RUBY_VERSION: 3.4.12
+  RUBY_VERSION: 4.0.9
   NODE_VERSION: 22.23.4
   BUNDLE_JOBS: "3"
   BUNDLE_RETRY: "3"
@@ -85,8 +85,8 @@ jobs:
       - name: Lint JavaScript
         run: npm run lint
 
-      - name: Test performance collection
-        run: node --test test/javascript/performance_test.mjs
+      - name: Test JavaScript
+        run: node --test test/javascript/*.mjs
 
   test:
     # The pinned Playwright version does not support Ubuntu 26.04 yet.

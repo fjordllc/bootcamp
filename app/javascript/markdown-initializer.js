@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it'
 import { full as MarkdownItEmoji } from 'markdown-it-emoji'
 import MarkdownItTaskLists from 'markdown-it-task-lists'
 import MarkdownItMention from 'markdown-it-mention'
+import MarkdownItWikiLink from 'markdown-it-wiki-link'
 import MarkdownItUserIcon from 'markdown-it-user-icon'
 import MarkdownItLinkingImage from 'markdown-it-linking-image'
 import MarkdownOption from 'markdown-it-option'
@@ -36,6 +37,7 @@ export default class {
     const md = new MarkdownIt(MarkdownOption)
     md.use(MarkdownItEmoji)
     md.use(MarkdownItMention)
+    md.use(MarkdownItWikiLink)
     md.use(MarkdownItUserIcon)
     md.use(MarkdownItLinkingImage)
     md.use(MarkdownItTaskLists)

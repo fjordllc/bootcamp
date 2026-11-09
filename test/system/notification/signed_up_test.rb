@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'notification_system_test_case'
+require 'supports/registration_invitation_helper'
 
 class Notification::SignedUpTest < NotificationSystemTestCase
+  include RegistrationInvitationHelper
+
   setup do
     @delivery_mode = AbstractNotifier.delivery_mode
     AbstractNotifier.delivery_mode = :normal
@@ -17,7 +20,7 @@ class Notification::SignedUpTest < NotificationSystemTestCase
   end
 
   test 'notify mentors when signed up as adviser' do
-    visit '/users/new?role=adviser'
+    visit_registration_invitation 'adviser'
 
     email = 'haruko@example.com'
 
@@ -41,7 +44,7 @@ class Notification::SignedUpTest < NotificationSystemTestCase
   end
 
   test 'notify mentors when signed up as mentor' do
-    visit '/users/new?role=mentor'
+    visit_registration_invitation 'mentor'
 
     email = 'shunka@example.com'
 
@@ -66,7 +69,7 @@ class Notification::SignedUpTest < NotificationSystemTestCase
   end
 
   test 'notify mentors when signed up as trainee' do
-    visit '/users/new?role=trainee_invoice_payment'
+    visit_registration_invitation 'trainee_invoice_payment'
 
     email = 'natsumi@example.com'
 

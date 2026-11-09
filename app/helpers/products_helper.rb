@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
-module ProductsHelper
+# Keep AI review display parsing with the existing product view helpers.
+module ProductsHelper # rubocop:disable Metrics/ModuleLength
+  def product_ai_review_sections(content)
+    headers = Kramdown::Document.new(content, input: 'GFM').root.children.select { |element| element.type == :header }
+    header = headers.find { |candidate| candidate.options[:raw_text] == '受講生への返信案' }
+    return { body: content, reply: nil } unless header
+
+    following_header = headers.drop(headers.index(header) + 1).find { |following| following.options[:level] <= header.options[:level] }
+    lines = content.lines
+    start_line = header.options[:location] - 1
+    end_line = following_header ? following_header.options[:location] - 1 : lines.size
+    heading_lines = lines[start_line].match?(/\A {0,3}#/) ? 1 : 2
+    reply = lines[(start_line + heading_lines)...end_line].join
+    return { body: content, reply: nil } if reply.blank?
+
+    { body: (lines[0...start_line] + lines[end_line..]).join, reply: unquote_product_ai_review_reply(reply) }
+  end
+
   def product_category_practices_link_path(category)
     course_practices_path(
       current_user.course,
@@ -104,5 +121,14 @@ module ProductsHelper
     else
       ''
     end
+  end
+
+  private
+
+  def unquote_product_ai_review_reply(reply)
+    elements = Kramdown::Document.new(reply, input: 'GFM').root.children.reject { |element| element.type == :blank }
+    return reply unless elements.map(&:type) == [:blockquote]
+
+    reply.lines.map { |line| line.sub(/\A {0,3}>[ \t]?/, '') }.join
   end
 end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  use_doorkeeper
+  use_doorkeeper do
+    controllers authorizations: 'mcp_oauth/authorizations', tokens: 'mcp_oauth/tokens'
+  end
   namespace 'api' do
     post 'performance_reports', to: '/performance_reports#create'
     namespace 'admin' do
@@ -85,8 +87,8 @@ Rails.application.routes.draw do
       resources :comments, only: %i(create), controller: 'products/comments'
       resource :check, only: %i(create destroy), controller: 'products/check'
     end
-    resources :announcements, only: %i[index], defaults: { format: :json }
-    resources :events, only: %i[index], defaults: { format: :json }
+    resources :announcements, only: %i(index), defaults: { format: :json }
+    resources :events, only: %i(index), defaults: { format: :json }
     resources :searchables, only: %i(index)
     resources :bookmarks, only: %i(index create destroy)
     resources :report_presets, only: %i(create update)

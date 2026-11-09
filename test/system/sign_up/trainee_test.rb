@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/registration_invitation_helper'
 
 module SignUp
   class TraineeTest < ApplicationSystemTestCase
+    include RegistrationInvitationHelper
+
     setup do
       @bot_token = Discord::Server.authorize_token
       Discord::Server.authorize_token = nil
@@ -17,7 +20,7 @@ module SignUp
     end
 
     test 'sign up as a trainee who pays by invoice' do
-      visit '/users/new?role=trainee_invoice_payment'
+      visit_registration_invitation 'trainee_invoice_payment'
 
       email = 'natsumi@example.com'
 
@@ -44,7 +47,7 @@ module SignUp
     end
 
     test 'sign up as a trainee who pays by credit card' do
-      visit '/users/new?role=trainee_credit_card_payment'
+      visit_registration_invitation 'trainee_credit_card_payment'
 
       email = 'natsumi@example.com'
 
@@ -75,7 +78,7 @@ module SignUp
     end
 
     test 'sign up as a trainee who selects invoice for payment' do
-      visit '/users/new?role=trainee_select_a_payment_method'
+      visit_registration_invitation 'trainee_select_a_payment_method'
 
       email = 'natsumi@example.com'
 
@@ -103,7 +106,7 @@ module SignUp
     end
 
     test 'sign up as a trainee who selects a credit card for payment' do
-      visit '/users/new?role=trainee_select_a_payment_method'
+      visit_registration_invitation 'trainee_select_a_payment_method'
 
       email = 'natsumi@example.com'
 
@@ -149,7 +152,7 @@ module SignUp
     test 'sign up as a trainee with company_id and course_id' do
       course = courses(:course1)
       company = companies(:company4)
-      visit "/users/new?company_id=#{company.id}&role=trainee_invoice_payment&course_id=#{course.id}"
+      visit_registration_invitation 'trainee_invoice_payment', company_id: company.id, course_id: course.id
 
       email = 'fuyuko@example.com'
 
@@ -191,7 +194,7 @@ module SignUp
 
     def assert_job_seeker_option_hidden_for(role)
       Capybara.using_driver(:rack_test) do
-        visit "/users/new?role=#{role}"
+        visit_registration_invitation role
         assert_selector 'form[name=user]'
         assert_no_selector "input[name='user[job_seeker]']", visible: :all
       end

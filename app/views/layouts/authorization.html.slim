@@ -1,0 +1,12 @@
+doctype html
+html.is-application lang=I18n.locale
+  head
+    meta charset='utf-8'
+    meta name='viewport' content='width=device-width, initial-scale=1'
+    title = t('doorkeeper.authorizations.new.title')
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all'
+  body.is-application
+    .wrapper.is-application
+      main.page
+        = yield

@@ -56,7 +56,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
     if @product.save
       ActiveSupport::Notifications.instrument('product.create', product: @product)
       ActiveSupport::Notifications.instrument('product.save', product: @product)
-      redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :create)
+      redirect_to WipRedirectUrl.resolve(self, @product), notice: notice_message(@product, :create)
     else
       render :new
     end
@@ -72,7 +72,7 @@ class ProductsController < ApplicationController # rubocop:todo Metrics/ClassLen
       ActiveSupport::Notifications.instrument('product.update', { product: @product, current_user: })
       ActiveSupport::Notifications.instrument('product.save', product: @product)
       notice_another_mentor_assigned_as_checker
-      redirect_to Redirection.determin_url(self, @product), notice: notice_message(@product, :update)
+      redirect_to WipRedirectUrl.resolve(self, @product), notice: notice_message(@product, :update)
     else
       render :edit
     end

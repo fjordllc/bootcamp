@@ -6,7 +6,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
   test 'post new comment for product' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: 'test')
+      fill_in('comment[description]', with: 'test')
     end
     accept_alert '提出物の担当になりました。' do
       click_button 'コメントする'
@@ -18,7 +18,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
   test 'check preview for product' do
     visit_with_auth "/products/#{products(:product2).id}", 'komagata'
     within('.thread-comment-form__form') do
-      fill_in('new_comment[description]', with: "1\n2\n3\n4\n5\n6\n7\n8\n9")
+      fill_in('comment[description]', with: "1\n2\n3\n4\n5\n6\n7\n8\n9")
     end
     all('.a-form-tabs__tab.js-tabs__tab')[1].click
     assert_text "1\n2\n3\n4\n5\n6\n7\n8\n9"
@@ -117,7 +117,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
     assert_button '担当から外れる'
 
     accept_confirm do
-      fill_in 'new_comment[description]', with: 'comment test'
+      fill_in 'comment[description]', with: 'comment test'
       click_button '合格にする'
     end
 
@@ -149,7 +149,7 @@ class ProductCommentsTest < ApplicationSystemTestCase
 
     accept_confirm('提出物の担当になりました。') do
       accept_confirm('提出物を合格にしてよろしいですか？') do
-        fill_in 'new_comment[description]', with: 'comment test'
+        fill_in 'comment[description]', with: 'comment test'
         click_button '合格にする'
       end
     end

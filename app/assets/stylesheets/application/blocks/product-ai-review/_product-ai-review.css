@@ -1,0 +1,4 @@
+.product-ai-review__reply[readonly] {
+  pointer-events: auto;
+  color: var(--default-text);
+}

@@ -2,22 +2,21 @@ openapi: 3.1.0
 info:
   title: FJORD BOOT CAMP API
   version: 0.1.0
-  summary: Machine-readable index of Bootcamp API access points.
+  summary: Bootcamp APIのアクセス先をまとめた機械可読の一覧。
   description: |
-    This file documents the existing `/api` endpoints so humans, AI agents,
-    and API tooling can understand the available access points from one place.
-    It starts with route-level coverage and shared response shapes; detailed
-    resource schemas should be expanded from `app/views/api/**/*.jbuilder` and
-    `test/integration/api/**/*_test.rb`.
+    このファイルは、人やAIエージェント、APIツールが利用可能なアクセス先を
+    一か所で把握できるよう、既存の `/api` エンドポイントを記述しています。
+    まずはルート単位の網羅と共通のレスポンス形式を扱っています。
+    リソースの詳細なスキーマは `app/views/api/**/*.jbuilder` と
+    `test/integration/api/**/*_test.rb` をもとに拡充してください。
 
-    Rails also accepts `PUT` for update routes generated from `resource` and
-    `resources`; this document uses the canonical `PATCH` operation for those
-    update endpoints.
+    Railsは `resource` と `resources` から生成される更新ルートで `PUT` も受け付けます。
+    このドキュメントでは、それらの更新エンドポイントを標準の `PATCH` 操作で記述しています。
 servers:
   - url: https://bootcamp.fjord.jp
-    description: Production
+    description: 本番環境
   - url: http://localhost:3000
-    description: Local development
+    description: ローカル開発環境
 tags:
   - name: Admin
   - name: Mentor
@@ -43,7 +42,7 @@ paths:
       description: |
         .json付きも同じJSONを返す。WIP、公開日時なし、未来の公開日時を除外する。
         targetは通知先の分類であり閲覧制限ではない。足跡は記録しない。
-        通常のAPI認証を必要とし、inactive利用者を拒否する。
+        通常のAPI認証を必要とし、inactive利用者・MCPトークンを拒否する。
       security:
         - sessionCookie: []
         - oauth2: [read]
@@ -84,7 +83,7 @@ paths:
         定期イベントは期間内の予定日を既存の繰り返しルールで展開する。
         WIP、finishedの定期イベント、end_atが現在時刻以前の発生回は除外する。
         祝日・個別休みは削除せずheld=falseとする。kind・id・start_atで発生回を識別する。
-        足跡は記録しない。inactive利用者を拒否する。
+        足跡は記録しない。inactive利用者・MCPトークンを拒否する。
       security:
         - sessionCookie: []
         - oauth2: [read]
@@ -132,7 +131,7 @@ paths:
   /api/session:
     post:
       tags: [Session]
-      summary: Create an API session.
+      summary: APIセッションを作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -143,7 +142,7 @@ paths:
   /api/pubsub:
     post:
       tags: [Utility]
-      summary: Receive a Pub/Sub callback.
+      summary: Pub/Subのコールバックを受信する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -152,7 +151,7 @@ paths:
   /api/image:
     post:
       tags: [Utility]
-      summary: Upload an image.
+      summary: 画像をアップロードする。
       requestBody:
         content:
           multipart/form-data:
@@ -167,7 +166,7 @@ paths:
   /api/admin/count:
     get:
       tags: [Admin]
-      summary: Return admin dashboard counts.
+      summary: 管理者ダッシュボードの各件数を返す。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
@@ -176,7 +175,7 @@ paths:
   /api/admin/inquiries/{id}:
     patch:
       tags: [Admin]
-      summary: Update an inquiry from the admin API.
+      summary: 管理者APIからお問い合わせを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -189,7 +188,7 @@ paths:
   /api/mentor/practices:
     get:
       tags: [Mentor]
-      summary: List practices for mentors.
+      summary: メンター向けのプラクティス一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
@@ -198,7 +197,7 @@ paths:
   /api/courses/{course_id}/practices:
     get:
       tags: [Learning]
-      summary: List practices in a course.
+      summary: コース内のプラクティス一覧を取得する。
       parameters:
         - $ref: '#/components/parameters/CourseId'
       responses:
@@ -209,7 +208,7 @@ paths:
   /api/courses_categories/{courses_category_id}/position:
     patch:
       tags: [Learning]
-      summary: Update a course category position.
+      summary: コース内のカテゴリーの表示位置を更新する。
       parameters:
         - $ref: '#/components/parameters/CoursesCategoryId'
       requestBody:
@@ -220,7 +219,7 @@ paths:
   /api/categories_practices/{categories_practice_id}/position:
     patch:
       tags: [Learning]
-      summary: Update a category practice position.
+      summary: カテゴリー内のプラクティスの表示位置を更新する。
       parameters:
         - $ref: '#/components/parameters/CategoriesPracticeId'
       requestBody:
@@ -231,7 +230,7 @@ paths:
   /api/notifications:
     get:
       tags: [Notifications]
-      summary: List notifications.
+      summary: 通知一覧を取得する。
       parameters:
         - name: status
           in: query
@@ -246,7 +245,7 @@ paths:
   /api/notifications/{notification_id}/read_mark:
     patch:
       tags: [Notifications]
-      summary: Mark one notification as read.
+      summary: 1件の通知を既読にする。
       parameters:
         - name: notification_id
           in: path
@@ -259,14 +258,14 @@ paths:
   /api/notifications/all_read_mark:
     patch:
       tags: [Notifications]
-      summary: Mark all notifications as read.
+      summary: すべての通知を既読にする。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/notifications/category_read_mark:
     patch:
       tags: [Notifications]
-      summary: Mark notifications in a category as read.
+      summary: カテゴリー内の通知を既読にする。
       parameters:
         - name: target
           in: query
@@ -281,14 +280,14 @@ paths:
   /api/subscriptions:
     get:
       tags: [Users]
-      summary: List subscriptions for the current user.
+      summary: 現在のユーザーの購読一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/comments:
     get:
       tags: [Social]
-      summary: List comments.
+      summary: コメント一覧を取得する。
       parameters:
         - name: commentable_type
           in: query
@@ -303,7 +302,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Social]
-      summary: Create a comment.
+      summary: コメントを作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -312,7 +311,7 @@ paths:
   /api/comments/{id}:
     patch:
       tags: [Social]
-      summary: Update a comment.
+      summary: コメントを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -322,7 +321,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Social]
-      summary: Delete a comment.
+      summary: コメントを削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -331,7 +330,7 @@ paths:
   /api/answers:
     get:
       tags: [Questions]
-      summary: List answers.
+      summary: 回答一覧を取得する。
       parameters:
         - name: user_id
           in: query
@@ -342,7 +341,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Questions]
-      summary: Create an answer.
+      summary: 回答を作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -351,7 +350,7 @@ paths:
   /api/answers/{id}:
     patch:
       tags: [Questions]
-      summary: Update an answer.
+      summary: 回答を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -361,7 +360,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Questions]
-      summary: Delete an answer.
+      summary: 回答を削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -370,7 +369,7 @@ paths:
   /api/answers/{answer_id}/correct_answer:
     post:
       tags: [Questions]
-      summary: Mark an answer as the correct answer.
+      summary: 回答をベストアンサーにする。
       parameters:
         - $ref: '#/components/parameters/AnswerId'
       responses:
@@ -378,7 +377,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Questions]
-      summary: Update the correct answer marker for an answer.
+      summary: 回答のベストアンサーの指定を更新する。
       parameters:
         - $ref: '#/components/parameters/AnswerId'
       responses:
@@ -387,14 +386,14 @@ paths:
   /api/available_emojis:
     get:
       tags: [Social]
-      summary: List available reaction emojis.
+      summary: 使用できるリアクション絵文字の一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/reactions:
     get:
       tags: [Social]
-      summary: List reactions.
+      summary: リアクション一覧を取得する。
       parameters:
         - name: reactionable_gid
           in: query
@@ -405,7 +404,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Social]
-      summary: Create a reaction.
+      summary: リアクションを作成する。
       parameters:
         - name: reactionable_gid
           in: query
@@ -425,7 +424,7 @@ paths:
   /api/reactions/{id}:
     delete:
       tags: [Social]
-      summary: Delete a reaction.
+      summary: リアクションを削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -434,7 +433,7 @@ paths:
   /api/checks:
     get:
       tags: [Social]
-      summary: List checks.
+      summary: 確認の一覧を取得する。
       parameters:
         - name: checkable_type
           in: query
@@ -449,7 +448,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Social]
-      summary: Create a check.
+      summary: 確認を作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -460,7 +459,7 @@ paths:
   /api/checks/{id}:
     delete:
       tags: [Social]
-      summary: Delete a check.
+      summary: 確認を削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -469,7 +468,7 @@ paths:
   /api/mention_users:
     get:
       tags: [Users]
-      summary: List users available for mention autocomplete.
+      summary: メンションの自動補完候補となるユーザーの一覧を取得する。
       parameters:
         - name: query
           in: query
@@ -481,7 +480,7 @@ paths:
   /api/users:
     get:
       tags: [Users]
-      summary: List users.
+      summary: ユーザー一覧を取得する。
       parameters:
         - name: target
           in: query
@@ -497,7 +496,7 @@ paths:
   /api/users/{id}:
     get:
       tags: [Users]
-      summary: Show a user. Use `show` as id for the authorized user with OAuth.
+      summary: ユーザーを取得する。OAuthで認可したユーザー自身を取得する場合は、idに `show` を指定する。
       parameters:
         - $ref: '#/components/parameters/IdOrShow'
       responses:
@@ -507,7 +506,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       tags: [Users]
-      summary: Update a user.
+      summary: ユーザーを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -518,7 +517,7 @@ paths:
   /api/users/{user_id}/support_context:
     get:
       tags: [Users]
-      summary: Show mentor support context for a user.
+      summary: ユーザーに対するメンター支援用のコンテキストを取得する。
       parameters:
         - $ref: '#/components/parameters/UserId'
       responses:
@@ -531,7 +530,7 @@ paths:
   /api/users/tags/{tag}:
     get:
       tags: [Users]
-      summary: List users by tag.
+      summary: タグごとのユーザー一覧を取得する。
       parameters:
         - name: tag
           in: path
@@ -544,14 +543,14 @@ paths:
   /api/practices:
     get:
       tags: [Learning]
-      summary: List practices.
+      summary: プラクティス一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/practices/{id}:
     get:
       tags: [Learning]
-      summary: Show a practice.
+      summary: プラクティスを取得する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -559,7 +558,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Learning]
-      summary: Update a practice.
+      summary: プラクティスを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -570,7 +569,7 @@ paths:
   /api/practices/{practice_id}/learning:
     get:
       tags: [Learning]
-      summary: Show learning status for a practice.
+      summary: プラクティスの学習状況を取得する。
       parameters:
         - $ref: '#/components/parameters/PracticeId'
       responses:
@@ -578,7 +577,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Learning]
-      summary: Update learning status for a practice.
+      summary: プラクティスの学習状況を更新する。
       parameters:
         - $ref: '#/components/parameters/PracticeId'
       requestBody:
@@ -589,7 +588,7 @@ paths:
   /api/practices/{practice_id}/learning/completion_message:
     patch:
       tags: [Learning]
-      summary: Update the learning completion message for a practice.
+      summary: プラクティスの学習完了メッセージを更新する。
       parameters:
         - $ref: '#/components/parameters/PracticeId'
       requestBody:
@@ -600,7 +599,7 @@ paths:
   /api/coding_tests/{coding_test_id}/position:
     patch:
       tags: [Learning]
-      summary: Update a coding test position.
+      summary: コーディングテストの表示位置を更新する。
       parameters:
         - name: coding_test_id
           in: path
@@ -615,7 +614,7 @@ paths:
   /api/coding_test_submissions:
     post:
       tags: [Learning]
-      summary: Create a coding test submission.
+      summary: コーディングテストの提出を作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -624,28 +623,28 @@ paths:
   /api/reports/unchecked:
     get:
       tags: [Reports]
-      summary: List unchecked reports.
+      summary: 未確認の日報一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/reports/unchecked/counts:
     get:
       tags: [Reports]
-      summary: Return unchecked report counts as text.
+      summary: 未確認の日報の件数をテキストで返す。
       responses:
         '200':
           $ref: '#/components/responses/Text'
   /api/reports/recents:
     get:
       tags: [Reports]
-      summary: List recent reports.
+      summary: 最近の日報一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/reports:
     get:
       tags: [Reports]
-      summary: List reports.
+      summary: 日報一覧を取得する。
       parameters:
         - name: user_id
           in: query
@@ -661,7 +660,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Reports]
-      summary: Create a report.
+      summary: 日報を作成する。
       requestBody:
         $ref: '#/components/requestBodies/Report'
       responses:
@@ -672,7 +671,7 @@ paths:
   /api/reports/{id}:
     get:
       tags: [Reports]
-      summary: Show a report.
+      summary: 日報を取得する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -680,7 +679,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Reports]
-      summary: Update a report.
+      summary: 日報を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -694,7 +693,7 @@ paths:
           $ref: '#/components/responses/ValidationError'
     delete:
       tags: [Reports]
-      summary: Delete a report.
+      summary: 日報を削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -703,7 +702,7 @@ paths:
   /api/reports/{report_id}/comments:
     post:
       tags: [Reports]
-      summary: Create a comment on a report.
+      summary: 日報にコメントを作成する。
       parameters:
         - $ref: '#/components/parameters/ReportId'
       requestBody:
@@ -714,7 +713,7 @@ paths:
   /api/reports/{report_id}/reactions:
     get:
       tags: [Reports]
-      summary: List reactions on a report.
+      summary: 日報のリアクション一覧を取得する。
       parameters:
         - $ref: '#/components/parameters/ReportId'
       responses:
@@ -722,7 +721,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Reports]
-      summary: Create a reaction on a report.
+      summary: 日報にリアクションを作成する。
       parameters:
         - $ref: '#/components/parameters/ReportId'
       requestBody:
@@ -735,7 +734,7 @@ paths:
   /api/reports/{report_id}/reactions/{id}:
     delete:
       tags: [Reports]
-      summary: Delete a reaction on a report.
+      summary: 日報のリアクションを削除する。
       parameters:
         - $ref: '#/components/parameters/ReportId'
         - $ref: '#/components/parameters/Id'
@@ -745,7 +744,7 @@ paths:
   /api/reports/{report_id}/check:
     post:
       tags: [Reports]
-      summary: Check a report.
+      summary: 日報を確認済みにする。
       parameters:
         - $ref: '#/components/parameters/ReportId'
       responses:
@@ -753,7 +752,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Reports]
-      summary: Uncheck a report.
+      summary: 日報の確認を取り消す。
       parameters:
         - $ref: '#/components/parameters/ReportId'
       responses:
@@ -762,7 +761,7 @@ paths:
   /api/watches:
     get:
       tags: [Social]
-      summary: List watches.
+      summary: ウォッチ一覧を取得する。
       parameters:
         - $ref: '#/components/parameters/Page'
       responses:
@@ -771,7 +770,7 @@ paths:
   /api/mentor_memos/{id}:
     patch:
       tags: [Mentor]
-      summary: Update a mentor memo.
+      summary: メンターメモを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -782,7 +781,7 @@ paths:
   /api/tags:
     get:
       tags: [Content]
-      summary: List tags.
+      summary: タグ一覧を取得する。
       parameters:
         - name: taggable_type
           in: query
@@ -794,7 +793,7 @@ paths:
   /api/tags/{id}:
     patch:
       tags: [Content]
-      summary: Update a tag.
+      summary: タグを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -805,7 +804,7 @@ paths:
   /api/pages/{id}:
     patch:
       tags: [Content]
-      summary: Update a page.
+      summary: ページを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -816,7 +815,7 @@ paths:
   /api/questions:
     get:
       tags: [Questions]
-      summary: List questions.
+      summary: 質問一覧を取得する。
       parameters:
         - name: user_id
           in: query
@@ -828,7 +827,7 @@ paths:
   /api/questions/{id}:
     get:
       tags: [Questions]
-      summary: Show a question.
+      summary: 質問を取得する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -836,7 +835,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Questions]
-      summary: Update a question.
+      summary: 質問を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -847,7 +846,7 @@ paths:
   /api/followings:
     post:
       tags: [Social]
-      summary: Follow a user.
+      summary: ユーザーをフォローする。
       parameters:
         - name: watch
           in: query
@@ -861,7 +860,7 @@ paths:
   /api/followings/{id}:
     patch:
       tags: [Social]
-      summary: Update a following.
+      summary: フォローを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
         - name: watch
@@ -873,7 +872,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Social]
-      summary: Unfollow a user.
+      summary: ユーザーのフォローを解除する。
       parameters:
         - $ref: '#/components/parameters/Id'
         - name: watch
@@ -886,7 +885,7 @@ paths:
   /api/products/unchecked:
     get:
       tags: [Products]
-      summary: List unchecked products.
+      summary: 未確認の提出物一覧を取得する。
       parameters:
         - name: checker_id
           in: query
@@ -905,28 +904,28 @@ paths:
   /api/products/unassigned:
     get:
       tags: [Products]
-      summary: List unassigned products.
+      summary: 担当者が未割り当ての提出物一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/products/unassigned/counts:
     get:
       tags: [Products]
-      summary: Return unassigned product counts as text.
+      summary: 担当者が未割り当ての提出物の件数をテキストで返す。
       responses:
         '200':
           $ref: '#/components/responses/Text'
   /api/products/self_assigned:
     get:
       tags: [Products]
-      summary: List products assigned to the current mentor.
+      summary: 現在のメンターが担当する提出物一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/products/checker:
     get:
       tags: [Products]
-      summary: Show checker state for a product.
+      summary: 提出物の確認担当者の状態を取得する。
       parameters:
         - name: product_id
           in: query
@@ -937,7 +936,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Products]
-      summary: Assign or update a product checker.
+      summary: 提出物の確認担当者を割り当てる、または更新する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -945,21 +944,21 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Products]
-      summary: Remove a product checker.
+      summary: 提出物の確認担当者を解除する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/products/passed:
     get:
       tags: [Products]
-      summary: Return passed product status as text.
+      summary: 提出物の合格状況をテキストで返す。
       responses:
         '200':
           $ref: '#/components/responses/Text'
   /api/products:
     get:
       tags: [Products]
-      summary: List products.
+      summary: 提出物一覧を取得する。
       parameters:
         - name: company_id
           in: query
@@ -971,7 +970,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Products]
-      summary: Create a product.
+      summary: 提出物を作成する。
       requestBody:
         $ref: '#/components/requestBodies/Product'
       responses:
@@ -984,7 +983,7 @@ paths:
   /api/products/{id}:
     get:
       tags: [Products]
-      summary: Show a product.
+      summary: 提出物を取得する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -992,7 +991,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     patch:
       tags: [Products]
-      summary: Update a product.
+      summary: 提出物を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -1002,7 +1001,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Products]
-      summary: Delete a product.
+      summary: 提出物を削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -1011,7 +1010,7 @@ paths:
   /api/products/{product_id}/comments:
     post:
       tags: [Products]
-      summary: Create a comment on a product.
+      summary: 提出物にコメントを作成する。
       parameters:
         - $ref: '#/components/parameters/ProductId'
       requestBody:
@@ -1022,7 +1021,7 @@ paths:
   /api/products/{product_id}/check:
     post:
       tags: [Products]
-      summary: Check a product.
+      summary: 提出物を確認済みにする。
       parameters:
         - $ref: '#/components/parameters/ProductId'
       responses:
@@ -1030,7 +1029,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Products]
-      summary: Uncheck a product.
+      summary: 提出物の確認を取り消す。
       parameters:
         - $ref: '#/components/parameters/ProductId'
       responses:
@@ -1039,7 +1038,7 @@ paths:
   /api/searchables:
     get:
       tags: [Search]
-      summary: Search site content.
+      summary: サイト内のコンテンツを検索する。
       parameters:
         - name: word
           in: query
@@ -1065,7 +1064,7 @@ paths:
   /api/bookmarks:
     get:
       tags: [Social]
-      summary: List bookmarks.
+      summary: ブックマーク一覧を取得する。
       parameters:
         - name: bookmarkable_type
           in: query
@@ -1080,7 +1079,7 @@ paths:
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Social]
-      summary: Create a bookmark.
+      summary: ブックマークを作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -1089,7 +1088,7 @@ paths:
   /api/bookmarks/{id}:
     delete:
       tags: [Social]
-      summary: Delete a bookmark.
+      summary: ブックマークを削除する。
       parameters:
         - $ref: '#/components/parameters/Id'
       responses:
@@ -1098,7 +1097,7 @@ paths:
   /api/report_templates:
     post:
       tags: [Reports]
-      summary: Create a report template.
+      summary: 日報テンプレートを作成する。
       requestBody:
         $ref: '#/components/requestBodies/GenericObject'
       responses:
@@ -1107,7 +1106,7 @@ paths:
   /api/report_templates/{id}:
     patch:
       tags: [Reports]
-      summary: Update a report template.
+      summary: 日報テンプレートを更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -1118,7 +1117,7 @@ paths:
   /api/markdown_tasks:
     post:
       tags: [Utility]
-      summary: Update a markdown task checkbox.
+      summary: Markdownのタスクのチェックボックスを更新する。
       parameters:
         - name: taskable_type
           in: query
@@ -1142,21 +1141,21 @@ paths:
   /api/talks/action_uncompleted:
     get:
       tags: [Social]
-      summary: List talks with uncompleted action.
+      summary: 対応が完了していない相談の一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/talks:
     get:
       tags: [Social]
-      summary: List talks.
+      summary: 相談一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/talks/{id}:
     patch:
       tags: [Social]
-      summary: Update a talk.
+      summary: 相談を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -1167,14 +1166,14 @@ paths:
   /api/books:
     get:
       tags: [Content]
-      summary: List books.
+      summary: 書籍一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/survey_question_listings/{survey_question_listing_id}/position:
     patch:
       tags: [Content]
-      summary: Update a survey question listing position.
+      summary: アンケートの質問項目の表示位置を更新する。
       parameters:
         - name: survey_question_listing_id
           in: path
@@ -1189,20 +1188,20 @@ paths:
   /api/reading_circles:
     get:
       tags: [Content]
-      summary: List reading circles.
+      summary: 輪読会一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/movies:
     get:
       tags: [Content]
-      summary: List movies.
+      summary: 動画一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Content]
-      summary: Create a movie with uploaded movie data.
+      summary: アップロードした動画データを使って動画を作成する。
       requestBody:
         required: true
         content:
@@ -1223,7 +1222,7 @@ paths:
                     - type: string
                       format: binary
                     - type: string
-                      description: Signed blob ID returned by /api/movies/direct_uploads.
+                      description: /api/movies/direct_uploads が返す署名付きblob ID。
                 movie[thumbnail]:
                   type: string
                   format: binary
@@ -1245,7 +1244,7 @@ paths:
   /api/movies/direct_uploads:
     post:
       tags: [Content]
-      summary: Create direct upload data for a movie file.
+      summary: 動画ファイルのダイレクトアップロード用データを作成する。
       requestBody:
         required: true
         content:
@@ -1269,7 +1268,7 @@ paths:
                       type: integer
                     checksum:
                       type: string
-                      description: Base64-encoded MD5 checksum.
+                      description: Base64でエンコードされたMD5チェックサム。
                     content_type:
                       type: string
                       enum:
@@ -1285,7 +1284,7 @@ paths:
   /api/movies/{id}:
     patch:
       tags: [Content]
-      summary: Update a movie.
+      summary: 動画を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -1296,7 +1295,7 @@ paths:
   /api/metadata:
     get:
       tags: [Utility]
-      summary: Fetch metadata for a URL.
+      summary: URLのメタデータを取得する。
       parameters:
         - name: url
           in: query
@@ -1314,7 +1313,7 @@ paths:
   /api/micro_reports/{id}:
     patch:
       tags: [Reports]
-      summary: Update a micro report.
+      summary: 分報を更新する。
       parameters:
         - $ref: '#/components/parameters/Id'
       requestBody:
@@ -1325,26 +1324,26 @@ paths:
   /api/trainee_progresses:
     get:
       tags: [Learning]
-      summary: List trainee progresses.
+      summary: 研修生の進捗一覧を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
   /api/buzz:
     get:
       tags: [Social]
-      summary: Show current buzz state.
+      summary: 現在のバズの状態を取得する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
     post:
       tags: [Social]
-      summary: Create buzz state.
+      summary: バズの状態を作成する。
       responses:
         '201':
           $ref: '#/components/responses/JsonObject'
     delete:
       tags: [Social]
-      summary: Delete buzz state.
+      summary: バズの状態を削除する。
       responses:
         '200':
           $ref: '#/components/responses/JsonObject'
@@ -1354,17 +1353,17 @@ components:
       type: apiKey
       in: cookie
       name: _bootcamp_session
-      description: Browser session or JWT-backed API session used by existing UI/API calls.
+      description: 既存のUI/API呼び出しで使用するブラウザーセッション、またはJWTに基づくAPIセッション。
     oauth2:
       type: oauth2
-      description: Doorkeeper OAuth2 bearer token. Some write endpoints require the `write` scope.
+      description: DoorkeeperのOAuth2 Bearerトークン。一部の書き込み用エンドポイントでは `write` スコープが必要。
       flows:
         authorizationCode:
           authorizationUrl: /oauth/authorize
           tokenUrl: /oauth/token
           scopes:
-            read: Read API resources.
-            write: Create, update, or delete API resources.
+            read: APIリソースを読み取る。
+            write: APIリソースを作成、更新、削除する。
   parameters:
     ListingPage:
       name: page
@@ -1533,43 +1532,43 @@ components:
             additionalProperties: true
   responses:
     JsonObject:
-      description: JSON response. Expand the schema from the matching jbuilder view and integration test.
+      description: JSONレスポンス。対応するjbuilderビューと結合テストをもとにスキーマを拡充する。
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiObject'
     Text:
-      description: Plain text response.
+      description: プレーンテキストのレスポンス。
       content:
         text/plain:
           schema:
             type: string
     Unauthorized:
-      description: Authentication is required or the bearer token is invalid.
+      description: 認証が必要、またはBearerトークンが無効。
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
-      description: The authenticated user is not allowed to perform this action.
+      description: 認証済みユーザーには、この操作を実行する権限がない。
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
-      description: Resource was not found or is hidden from the authenticated user.
+      description: リソースが見つからない、または認証済みユーザーには非表示になっている。
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     BadRequest:
-      description: Request parameters are invalid.
+      description: リクエストパラメーターが無効。
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     ValidationError:
-      description: Validation failed.
+      description: バリデーションに失敗した。
       content:
         application/json:
           schema:

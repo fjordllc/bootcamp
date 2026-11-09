@@ -1,5 +1,5 @@
-# Build stage - compiles Rails assets without a Node.js build step
-FROM ruby:3.4.12-slim as builder
+# Dependency stage - reusable without application sources
+FROM ruby:4.0.9-slim as gems
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.4.21
+RUN gem install --no-document --force bundler -v 2.7.2
 
 # Install build dependencies with minimal footprint
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
@@ -28,7 +28,11 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Install gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install -j4
+ARG GRPC_BUILD_PROCS=2
+RUN GRPC_RUBY_BUILD_PROCS="${GRPC_BUILD_PROCS}" bundle install -j4
+
+# Build stage - compiles Rails assets without a Node.js build step
+FROM gems as builder
 
 # Copy application code
 COPY . ./
@@ -38,7 +42,7 @@ ENV RAILS_LOG_TO_STDOUT true
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Production stage - minimal runtime image
-FROM ruby:3.4.12-slim as production
+FROM ruby:4.0.9-slim as production
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -46,7 +50,7 @@ WORKDIR /app
 # Update rubygems
 RUN gem update --system
 RUN printf "install: --no-rdoc --no-ri\nupdate:  --no-rdoc --no-ri" > ~/.gemrc
-RUN gem install --no-document --force bundler -v 2.4.21
+RUN gem install --no-document --force bundler -v 2.7.2
 
 # Install runtime and build dependencies
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
@@ -70,7 +74,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Copy gems configuration
 COPY Gemfile Gemfile.lock ./
-RUN bundle install -j4
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN bundle check
 
 # Copy application code from builder (excluding large directories)
 COPY --from=builder /app/app ./app

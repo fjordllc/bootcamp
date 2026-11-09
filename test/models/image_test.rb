@@ -3,6 +3,27 @@
 require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
+  test 'converts HEIC to WebP without writing HEIC or changing the upload' do
+    image_path = Rails.root.join('test/fixtures/files/images/heic-sample-file.heic')
+    upload = Rack::Test::UploadedFile.new(image_path, 'image/heic')
+    original_data = File.binread(upload.tempfile.path)
+
+    MiniMagick.stub(:mogrify, ->(*) { raise MiniMagick::Error, 'no encode delegate for HEIC' }) do
+      image = Image.create!(user: users(:hajime), image: upload)
+
+      assert_equal 'image/webp', image.image.content_type
+      assert_equal 'heic-sample-file.webp', image.image.filename.to_s
+      converted_image = MiniMagick::Image.read(image.image.download)
+      assert_equal 'WEBP', converted_image.type
+      assert_equal [640, 426], converted_image.dimensions
+      assert_empty converted_image.exif
+    end
+
+    assert_equal original_data, File.binread(upload.tempfile.path)
+    assert_equal 'heic-sample-file.heic', upload.original_filename
+    assert_equal 'image/heic', upload.content_type
+  end
+
   test 'does not process PDF with MiniMagick' do
     pdf_path = Rails.root.join('test/fixtures/files/users/diplomas/diploma.pdf')
     pdf = Rack::Test::UploadedFile.new(pdf_path, 'application/pdf')

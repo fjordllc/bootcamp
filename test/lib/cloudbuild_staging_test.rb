@@ -7,6 +7,13 @@ class CloudbuildStagingTest < ActiveSupport::TestCase
   CONFIG = Rails.root.join('.cloudbuild/cloudbuild-staging.yaml')
   BUILD_REGION = 'asia-northeast1'
 
+  test 'waits for environment generation before stopping Cloud Run' do
+    steps = YAML.safe_load_file(CONFIG).fetch('steps').index_by { |step| step.fetch('id') }
+
+    assert_equal ['Push'], steps.fetch('WriteSubstitutionEnv').fetch('waitFor')
+    assert_equal ['WriteSubstitutionEnv'], steps.fetch('StopCloudRun').fetch('waitFor')
+  end
+
   test 'uses the regional build location for build API calls' do
     steps = YAML.safe_load_file(CONFIG).fetch('steps')
     cancel_script = steps.find { |step| step['id'] == 'CancelPreviousBuilds' }.fetch('args').last

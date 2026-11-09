@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
+require 'supports/registration_invitation_helper'
 
 module SignUp
   class RoleTest < ApplicationSystemTestCase
+    include RegistrationInvitationHelper
+
     setup do
       @bot_token = Discord::Server.authorize_token
       Discord::Server.authorize_token = nil
@@ -17,7 +20,7 @@ module SignUp
     end
 
     test 'sign up as adviser' do
-      visit '/users/new?role=adviser'
+      visit_registration_invitation 'adviser'
 
       email = 'haruko@example.com'
 
@@ -39,7 +42,7 @@ module SignUp
     end
 
     test 'sign up as mentor' do
-      visit '/users/new?role=mentor'
+      visit_registration_invitation 'mentor'
 
       email = 'shunka@example.com'
 
@@ -62,7 +65,7 @@ module SignUp
     end
 
     test 'sign up as adviser with company_id' do
-      visit "/users/new?role=adviser&company_id=#{companies(:company2).id}"
+      visit_registration_invitation 'adviser', company_id: companies(:company2).id
 
       email = 'fuyuko@example.com'
 
@@ -84,7 +87,7 @@ module SignUp
     end
 
     test 'job seeker option is hidden for adviser' do
-      visit '/users/new?role=adviser'
+      visit_registration_invitation 'adviser'
       assert_selector 'form[name=user]'
       assert has_no_selector? "input[name='user[job_seeker]']", visible: :all
     end

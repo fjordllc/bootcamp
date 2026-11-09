@@ -1,5 +1,5 @@
 # Dev用軽量イメージ (bind mount前提、deps only)
-FROM ruby:3.4.12-slim
+FROM ruby:4.0.9-slim
 
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo \

@@ -44,6 +44,12 @@ AI入出力をHTTPデバッグログに残さないため、稼働環境で `RUB
 
 ## テスト
 
+### JavaScriptのテスト
+
+```bash
+node --test test/javascript/*.mjs
+```
+
 ### Playwright ブラウザーのインストール
 
 system test は Playwright で Chromium を起動します。初回セットアップ時、または Playwright のバージョン更新後にブラウザーをインストールしてください。
@@ -78,7 +84,7 @@ $ PARALLEL_WORKERS=1 rails test:all
 
 ### 実行前の準備
 
-- GitHub Actions と同じ Ruby 3.4.12、Node.js 22.23.4 と Bundler を用意し、`bundle install` を済ませてください。`bin/ci` は `bundle check` で gem の不足を検出し、JavaScript の依存は毎回 `npm ci` でインストールします。
+- GitHub Actions と同じ Ruby 4.0.9、Node.js 22.23.4 と Bundler を用意し、`bundle install` を済ませてください。`bin/ci` は `bundle check` で gem の不足を検出し、JavaScript の依存は毎回 `npm ci` でインストールします。
 - pgvector 拡張を使える PostgreSQL と、使い捨てにできるテスト用 DB を用意してください。画像処理ライブラリに加え、CI で使う ffmpeg、ImageMagick、libvips、libheif、libuv、PostgreSQL クライアント、日本語フォント（Noto CJK など）が必要です。OS ごとのパッケージ名は異なります。
 - `npm ci` の後に `npx playwright install chromium` を実行してください。Linux で Chromium の共有ライブラリが不足する場合は `npx playwright install --with-deps chromium` も使えます。
 
@@ -90,7 +96,7 @@ $ PARALLEL_WORKERS=1 rails test:all
 bin/ci
 ```
 
-Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、Node.js による性能収集テスト（`node --test test/javascript/performance_test.mjs`）、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
+Ruby・Slim・JavaScript・CSS・OpenAPI の lint、Traceroute、JavaScript テスト（`node --test test/javascript/*.mjs`）、テスト DB の準備、アセットのプリコンパイル、system test を含む全テストを順に実行します。途中で失敗すると後続の処理を止め、終了コードを失敗にします。lint の自動修正や開発環境のセットアップ、seed の再投入は実行しません。通常の実行では GitHub にステータスを送信しません。
 
 RuboCop は `--ignore-parent-exclusion` を指定し、入れ子の worktree でも親チェックアウトの除外設定を引き継がず、このチェックアウトの設定で検査します。
 
@@ -156,10 +162,13 @@ $ PROFILE=1 rails server
 
 ## 環境構築
 
+- [macOS Docker環境構築](docs/development_on_docker.md)
+- [Linux Docker + git worktree環境構築](docs/parallel_worktree_dev.md)
 - [Develop環境でログインする方法](https://github.com/fjordllc/bootcamp/wiki/Develop%E7%92%B0%E5%A2%83%E3%81%A7%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95)
 - [Develop環境でのメールの確認方法](https://github.com/fjordllc/bootcamp/wiki/Develop%E7%92%B0%E5%A2%83%E3%81%A7%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95)
 - [nodeのバージョン切り替え](https://github.com/fjordllc/bootcamp/wiki/node%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88)
 
 ## その他
 
+- [設計判断の記録（ADR）](docs/adr/README.md)
 - [Bootcamp Wiki](https://github.com/fjordllc/bootcamp/wiki)

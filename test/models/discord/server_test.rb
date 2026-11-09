@@ -122,6 +122,22 @@ module Discord
       end
     end
 
+    test '.delete_text_channel propagates missing permissions' do
+      VCR.use_cassette 'discord/server/delete_text_channel_with_missing_permissions' do
+        assert_raises(Discordrb::Errors::NoPermission) do
+          Discord::Server.delete_text_channel('987654321987654321')
+        end
+      end
+    end
+
+    test '.delete_text_channel propagates unexpected errors' do
+      Discordrb::API::Channel.stub(:delete, ->(*) { raise 'unexpected error' }) do
+        error = assert_raises(RuntimeError) { Discord::Server.delete_text_channel('987654321987654321') }
+
+        assert_equal 'unexpected error', error.message
+      end
+    end
+
     test '.enabled?' do
       Discord::Server.guild_id = '1234567890123456789'
       Discord::Server.authorize_token = 'Bot valid token'
