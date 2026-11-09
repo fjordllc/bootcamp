@@ -2,7 +2,7 @@ name: Auto-assign PR author
 
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review]
+    types: [opened, reopened, ready_for_review, synchronize]
 
 permissions:
   contents: read
@@ -28,7 +28,25 @@ jobs:
 
             const isBot = author.endsWith("[bot]") || pr.user.type === "Bot"
             if (isBot) {
-              console.log("Bot PR author -> skip assigning.")
+              try {
+                await github.rest.issues.checkUserCanBeAssigned({
+                  owner,
+                  repo,
+                  assignee: author,
+                })
+              } catch (error) {
+                if (error.status !== 404) throw error
+                console.log(`Bot PR author is not assignable -> skip: ${author}`)
+                return
+              }
+
+              await github.rest.issues.addAssignees({
+                owner,
+                repo,
+                issue_number,
+                assignees: [author],
+              })
+              console.log(`Assigned bot PR author as assignee: ${author}`)
               return
             }
 
