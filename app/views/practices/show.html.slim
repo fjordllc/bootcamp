@@ -120,7 +120,7 @@
           - unless practice_skipped
             = render 'next_step', practice: @practice
 
-          - if policy(@practice).show_memo?
+          - if policy(@practice).show_memo? && @practice.memo.present?
             = render 'memo', practice: @practice
 
           - if current_user.admin_or_mentor?

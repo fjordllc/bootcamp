@@ -306,9 +306,20 @@ module Practices
 
     test 'show/hide memo for mentor' do
       practice = practices(:practice2)
+      practice.update!(memo: 'メモ表示切替のテスト')
       visit_with_auth "/practices/#{practice.id}", 'komagata'
       assert_text 'メンター向けメモ'
+      assert_text 'メモ表示切替のテスト'
       page.execute_script("document.querySelector('#checkbox-mentor-mode').click()")
+      assert_no_text 'メンター向けメモ'
+      assert_no_text 'メモ表示切替のテスト'
+    end
+
+    test 'hide empty memo for mentor' do
+      practice = practices(:practice2)
+      practice.update!(memo: '')
+      visit_with_auth "/practices/#{practice.id}", 'komagata'
+      assert_text '管理者・メンター用メニュー'
       assert_no_text 'メンター向けメモ'
     end
 
