@@ -82,7 +82,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get root_path
     link = css_select('a').find { |node| node.text.include?('社内メンター招待リンク') }['href']
     query = Rack::Utils.parse_query(URI.parse(link).query)
-    assert_equal({ 'role' => 'adviser', 'company_id' => users(:senpai).company_id.to_s }, RegistrationInvitation.verify(query.fetch('token')))
+    assert_equal({ 'role' => 'adviser', 'company_id' => users(:senpai).company_id.to_s }, RegistrationInvitation.verify(query.fetch('token')).claims)
     sign_out
     get new_user_path, params: query
     assert_response :success
