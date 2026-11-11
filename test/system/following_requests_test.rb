@@ -23,7 +23,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
 
         open_following
         click_button 'コメントなし'
-        assert_equal %w[POST POST], request_methods
+        assert_equal %w[post post], request_methods
         page.execute_script('window.pendingFollowingRequest.succeed()')
         assert_selector 'summary', text: 'コメントなし'
         assert following_exists?
@@ -48,7 +48,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
 
         open_following
         click_button 'コメントなし'
-        assert_equal %w[POST POST], request_methods
+        assert_equal %w[post post], request_methods
         page.execute_script('window.pendingFollowingRequest.succeed()')
         assert_selector 'summary', text: 'コメントなし'
         assert following_exists?
@@ -67,7 +67,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
         assert_not following_exists?
         # Native clicks on disabled buttons must not send another request.
         find_button('コメントなし', disabled: true).execute_script('this.click()')
-        assert_equal ['POST'], request_methods
+        assert_equal ['post'], request_methods
 
         page.execute_script('window.pendingFollowingRequest.succeed()')
         assert_selector 'summary', text: 'コメントあり'
@@ -88,7 +88,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
         page.execute_script('window.pendingFollowingRequest.succeed()')
         assert_selector 'summary', text: 'フォローする'
         assert_not following_exists?
-        assert_equal %w[POST PATCH DELETE], request_methods
+        assert_equal %w[post patch delete], request_methods
       end
     end
 
@@ -109,7 +109,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
 
         open_following
         click_button 'コメントなし'
-        assert_equal %w[DELETE PATCH], request_methods
+        assert_equal %w[delete patch], request_methods
         page.execute_script('window.pendingFollowingRequest.succeed()')
         assert_selector 'summary', text: 'コメントなし'
         assert_not following_record.watch?
@@ -129,7 +129,7 @@ class FollowingRequestsTest < ApplicationSystemTestCase
   end
 
   def within_following(&)
-    within("details:has(button[data-user-id='#{users(:komagata).id}']), details#follow_details#{users(:komagata).id}", &)
+    within("turbo-frame#follow_details_#{users(:komagata).id}", &)
   end
 
   def open_following
@@ -149,18 +149,37 @@ class FollowingRequestsTest < ApplicationSystemTestCase
   end
 
   def intercept_following_requests
-    page.execute_script <<~JS
+    page.execute_script following_requests_script
+  end
+
+  def following_requests_script
+    <<~JS
       const originalFetch = window.fetch.bind(window)
       window.followingRequestMethods = []
-      window.fetch = (url, options) => {
-        if (!String(url).startsWith('/api/followings')) return originalFetch(url, options)
 
-        window.followingRequestMethods.push(options.method)
+      document.addEventListener('turbo:before-fetch-request', (event) => {
+        const url = new URL(event.detail.url, window.location.origin)
+        if (!url.pathname.startsWith('/followings')) return
+
+        const form = event.target.closest('form')
+        const formData = new FormData(form)
+        const method = formData.get('_method') || event.detail.fetchOptions.method
+        window.followingRequestMethods.push(method.toLowerCase())
+      })
+
+      window.fetch = (input, options = {}) => {
+        const url = input instanceof Request ? input.url : input
+        const pathname = new URL(url, window.location.origin).pathname
+
+        if (!pathname.startsWith('/followings')) {
+          return originalFetch(input, options)
+        }
+
         return new Promise((resolve, reject) => {
           window.pendingFollowingRequest = {
             fail: () => resolve(new Response(null, { status: 500 })),
             reject: () => reject(new TypeError('Failed to fetch')),
-            succeed: () => originalFetch(url, options).then(resolve, reject)
+            succeed: () => originalFetch(input, options).then(resolve, reject)
           }
         })
       }
