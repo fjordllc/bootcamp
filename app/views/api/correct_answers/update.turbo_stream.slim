@@ -1,0 +1,7 @@
+= turbo_stream.replace dom_id(@question, :solved_status) do
+  = render 'questions/solved_status', question: @question
+- @question.answers.each do |answer|
+  = turbo_stream.replace "answer_badge_#{answer.id}" do
+    = render 'questions/answer_badge', answer: answer
+  = turbo_stream.replace "answer_actions_#{answer.id}" do
+    = render 'questions/answer_actions', answer: answer, question: @question, user: current_user
