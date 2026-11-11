@@ -1,0 +1,22 @@
+<%# Run synchronously before async Google tags, rather than in a deferred module. %>
+<script>
+  if (typeof Promise === 'function' && typeof Promise.allSettled !== 'function') {
+    Object.defineProperty(Promise, 'allSettled', {
+      configurable: true,
+      writable: true,
+      value: function allSettled(iterable) {
+        var Constructor = this;
+        return new Constructor(function (resolve, reject) {
+          var promises = [];
+          for (var item of iterable) {
+            promises.push(Constructor.resolve(item).then(
+              function (value) { return { status: 'fulfilled', value: value }; },
+              function (reason) { return { status: 'rejected', reason: reason }; }
+            ));
+          }
+          Constructor.all(promises).then(resolve, reject);
+        });
+      }
+    });
+  }
+</script>
