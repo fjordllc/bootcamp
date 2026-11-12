@@ -1,0 +1,46 @@
+- title 'アクセストークンを発行しました'
+- access_token = @personal_access_token.access_token
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | アクセストークン
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to current_user_access_tokens_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | アクセストークン一覧
+  hr.a-border
+  .page-body
+    .container.is-md
+      .form
+        .form__items
+          .form__items-inner
+            .form-item
+              label.a-form-label(for='issued_access_token')
+                | アクセストークン
+              input.a-text-input#issued_access_token(type='text' readonly value=access_token.token)
+              .a-form-help
+                p
+                  | このトークンは今だけ表示されます。安全な場所に控えてから、この画面を閉じてください。
+                p
+                  | スコープ: #{access_token.scopes.to_a.join(' ')} ／ 有効期限: #{l access_token.expires_at}
+            .form-item
+              label.a-form-label
+                | 使い方
+              .a-form-help
+                p
+                  | APIのリクエストに
+                  code<> Authorization: Bearer アクセストークン
+                  | ヘッダーを付けてください。

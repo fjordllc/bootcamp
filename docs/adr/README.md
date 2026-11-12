@@ -35,3 +35,4 @@ ADR（Architecture Decision Record）は、何を決めたか、なぜそう決�
 | --- | --- | --- | --- |
 | 0001 | [設計判断をADRで記録する](0001-record-architecture-decisions.md) | 採用 | 2026-11-02 |
 | 0002 | [お知らせとイベント予定を認証付き読み取り専用APIで提供する](0002-read-only-announcement-event-api.md) | 提案中 | 2026-11-07 |
+| 0003 | [APIの利用に個人アクセストークンを発行する](0003-personal-access-tokens.md) | 提案中 | 2026-11-12 |

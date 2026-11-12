@@ -44,3 +44,20 @@ npm run lint:openapi
 - 各項目は `kind`、`id`、`title`、相対パスの `url`、発生回の `start_at` / `end_at`（ISO8601、Tokyoの `+09:00`）、`held` のみです。
 
 設計の理由は [ADR 0002](adr/0002-read-only-announcement-event-api.md) を参照してください。
+
+## 個人アクセストークン
+
+メンターと管理者は、ログイン後に `/current_user/access_tokens` で個人アクセストークンを発行できます。スクリプトなどからAPIを使う場合は、OAuthアプリケーションを作らずにこのトークンを利用できます。
+
+- `read` は常に付与されます。`write`・`mentor`・`admin` は発行時に選びます（`mentor` はメンターと管理者、`admin` は管理者のみ）。
+- 有効期限は30日・90日・365日から選びます。
+- トークンの値は発行直後の画面でだけ表示されます。不要になったトークンは同じ画面で失効させてください。
+
+```bash
+curl -X PATCH https://bootcamp.fjord.jp/api/practices/1.json \
+  -H "Authorization: Bearer $BOOTCAMP_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"practice": {"description": "更新する本文"}}'
+```
+
+判断の背景は[ADR 0003](adr/0003-personal-access-tokens.md)を参照してください。
