@@ -37,4 +37,15 @@ Doorkeeper.configure do
 
   # defalut_scopeとoptional_scopeで定義されたスコープのみ要求できるようになる
   enforce_configured_scopes
+
+  # 更新トークンの初回発行だけを専用の読み取りクライアントに許可する。
+  # 設定解除では既発行トークンは失効しないため、停止時は明示的に失効させる。
+  use_refresh_token do |context|
+    uid = ENV['BOOTCAMP_REFRESH_CLIENT_UID']
+    client = context.client
+
+    uid.present? && client&.confidential? && !client.mcp_client? && client.uid == uid &&
+      client.scopes.to_s == 'read' && context.scopes.to_s == 'read' &&
+      context.grant_type == 'authorization_code' && context.resource_owner.present?
+  end
 end
