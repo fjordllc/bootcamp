@@ -42,6 +42,27 @@ class ReportPresetsTest < ApplicationSystemTestCase
     assert_text 'template test hajime'
   end
 
+  test 'mention and emoji autocomplete works after applying a report template' do
+    visit_with_auth '/reports/new', 'hajime'
+    assert_selector '.js-report-content[data-tribute="true"]'
+
+    fill_in('report[description]', with: '')
+    click_button 'テンプレートを反映する'
+
+    assert_selector '.js-report-content[data-tribute="true"]'
+
+    fill_in_with_autocomplete(
+      '.js-report-content',
+      input_text: "メンションの補完テスト: @koma\n",
+      expected_value: 'メンションの補完テスト: @komagata '
+    )
+    fill_in_with_autocomplete(
+      '.js-report-content',
+      input_text: "絵文字の補完テスト: :cat\n",
+      expected_value: '絵文字の補完テスト: 😺 '
+    )
+  end
+
   test 'update button is disabled with no difference between edited & registered contents' do
     visit_with_auth '/reports/new', 'hajime'
     click_button 'テンプレート変更'

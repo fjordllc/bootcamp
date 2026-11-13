@@ -23,6 +23,7 @@ link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=true
 
 // Dev
 = render 'current_user'
+= render 'promise_all_settled' if Rails.env.production? && !staging?
 = render 'google_analytics' if Rails.env.production? && !staging?
 = render 'rollbar' if Rails.env.production?
 = render 'google_ads' if Rails.env.production? && !staging?
