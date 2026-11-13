@@ -44,3 +44,35 @@ npm run lint:openapi
 - 各項目は `kind`、`id`、`title`、相対パスの `url`、発生回の `start_at` / `end_at`（ISO8601、Tokyoの `+09:00`）、`held` のみです。
 
 設計の理由は [ADR 0002](adr/0002-read-only-announcement-event-api.md) を参照してください。
+
+## 専用の読み取り連携でのOAuth更新
+
+アクセストークンの有効期間は7200秒です。更新トークンの初回発行は既定で無効です。Classroomなど、サーバー側でclient secretを保管できる読み取り専用の連携に限り、次の条件をすべて満たすと初回発行を許可します。
+
+- Bootcamp側の環境変数`BOOTCAMP_REFRESH_CLIENT_UID`に、専用OAuth applicationのUIDを1つだけ設定する。空値、前後の空白、複数UIDの列挙は指定しない。
+- MCP用ではないapplicationをconfidentialにし、登録するscopeを`read`だけにする。
+- 利用者がauthorization codeフローで認可し、発行するトークンのscopeも`read`だけにする。
+
+UIDは完全一致で判定します。設定がない場合や一致しない場合、public client、MCP用application（UIDを指定した場合も含む）、client credentialsフロー、`write`・`mentor`・`admin`を含むapplicationや認可には更新トークンを発行しません。既存の共用クライアントやドキュメント保守用クライアントを指定せず、専用クライアントを用意してください。
+
+### 更新と失効
+
+`POST /oauth/token`に`grant_type=refresh_token`、現在の`refresh_token`、`client_id`、`client_secret`をフォーム形式で送ります。scopeは省略して元の`read`を引き継ぎます。scopeの拡大は拒否され、更新後もアクセストークンの有効期間は7200秒です。アクセストークンが期限切れになっても、失効していない更新トークンは更新に使えます。
+
+Doorkeeper 5.8.2と現在のスキーマでは、更新のたびに新しいアクセストークンと更新トークンを発行します。旧トークンは更新した時点では失効せず、**新しいアクセストークンがAPIで初めて認証された時点**で、対応する旧アクセス・更新トークンが失効します。それまでは旧更新トークンの再送も成功します。更新を直列化し、新しいトークンの組を安全に保存してから使用し、以降は新しい更新トークンだけを使ってください。更新トークン自体に固定の有効期限はありません。
+
+停止・漏えい時は、client credentials付きで`POST /oauth/revoke`へ`token=<refresh_token>`と`token_type_hint=refresh_token`を送り、対象トークンを明示的に失効させます。失効した更新トークンは`invalid_grant`で拒否されます。再送や複数の認可により有効なトークンが複数残っている場合は、停止対象のapplicationに属する有効なトークンをすべて失効させてください。1件の失効が他の更新系列にも伝播するとは限りません。
+
+失効には利用者のブラウザーセッションは不要です。別クライアントの資格情報による失効は403で拒否し、対象のトークンは失効しません。有効なclient credentialsで存在しないトークンを送った場合は、Doorkeeper標準のRFC 7009の応答として200と空のJSONオブジェクトを返します。既存の`McpOauth::TokensController`はSorceryのブラウザー活動記録だけを除外し、トークンの認証・失効処理はDoorkeeperに任せます。
+
+`BOOTCAMP_REFRESH_CLIENT_UID`の削除・変更で止まるのは**新規発行だけ**です。すでに発行した更新トークンの更新はDoorkeeper標準の処理が続けます。連携を止めるときは、先に対象トークンをすべて失効させ、その後に環境変数やクライアント設定を解除してください。
+
+### 有効化前の確認
+
+デプロイと有効化は、それぞれ別途承認を得てから行います。
+
+本番で有効化する際は、Cloud Buildの本番トリガーの置換変数`_BOOTCAMP_REFRESH_CLIENT_UID`に、同じ専用の読み取り専用クライアントのUIDを設定します。既存の`.cloudbuild/cloud-build-env`が先頭の`_`を除いて`BOOTCAMP_REFRESH_CLIENT_UID`として出力するため、パイプラインの変更は不要です。デプロイは生成した環境変数ファイルを`--env-vars-file`で渡して環境変数を置き換えるため、Cloud Runサービスだけに`--update-env-vars`で設定しても次回デプロイで失われます。未設定・空値では更新トークンを新規発行しません。非本番環境は、別途承認されるまでこの設定を未設定のままにします。
+
+この機能には、Bootcamp側へのコードのデプロイと環境変数の反映が必要です。その後、専用クライアントで利用者の認可を新しく取得してください。既発行のアクセストークンに更新トークンが追加されることはありません。連携側でclient secret・トークンの安全な保存、更新の直列化、更新後の保存とAPI呼び出し、失効手順を確認してから運用を始めます。この変更だけではデプロイ、クライアント作成、認可、環境変数の設定は行いません。
+
+判断の背景は[読み取り専用OAuthクライアントに更新トークンを限定するADR](adr/0004-limit-oauth-refresh-to-opted-in-read-client.md)を参照してください。
