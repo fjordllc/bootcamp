@@ -40,4 +40,7 @@ ul.card-list.a-card
                   .card-list-item-meta__item
                     .a-meta
                       = comment_count(event)
+        .card-list-item__thumbnail
+          = link_to event, class: 'card-list-item__thumbnail-inner' do
+            = image_tag event.thumbnail_url, class: 'card-list-item__thumbnail-image', alt: event.title
 = paginate @events
