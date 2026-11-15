@@ -1,5 +1,7 @@
 class ChangeCommentsDescriptionToNotNull < ActiveRecord::Migration[8.1]
   def up
+    Comment.where(description: nil).update_all(description: "")
+
     execute <<~SQL
       ALTER TABLE comments
       ADD CONSTRAINT comments_description_to_not_null
