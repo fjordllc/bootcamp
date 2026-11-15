@@ -3,6 +3,44 @@
 require 'test_helper'
 
 class ReportsControllerTest < ActionDispatch::IntegrationTest
+  test 'creates report after removing null bytes from title and description' do
+    assert_difference -> { users(:kimura).reports.count }, 1 do
+      post reports_path(_login_name: 'kimura'), params: {
+        report: {
+          title: "NULL\u0000バイトを含むタイトル",
+          description: "NULL\u0000バイトを含む本文",
+          reported_on: Date.current.to_s,
+          emotion: 'positive',
+          no_learn: '1'
+        }
+      }
+    end
+
+    report = users(:kimura).reports.find_by!(reported_on: Date.current)
+    assert_redirected_to report_path(report)
+    assert_equal 'NULLバイトを含むタイトル', report.title
+    assert_equal 'NULLバイトを含む本文', report.description
+  end
+
+  test 'updates report after removing null bytes from title and description' do
+    report = reports(:report24)
+
+    patch report_path(report, _login_name: 'kimura'), params: {
+      report: {
+        title: "更新した\u0000タイトル",
+        description: "更新した\u0000本文",
+        reported_on: report.reported_on.to_s,
+        emotion: report.emotion,
+        no_learn: '1'
+      }
+    }
+
+    assert_redirected_to report_path(report)
+    report.reload
+    assert_equal '更新したタイトル', report.title
+    assert_equal '更新した本文', report.description
+  end
+
   test 'mentor can manually create report comment by Pjord' do
     report = reports(:report5)
     report.user.update_column(:pjord_comment, false) # rubocop:disable Rails/SkipsModelValidations

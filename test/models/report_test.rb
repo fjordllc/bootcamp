@@ -62,6 +62,46 @@ class ReportTest < ActiveSupport::TestCase
     assert_includes duplicate_report.errors.full_messages, '学習日はすでに存在します'
   end
 
+  test 'removes null bytes from title and description and saves' do
+    report = Report.new(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: "NULL\u0000バイトを含む\u0000タイトル",
+      description: "NULL\u0000バイトを含む\u0000本文"
+    )
+
+    assert report.save_uniquely
+    report.reload
+    assert_equal 'NULLバイトを含むタイトル', report.title
+    assert_equal 'NULLバイトを含む本文', report.description
+  end
+
+  test 'removes null bytes from title and description on update' do
+    report = Report.create!(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: '更新前のタイトル',
+      description: '更新前の本文'
+    )
+
+    assert report.update(title: "更新した\u0000タイトル", description: "更新した\u0000本文")
+    report.reload
+    assert_equal '更新したタイトル', report.title
+    assert_equal '更新した本文', report.description
+  end
+
+  test 'title consisting only of null bytes is treated as blank' do
+    report = Report.new(
+      user: users(:komagata),
+      reported_on: Time.zone.today,
+      title: "\u0000",
+      description: 'report本文'
+    )
+
+    assert_not report.save_uniquely
+    assert report.errors.of_kind?(:title, :blank)
+  end
+
   test 'unchecked scope returns reports without checks' do
     unchecked_report = Report.create!(
       user: users(:kimura),
