@@ -21,8 +21,8 @@ class ChangeCommentsDescriptionToNotNull < ActiveRecord::Migration[8.1]
     SQL
   end
 
-    def down
-      change_column_null :comments, :description, true
-    end
+  def down
+    change_column_null :comments, :description, true
+  end
 
 end
