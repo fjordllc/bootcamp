@@ -24,4 +24,5 @@ html.is-lp lang='ja'
           = yield
       hr.a-border
       = render 'shared/not_logged_in_footer'
+    = yield :hatena_bookmark_button_script
     = any_login_here if defined?(AnyLogin)
