@@ -3,6 +3,15 @@
 require 'test_helper'
 
 class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
+  setup do
+    @original_cache = Rails.cache
+    Rails.cache = ActiveSupport::Cache::MemoryStore.new
+  end
+
+  teardown do
+    Rails.cache = @original_cache
+  end
+
   test "cached count of a mentor's unreplied products increases by 1 after the mentor gets assigned to a product" do
     mentor_id = users(:machida).id
     unassigned_product = Product.not_wip.unassigned.first
@@ -61,5 +70,21 @@ class SelfAssignedNoRepliedProductCountOfEachUserTest < ActiveSupport::TestCase
       # 「担当が返信済み」の提出物を「担当が未返信」の状態にする
       latest_comment_from_mentor.destroy!
     end
+  end
+
+  test "cached count of a mentor's unreplied products is refreshed after deleting cache" do
+    mentor_id = users(:machida).id
+    initial_count = Cache.self_assigned_no_replied_product_count(mentor_id)
+    unassigned_product = Product.not_wip.unassigned.first
+
+    # rubocop:disable Rails/SkipsModelValidations
+    Product.where(id: unassigned_product.id).update_all(checker_id: mentor_id)
+    # rubocop:enable Rails/SkipsModelValidations
+
+    assert_equal initial_count, Cache.self_assigned_no_replied_product_count(mentor_id)
+
+    Cache.delete_self_assigned_no_replied_product_count(mentor_id)
+
+    assert_equal initial_count + 1, Cache.self_assigned_no_replied_product_count(mentor_id)
   end
 end
