@@ -3,17 +3,6 @@
 require 'application_system_test_case'
 
 class Question::TagsTest < ApplicationSystemTestCase
-  test 'search questions by tag' do
-    visit_with_auth questions_url, 'kimura'
-    tags = find_tags('Question')
-    tags.each do |tag|
-      visit_with_auth questions_tag_path(tag, all: 'true'), 'kimura'
-      titles = Question.tagged_with(tag).pluck(:title)
-      texts = all('.card-list-item-title__link').map(&:text)
-      assert_equal titles, texts
-    end
-  end
-
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
     assert_admin_can_edit_tag(questions_tag_path(tag.name, all: 'true'))

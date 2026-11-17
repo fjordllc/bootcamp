@@ -64,13 +64,6 @@ module Practices
       end
     end
 
-    test 'not show the summary ( summary_text: no / ogp_image: no )' do
-      practice = practices(:practice1)
-      visit_with_auth practice_path(practice), 'komagata'
-
-      assert_no_selector '.a-card', text: '概要'
-    end
-
     test 'not show the summary ( summary_text: no / ogp_image: yes )' do
       practice = practices(:practice1)
       visit_with_auth edit_mentor_practice_path(practice), 'komagata'

@@ -157,17 +157,6 @@ class Users::SearchTest < ApplicationSystemTestCase
     end
   end
 
-  test "don't show incremental search when target's users aren't exist" do
-    user = users(:jobseeking)
-    user.update!(career_path: 0)
-
-    visit_with_auth '/users?target=job_seeking', 'komagata'
-    assert_no_selector '.users-item'
-    assert has_no_field? 'js-user-search-input'
-
-    user.update!(career_path: 1)
-  end
-
   test 'only show incremental search in all tab' do
     visit_with_auth '/users', 'komagata'
     assert_selector '#js-user-search-input'

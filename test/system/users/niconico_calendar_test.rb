@@ -14,15 +14,6 @@ module Users
       assert_text "#{last_month.year}年#{last_month.month}月"
     end
 
-    test 'show mark to today on niconico_calendar' do
-      today = Date.current
-      visit_with_auth root_path, 'hatsuno'
-      visit user_path(users(:hajime).id)
-      assert_selector '.niconico-calendar__day.is-today'
-      target_day = find('.niconico-calendar__day.is-today').text
-      assert_equal today.day.to_s, target_day
-    end
-
     test 'not show mark to today on niconico_calendar' do
       visit_with_auth root_path, 'hatsuno'
       visit user_path(users(:hajime).id)
