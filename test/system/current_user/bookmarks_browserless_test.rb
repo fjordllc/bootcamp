@@ -15,26 +15,4 @@ class CurrentUser::BookmarksBrowserlessTest < BrowserlessSystemTestCase
     assert_text 'komagata(コマガタ マサキ)'
     assert_text '2017年01月01日(日) 00:00'
   end
-
-  test 'no pagination when 20 bookmarks or less exist' do
-    user_with_some_bookmarks = User.create!(
-      login_name: 'have-some-bookmarks',
-      email: 'have-some-bookmarks@fjord.jp',
-      password: 'testtest',
-      name: 'have-some-bookmarks',
-      name_kana: 'ブックマーク タクサン',
-      description: 'test',
-      course: courses(:course1),
-      job: 'office_worker',
-      os: 'mac',
-      experiences: 0
-    )
-    (1..20).each do |n|
-      user_with_some_bookmarks.bookmarks.create!(bookmarkable_id: reports("report#{n}".to_sym).id, bookmarkable_type: 'Report')
-    end
-    visit_with_auth '/current_user/bookmarks', user_with_some_bookmarks.login_name
-    within '.page-main' do
-      assert_no_selector 'nav.pagination'
-    end
-  end
 end

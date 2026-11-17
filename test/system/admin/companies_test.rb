@@ -48,6 +48,12 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     assert_equal 2, page.all('.pagination__item-link.is-active', text: '1').count
   end
 
+  test 'no pagination when 20 companies or less exist' do
+    Company.where.not(description: 'このデータはページャーの確認用').destroy_all
+    visit_with_auth '/admin/companies', 'komagata'
+    assert_no_selector 'nav.pagination'
+  end
+
   test 'companies are ordered by created_at desc' do
     visit_with_auth '/admin/companies', 'komagata'
     within all('.admin-table__item')[0] do

@@ -106,6 +106,12 @@ module Home
       assert_no_link '活動時間を登録してください。', href: '/current_user/edit'
     end
 
+    test 'not show message of after_graduation_hope for graduated user' do
+      visit_with_auth '/', 'sotugyou'
+      assert_selector 'h2.page-header__title', text: 'ダッシュボード'
+      assert_no_text 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。'
+    end
+
     test 'not show messages of required field' do
       user = users(:hatsuno)
       # hatsuno の未入力項目を登録
