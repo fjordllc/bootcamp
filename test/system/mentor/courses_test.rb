@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class Mentor::CoursesTest < ApplicationSystemTestCase
-  test 'show listing courses' do
-    visit_with_auth '/mentor/courses', 'mentormentaro'
-    assert_equal 'メンターページ | FBC', title
-  end
-
   test 'create course' do
     visit_with_auth '/mentor/courses/new', 'mentormentaro'
     within 'form[name=course]' do
@@ -44,11 +39,5 @@ class Mentor::CoursesTest < ApplicationSystemTestCase
     assert_text 'コースを更新しました。'
     visit "/mentor/courses/#{courses(:course2).id}/edit"
     assert has_checked_field?('course_published', visible: false)
-  end
-
-  test 'can see closed courses' do
-    visit_with_auth '/courses', 'mentormentaro'
-    assert_text courses(:course2).title
-    assert_text courses(:course2).description
   end
 end

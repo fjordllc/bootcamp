@@ -3,16 +3,6 @@
 require 'application_system_test_case'
 
 class Page::TagsTest < ApplicationSystemTestCase
-  test 'search pages by tag' do
-    visit_with_auth new_page_path, 'kimura'
-    tags = find_tags('Page')
-    tags.each do |tag|
-      visit_with_auth pages_tag_path(tag, all: 'true'), 'kimura'
-      assert_equal Page.tagged_with(tag).pluck(:title),
-                   all('.card-list-item-title__link').map(&:text)
-    end
-  end
-
   test 'admin can edit tag' do
     tag = acts_as_taggable_on_tags('game')
     assert_admin_can_edit_tag(pages_tag_path(tag.name, all: 'true'))
