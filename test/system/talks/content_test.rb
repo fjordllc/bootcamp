@@ -52,5 +52,10 @@ module Talks
       page.find('#side-tabs-nav-2').click
       assert_text '日報はまだありません。'
     end
+
+    test 'display company-logo in consultation room when user is trainee' do
+      visit_with_auth "/talks/#{talks(:talk11).id}", 'kensyu'
+      assert_selector 'img[class="page-content-header__company-logo-image"]'
+    end
   end
 end

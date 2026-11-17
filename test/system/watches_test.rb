@@ -87,4 +87,10 @@ class WatchesTest < ApplicationSystemTestCase
     assert_text 'OS X Mountain Lionをクリーンインストールする'
     assert_no_text '作業週1日目'
   end
+
+  test 'the Watch button is displayed on a movie page' do
+    visit_with_auth "/movies/#{movies(:movie1).id}", 'komagata'
+    assert_selector '.watch-toggle'
+    assert_text 'Watch'
+  end
 end

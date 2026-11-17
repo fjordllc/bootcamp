@@ -23,4 +23,9 @@ class MentorModeTest < ApplicationSystemTestCase
     page.execute_script("document.querySelector('#checkbox-mentor-mode').click()")
     assert_no_text '内容が難しかった'
   end
+
+  test "student don't show mentor-user-memo" do
+    visit_with_auth user_path(users(:hatsuno)), 'kimura'
+    assert_no_text 'ユーザーメモ'
+  end
 end

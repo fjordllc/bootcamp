@@ -24,6 +24,18 @@ class TalksTest < ApplicationSystemTestCase
     assert_text '卒業済'
   end
 
+  test 'admin can see tabs on user talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'komagata'
+    assert_selector '.page-tabs'
+  end
+
+  test 'non-admin user cannot see tabs on user talk page' do
+    user = users(:kimura)
+    visit_with_auth "/talks/#{user.talk.id}", 'kimura'
+    assert_no_selector '.page-tabs'
+  end
+
   test 'upload PDF to talk comment' do
     user = users(:kimura)
     visit_with_auth "/talks/#{user.talk.id}", 'kimura'

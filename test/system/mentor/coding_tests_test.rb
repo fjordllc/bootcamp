@@ -3,6 +3,11 @@
 require 'application_system_test_case'
 
 class Mentor::CodingTestsTest < ApplicationSystemTestCase
+  test 'show listing coding_tests' do
+    visit_with_auth '/mentor/coding_tests', 'mentormentaro'
+    assert_equal 'コーディングテスト | FBC', title
+  end
+
   test 'create a coding_test' do
     visit_with_auth '/mentor/coding_tests/new', 'mentormentaro'
     within 'form[name=coding_test]' do

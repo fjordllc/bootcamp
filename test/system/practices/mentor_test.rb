@@ -284,6 +284,11 @@ module Practices
       assert_selector 'img'
     end
 
+    test 'show setting for completed percentage' do
+      visit_with_auth '/mentor/practices/new', 'komagata'
+      assert_text '進捗の計算'
+    end
+
     test 'update practice in the role of mentor' do
       practice = practices(:practice2)
       visit_with_auth "/mentor/practices/#{practice.id}/edit", 'mentormentaro'

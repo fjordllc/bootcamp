@@ -3,6 +3,11 @@
 require 'application_system_test_case'
 
 class User::ReportsTest < ApplicationSystemTestCase
+  test 'show listing reports' do
+    visit_with_auth "/users/#{users(:hatsuno).id}/reports", 'hatsuno'
+    assert_equal 'hatsuno 日報 | FBC', title
+  end
+
   test 'can use select box to filter user reports by practice' do
     visit_with_auth "/users/#{users(:hajime).id}/reports", 'kimura'
 
@@ -19,5 +24,10 @@ class User::ReportsTest < ApplicationSystemTestCase
     assert_equal expected_reports.count, displayed_reports_count
 
     assert_text expected_reports.first.title
+  end
+
+  test 'cannot access other users download reports' do
+    visit_with_auth "/users/#{users(:hatsuno).id}/reports.md", 'kimura'
+    assert_text '自分以外の日報はダウンロードすることができません'
   end
 end

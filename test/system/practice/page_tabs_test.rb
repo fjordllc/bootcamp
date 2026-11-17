@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'browserless_system_test_case'
+require 'application_system_test_case'
 
-class Practice::PageTabsTest < BrowserlessSystemTestCase
+class Practice::PageTabsTest < ApplicationSystemTestCase
   test 'hide empty submissions tab' do
     practice = practices(:practice4)
     visit_with_auth practice_path(practice), 'komagata'
