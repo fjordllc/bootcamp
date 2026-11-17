@@ -32,7 +32,7 @@ module Practices
 
       assert_text 'このプラクティスはスキップしてください。'
 
-      assert_no_selector 'label#js-complete'
+      assert_no_selector 'button#js-complete'
     end
   end
 end
