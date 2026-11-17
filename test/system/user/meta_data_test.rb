@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'browserless_system_test_case'
+require 'application_system_test_case'
 
-class User::MetaDataTest < BrowserlessSystemTestCase
+class User::MetaDataTest < ApplicationSystemTestCase
   test 'show progress percentage and click to check the number of completions' do
     user = users(:harikirio)
     user.completed_practices = []

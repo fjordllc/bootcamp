@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'browserless_system_test_case'
+require 'application_system_test_case'
 
-class Course::PracticesTest < BrowserlessSystemTestCase
+class Course::PracticesTest < ApplicationSystemTestCase
   test 'show the course book list page' do
     visit_with_auth "/courses/#{courses(:course1).id}/books", 'kimura'
     assert_equal 'Railsエンジニアコースの参考書籍 | FBC', title
