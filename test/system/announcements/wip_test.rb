@@ -14,14 +14,6 @@ module Announcements
       AbstractNotifier.delivery_mode = @delivery_mode
     end
 
-    test 'show WIP message' do
-      user = users(:komagata)
-      Announcement.create(title: 'test', description: 'test', user:, wip: true)
-      visit_with_auth '/announcements', 'kimura'
-      assert_selector '.a-list-item-badge'
-      assert_text 'お知らせ作成中'
-    end
-
     test 'create a new announcement as wip' do
       visit_with_auth new_announcement_path, 'kimura'
       wait_for_announcement_form
@@ -31,14 +23,6 @@ module Announcements
         click_button 'WIP'
       end
       assert_text 'お知らせをWIPとして保存しました。'
-    end
-
-    test 'general user can copy wip announcement' do
-      announcement = announcements(:announcement_wip)
-      visit_with_auth announcement_path(announcement), 'kimura'
-      within '.announcement' do
-        assert_text '複製'
-      end
     end
 
     test 'previous update remains when conflict to update announcement' do

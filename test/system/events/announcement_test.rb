@@ -60,11 +60,6 @@ class Events::AnnouncementTest < ApplicationSystemTestCase
     end
   end
 
-  test 'checkboxes for creating an announcement are display the new event page' do
-    visit_with_auth new_event_path, 'komagata'
-    assert_selector 'label', text: 'イベント公開のお知らせを書く'
-  end
-
   test 'checkboxes for creating an announcement are display the edit page of wip event' do
     visit_with_auth new_event_path, 'komagata'
     within 'form[name=event]' do

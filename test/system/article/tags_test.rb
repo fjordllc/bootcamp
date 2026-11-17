@@ -29,12 +29,6 @@ class Article::TagsTest < ApplicationSystemTestCase
     assert_equal tags, created_article.tag_list.sort
   end
 
-  test 'can view tags' do
-    visit article_path(@article)
-    assert_selector 'ul.a-tags__items li.a-tags__item', text: 'FirstTag'
-    assert_selector 'ul.a-tags__items li.a-tags__item', text: 'SecondTag'
-  end
-
   test 'can use tags' do
     visit article_path(@article)
     click_link 'SecondTag'

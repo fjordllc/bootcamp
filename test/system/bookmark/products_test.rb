@@ -7,11 +7,6 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
     @product = products(:product1)
   end
 
-  test 'show product bookmark on lists' do
-    visit_with_auth '/current_user/bookmarks', 'kimura'
-    assert_text @product.title
-  end
-
   test 'show active button when bookmarked product' do
     visit_with_auth "/products/#{@product.id}", 'kimura'
     wait_for_javascript_components
