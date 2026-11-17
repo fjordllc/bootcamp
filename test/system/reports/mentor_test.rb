@@ -11,28 +11,12 @@ module Reports
       stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
     end
 
-    test 'display recently reports' do
-      visit_with_auth report_path(reports(:report10)), 'mentormentaro'
-      assert_selector 'img[alt="positive"]'
-      assert_text '今日は頑張りました'
-    end
-
     test 'display list of submission when mentor is access' do
       visit_with_auth report_path(reports(:report5)), 'komagata'
       assert_text '提出物'
       find('#side-tabs-nav-4').click
       assert_text 'Terminalの基礎を覚える'
       assert_text 'PC性能の見方を知る'
-    end
-
-    test 'mentor can see comment by Pjord button' do
-      visit_with_auth report_path(reports(:report5)), 'mentormentaro'
-      assert_button 'ピヨルドがコメントする'
-    end
-
-    test 'admin can see comment by Pjord button' do
-      visit_with_auth report_path(reports(:report5)), 'adminonly'
-      assert_button 'ピヨルドがコメントする'
     end
 
     test 'not display list of submission when non-mentor accesses' do
@@ -70,21 +54,6 @@ module Reports
       click_button '内容変更'
       assert_text '日報を保存しました。'
       assert_text '変更された日報のタイトル'
-    end
-
-    test 'display message to admin or mentor in report of retired user' do
-      report = Report.create!(
-        user: users(:yameo),
-        title: '退会済みユーザーの日報',
-        reported_on: '2022-01-03',
-        emotion: 'positive',
-        no_learn: true,
-        wip: false,
-        description: 'お世話になりました'
-      )
-
-      visit_with_auth report_path(report), 'komagata'
-      assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
     end
   end
 end

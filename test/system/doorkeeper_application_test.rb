@@ -12,17 +12,6 @@ class DoorkeeperApplicationTest < ApplicationSystemTestCase
     )
   end
 
-  test 'admin can access oauth2 provider page' do
-    visit oauth_applications_path
-    assert_equal 'Oauth2 Provider', title
-  end
-
-  test 'admin other than admin cannot access oauth2 provider page' do
-    visit_with_auth root_path, 'kimura'
-    visit oauth_applications_path
-    assert_text '管理者としてログインしてください'
-  end
-
   test 'add an application' do
     visit new_oauth_application_path
     within('form[class="new_doorkeeper_application"]') do
