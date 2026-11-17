@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Reports
-  class NavigationTest < ApplicationSystemTestCase
+  class NavigationTest < BrowserlessSystemTestCase
     test 'previous report' do
       visit_with_auth "/reports/#{reports(:report2).id}", 'komagata'
       click_link '前の日報'

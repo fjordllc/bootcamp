@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class CodingTestsTest < ApplicationSystemTestCase
+class CodingTestsTest < BrowserlessSystemTestCase
   setup do
     @coding_test = coding_tests(:coding_test1)
     @practice = @coding_test.practice

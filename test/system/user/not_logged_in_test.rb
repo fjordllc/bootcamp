@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class User::NotLoggedInTest < ApplicationSystemTestCase
+class User::NotLoggedInTest < BrowserlessSystemTestCase
   test 'appropriate meta description is displayed when accessed by non-logged-in user' do
     target_user = users(:kimura)
     visit user_path(target_user)

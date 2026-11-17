@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Admin::InquiriesTest < ApplicationSystemTestCase
+class Admin::InquiriesTest < BrowserlessSystemTestCase
   test 'show listing inquiries' do
     visit_with_auth '/admin/inquiries', 'komagata'
     assert_equal 'お問い合わせ一覧 | FBC', title

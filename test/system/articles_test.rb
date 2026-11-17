@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class ArticlesTest < ApplicationSystemTestCase
+class ArticlesTest < BrowserlessSystemTestCase
   setup do
     @article = articles(:article1)
     @article2 = articles(:article2)

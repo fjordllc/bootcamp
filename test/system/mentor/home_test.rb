@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Mentor::HomeTest < ApplicationSystemTestCase
+class Mentor::HomeTest < BrowserlessSystemTestCase
   test 'GET /mentor' do
     visit_with_auth '/mentor', 'komagata'
     assert_equal 'メンターページ | FBC', title

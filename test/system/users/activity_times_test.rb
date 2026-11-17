@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Users::ActivityTimesTest < ApplicationSystemTestCase
+class Users::ActivityTimesTest < BrowserlessSystemTestCase
   setup do
     kimura = users(:kimura)
     sunday_twenty_one = learning_time_frames(:sun21)

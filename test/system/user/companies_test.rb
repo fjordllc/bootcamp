@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class User::CompaniesTest < ApplicationSystemTestCase
+class User::CompaniesTest < BrowserlessSystemTestCase
   test 'show companies with users' do
     visit_with_auth '/users/companies', 'komagata'
     assert_equal '企業別ユーザー一覧 | FBC', title

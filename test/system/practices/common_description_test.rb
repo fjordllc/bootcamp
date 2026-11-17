@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Practices
-  class CommonDescriptionTest < ApplicationSystemTestCase
+  class CommonDescriptionTest < BrowserlessSystemTestCase
     test 'show common description on each page' do
       visit_with_auth "/practices/#{practices(:practice1).id}", 'hajime'
       assert_text '困った時は'

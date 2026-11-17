@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Users
-  class ActivityTest < ApplicationSystemTestCase
+  class ActivityTest < BrowserlessSystemTestCase
     test 'show last active date and time of access user only to mentors' do
       travel_to Time.zone.local(2014, 1, 1, 0, 0, 0) do
         visit_with_auth login_path, 'kimura'

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class User::CoursesTest < ApplicationSystemTestCase
+class User::CoursesTest < BrowserlessSystemTestCase
   test 'show users index by course' do
     visit_with_auth '/users/courses', 'komagata'
     assert_equal 'コース別ユーザー一覧 | FBC', title

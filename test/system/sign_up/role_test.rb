@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 require 'supports/registration_invitation_helper'
 
 module SignUp
-  class RoleTest < ApplicationSystemTestCase
+  class RoleTest < BrowserlessSystemTestCase
     include RegistrationInvitationHelper
 
     setup do

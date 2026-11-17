@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Company::UsersTest < ApplicationSystemTestCase
+class Company::UsersTest < BrowserlessSystemTestCase
   test 'show users' do
     visit_with_auth "/companies/#{companies(:company1).id}/users", 'kimura'
     assert_equal 'Lokka Inc.所属ユーザー | FBC', title
