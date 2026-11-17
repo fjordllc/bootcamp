@@ -21,7 +21,7 @@ class Admin::InvitationUrlTest < ApplicationSystemTestCase
          document.querySelector('.js-invitation-url')?.getAttribute('href')]
       JS
       query = Rack::Utils.parse_query(URI.parse(value.to_s).query)
-      unless value.present? && value == href && query.except('token') == expected && RegistrationInvitation.verify(query['token']) == expected
+      unless value.present? && value == href && query.except('token') == expected && RegistrationInvitation.verify(query['token']).claims == expected
         raise Capybara::ElementNotFound, 'Waiting for an invitation signed for the current selections'
       end
     end
