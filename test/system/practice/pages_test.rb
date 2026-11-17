@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Practice::PagesTest < ApplicationSystemTestCase
+class Practice::PagesTest < BrowserlessSystemTestCase
   test 'show listing pages' do
     visit_with_auth "/practices/#{practices(:practice1).id}/pages", 'hatsuno'
     assert_equal 'OS X Mountain Lionをクリーンインストールするに関するDocs | FBC', title

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Talks
-  class UserListTest < ApplicationSystemTestCase
+  class UserListTest < BrowserlessSystemTestCase
     test 'a list of current students is displayed' do
       user = users(:hajime)
       decorated_user = ActiveDecorator::Decorator.instance.decorate(user)

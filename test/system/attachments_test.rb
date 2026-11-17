@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class AttachmentsTest < ApplicationSystemTestCase
+class AttachmentsTest < BrowserlessSystemTestCase
   test 'attachment user avatar' do
     user = users(:komagata)
     reset_avatar(user)

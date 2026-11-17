@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class PressKitTest < ApplicationSystemTestCase
+class PressKitTest < BrowserlessSystemTestCase
   test 'show listing press kit' do
     visit press_kit_url
     expected_title = 'プレスキット | FJORD BOOT CAMP（フィヨルドブートキャンプ）'

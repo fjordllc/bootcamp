@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class ReportsPracticeFilterTest < ApplicationSystemTestCase
+class ReportsPracticeFilterTest < BrowserlessSystemTestCase
   setup do
     @user = users(:kimura)
     @practice1 = practices(:practice1)

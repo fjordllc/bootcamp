@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 require 'supports/mock_helper'
 
 module Questions
-  class MetaTagsTest < ApplicationSystemTestCase
+  class MetaTagsTest < BrowserlessSystemTestCase
     include MockHelper
 
     setup do

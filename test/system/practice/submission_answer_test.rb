@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Practice::SubmissionAnswerTest < ApplicationSystemTestCase
+class Practice::SubmissionAnswerTest < BrowserlessSystemTestCase
   setup do
     @practice = practices(:practice1)
   end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Admin::EmbeddingStatusTest < ApplicationSystemTestCase
+class Admin::EmbeddingStatusTest < BrowserlessSystemTestCase
   test 'admin can view embedding status page' do
     visit_with_auth admin_embedding_status_index_path, 'komagata'
     assert_text 'Embedding'

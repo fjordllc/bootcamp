@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class User::EventsTest < ApplicationSystemTestCase
+class User::EventsTest < BrowserlessSystemTestCase
   test 'shows the event listing for a user' do
     visit_with_auth "/users/#{users(:komagata).id}/events", 'komagata'
     assert_equal 'komagataのイベント一覧 | FBC', title

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Product::UnconfirmedLinksOpenTest < ApplicationSystemTestCase
+class Product::UnconfirmedLinksOpenTest < BrowserlessSystemTestCase
   setup do
     @mentor = users(:komagata)
     @student1 = users(:hatsuno)

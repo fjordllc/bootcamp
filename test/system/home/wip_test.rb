@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Home
-  class WipTest < ApplicationSystemTestCase
+  class WipTest < BrowserlessSystemTestCase
     test "show my wip's announcement on dashboard" do
       visit_with_auth '/', 'komagata'
       assert_text 'WIPで保存中'

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Talks
-  class AccessTest < ApplicationSystemTestCase
+  class AccessTest < BrowserlessSystemTestCase
     test 'admin can access talks page' do
       visit_with_auth '/talks', 'komagata'
       assert_equal '相談部屋 | FBC', title

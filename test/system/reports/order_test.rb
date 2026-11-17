@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Reports
-  class OrderTest < ApplicationSystemTestCase
+  class OrderTest < BrowserlessSystemTestCase
     test 'reports are ordered in descending of reported_on' do
       visit_with_auth reports_path, 'kimura'
       precede = reports(:report15).title

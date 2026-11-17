@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class CorporateTrainingInquirySystemTest < ApplicationSystemTestCase
+class CorporateTrainingInquirySystemTest < BrowserlessSystemTestCase
   setup do
     @site_key = Recaptcha.configuration.site_key
     @secret_key = Recaptcha.configuration.secret_key

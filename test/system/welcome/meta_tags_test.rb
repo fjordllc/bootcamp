@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Welcome
-  class MetaTagsTest < ApplicationSystemTestCase
+  class MetaTagsTest < BrowserlessSystemTestCase
     test 'GET /welcome' do
       visit '/welcome'
       assert_equal 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
