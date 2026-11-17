@@ -3,16 +3,6 @@
 require 'browserless_system_test_case'
 
 class User::MemoBrowserlessTest < BrowserlessSystemTestCase
-  test 'admin can see memo' do
-    visit_with_auth user_path(users(:hatsuno)), 'komagata'
-    assert_text 'メンター向けユーザーメモ'
-  end
-
-  test 'mentor can see memo' do
-    visit_with_auth user_path(users(:hatsuno)), 'mentormentaro'
-    assert_text 'メンター向けユーザーメモ'
-  end
-
   test 'adviser can’t see memo' do
     visit_with_auth user_path(users(:hatsuno)), 'advijirou'
     assert_no_text 'メンター向けユーザーメモ'

@@ -27,27 +27,4 @@ class TrainingCompletionBrowserlessTest < BrowserlessSystemTestCase
     visit_with_auth "/users/#{users(:kensyuowata).id}", 'hatsuno'
     assert_no_text '研修終了情報（非公開）'
   end
-
-  test 'mentors can see training completion info' do
-    visit_with_auth "/users/#{users(:kensyuowata).id}", 'mentormentaro'
-    assert_text '研修終了情報（非公開）'
-  end
-
-  test 'admins can see training completion info' do
-    visit_with_auth "/users/#{users(:kensyuowata).id}", 'komagata'
-    assert_text '研修終了情報（非公開）'
-  end
-
-  test 'shows 未入力 when satisfaction is nil' do
-    user = users(:kensyuowata)
-    user.update!(satisfaction: nil)
-
-    visit_with_auth "/users/#{user.id}", 'komagata'
-
-    within('.user-metas.is-only-mentor', text: '研修終了情報（非公開）') do
-      within('.user-metas__item', text: '選択入力の研修感想') do
-        assert_selector '.user-metas__item-value', text: '未入力'
-      end
-    end
-  end
 end

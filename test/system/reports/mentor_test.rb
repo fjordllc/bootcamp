@@ -19,6 +19,16 @@ module Reports
       assert_text 'PC性能の見方を知る'
     end
 
+    test 'mentor can see comment by Pjord button' do
+      visit_with_auth report_path(reports(:report5)), 'mentormentaro'
+      assert_button 'ピヨルドがコメントする'
+    end
+
+    test 'admin can see comment by Pjord button' do
+      visit_with_auth report_path(reports(:report5)), 'adminonly'
+      assert_button 'ピヨルドがコメントする'
+    end
+
     test 'not display list of submission when non-mentor accesses' do
       visit_with_auth report_path(reports(:report5)), 'kimura'
       assert_no_selector '#side-tabs-content-3'
@@ -54,6 +64,21 @@ module Reports
       click_button '内容変更'
       assert_text '日報を保存しました。'
       assert_text '変更された日報のタイトル'
+    end
+
+    test 'display message to admin or mentor in report of retired user' do
+      report = Report.create!(
+        user: users(:yameo),
+        title: '退会済みユーザーの日報',
+        reported_on: '2022-01-03',
+        emotion: 'positive',
+        no_learn: true,
+        wip: false,
+        description: 'お世話になりました'
+      )
+
+      visit_with_auth report_path(report), 'komagata'
+      assert_selector '.a-page-notice.is-muted.is-only-mentor', text: 'このユーザーは退会しています。'
     end
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'browserless_system_test_case'
+require 'application_system_test_case'
 
-class Mentor::Practices::SubmissionAnswerTest < BrowserlessSystemTestCase
+class Mentor::Practices::SubmissionAnswerTest < ApplicationSystemTestCase
   test 'mentor can create submission answer' do
     practice = practices(:practice2)
     practice.submission_answer = nil

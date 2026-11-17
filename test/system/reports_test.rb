@@ -12,6 +12,11 @@ class ReportsTest < ApplicationSystemTestCase
     stub_request(:post, 'https://discord.com/api/webhooks/0123456789/admin')
   end
 
+  test 'report has a comment form ' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'mentormentaro'
+    assert_selector '.thread-comment-form'
+  end
+
   test 'hide user icon from recent reports in report show' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     assert_no_selector('.card-list-item__user')

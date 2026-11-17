@@ -13,6 +13,11 @@ class AnnouncementsTest < ApplicationSystemTestCase
     AbstractNotifier.delivery_mode = @delivery_mode
   end
 
+  test 'announcement has a comment form ' do
+    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
+    assert_selector '.thread-comment-form'
+  end
+
   test 'show comment count' do
     visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
 

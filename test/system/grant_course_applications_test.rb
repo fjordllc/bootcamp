@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'browserless_system_test_case'
+require 'application_system_test_case'
 
-class GrantCourseApplicationsTest < BrowserlessSystemTestCase
+class GrantCourseApplicationsTest < ApplicationSystemTestCase
   test 'user can apply for grant course' do
     visit new_grant_course_application_path
 

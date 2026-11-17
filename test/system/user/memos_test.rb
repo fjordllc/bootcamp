@@ -64,4 +64,14 @@ class User::MemoTest < ApplicationSystemTestCase
       assert_selector '.user-mentor-memo-item:last-child', text: mentor_memos(:migrated_kimura).content
     end
   end
+
+  test 'admin can see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'komagata'
+    assert_text 'メンター向けユーザーメモ'
+  end
+
+  test 'mentor can see memo' do
+    visit_with_auth user_path(users(:hatsuno)), 'mentormentaro'
+    assert_text 'メンター向けユーザーメモ'
+  end
 end

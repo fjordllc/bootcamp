@@ -23,11 +23,6 @@ class AnnouncementsBrowserlessTest < BrowserlessSystemTestCase
     assert_selector 'nav.pagination', count: 2
   end
 
-  test 'announcement has a comment form ' do
-    visit_with_auth "/announcements/#{announcements(:announcement1).id}", 'kimura'
-    assert_selector '.thread-comment-form'
-  end
-
   test 'show user name_kana next to user name' do
     announcement = announcements(:announcement1)
     user = announcement.user

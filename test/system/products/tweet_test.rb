@@ -4,6 +4,11 @@ require 'application_system_test_case'
 
 module Products
   class TweetTest < ApplicationSystemTestCase
+    test 'display learning completion message when a user of the completed product visits show first time' do
+      visit_with_auth "/products/#{products(:product65).id}", 'kimura'
+      assert_text '喜びをXにポストする！'
+    end
+
     test 'not display learning completion message when a user of the completed product visits after the second time' do
       visit_with_auth "/products/#{products(:product65).id}", 'komagata'
       click_button '提出物を合格にする'

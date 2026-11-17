@@ -4,6 +4,12 @@ require 'application_system_test_case'
 
 module Users
   class ListTest < ApplicationSystemTestCase
+    test 'admin can see link to talk on user list page' do
+      visit_with_auth '/users', 'komagata'
+      assert_selector '.page-header__title', text: 'ユーザー'
+      assert_link '相談部屋'
+    end
+
     test 'show trainees for adviser' do
       visit_with_auth "/users/#{users(:kensyu).id}", 'senpai'
       assert_text '自社研修生'
@@ -23,6 +29,18 @@ module Users
       assert_no_text '自社研修生'
       assert_text 'フォローする'
       assert_no_text '登録情報変更'
+    end
+
+    test 'mentor can see retired and hibernated tabs' do
+      visit_with_auth '/users', 'mentormentaro'
+      assert_link '休会', href: '/users?target=hibernated'
+      assert_link '退会', href: '/users?target=retired'
+    end
+
+    test 'admin can see retired and hibernated tabs' do
+      visit_with_auth '/users', 'komagata'
+      assert_link '休会', href: '/users?target=hibernated'
+      assert_link '退会', href: '/users?target=retired'
     end
 
     test "should show students and trainees's active activity counts" do

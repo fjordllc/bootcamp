@@ -24,5 +24,18 @@ module Users
       assert_selector '.page-header__title', text: 'ユーザー'
       assert_no_text '退会'
     end
+
+    test 'mentor access control' do
+      visit_with_auth '/users', 'mentormentaro'
+      assert find_link('就職活動中')
+      assert find_link('全員')
+    end
+
+    test 'admin access control' do
+      visit_with_auth '/users', 'komagata'
+      assert find_link('就職活動中')
+      assert find_link('退会')
+      assert find_link('全員')
+    end
   end
 end

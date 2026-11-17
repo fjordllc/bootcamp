@@ -10,12 +10,6 @@ module Users
       assert_selector 'h2.page-header__title', text: 'ユーザー'
     end
 
-    test 'admin can see link to talk on user list page' do
-      visit_with_auth '/users', 'komagata'
-      assert_selector '.page-header__title', text: 'ユーザー'
-      assert_link '相談部屋'
-    end
-
     test 'not admin cannot see link to talk on user list page' do
       visit_with_auth '/users', 'kimura'
       assert_selector '.page-header__title', text: 'ユーザー'
@@ -32,18 +26,6 @@ module Users
     test 'show users trainees for adviser' do
       visit_with_auth '/users?target=trainee', 'senpai'
       assert_text '自社研修生'
-    end
-
-    test 'mentor can see retired and hibernated tabs' do
-      visit_with_auth '/users', 'mentormentaro'
-      assert_link '休会', href: '/users?target=hibernated'
-      assert_link '退会', href: '/users?target=retired'
-    end
-
-    test 'admin can see retired and hibernated tabs' do
-      visit_with_auth '/users', 'komagata'
-      assert_link '休会', href: '/users?target=hibernated'
-      assert_link '退会', href: '/users?target=retired'
     end
 
     test 'user can not see retired and hibernated tabs if the user is not admin or mentor' do

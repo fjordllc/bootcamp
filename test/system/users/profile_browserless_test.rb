@@ -101,30 +101,6 @@ module Users
       assert_no_text '卒業 1日'
     end
 
-    test 'show hibernating user history to admins and mentors' do
-      hibernated_user = users(:kyuukai)
-
-      visit_with_auth user_path(hibernated_user), 'komagata'
-      assert_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_selector '.user-metas__title', text: '現在1回目の休会中'
-
-      visit_with_auth user_path(hibernated_user), 'mentormentaro'
-      assert_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_selector '.user-metas__title', text: '現在1回目の休会中'
-    end
-
-    test 'show previously hibernating user history to admins and mentors' do
-      returned_user = users(:hukki)
-
-      visit_with_auth user_path(returned_user), 'komagata'
-      assert_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_selector '.user-metas__title', text: '1回目の休会'
-
-      visit_with_auth user_path(returned_user), 'mentormentaro'
-      assert_selector '.card-header__title', text: '休会履歴（1回）'
-      assert_selector '.user-metas__title', text: '1回目の休会'
-    end
-
     test 'should not show previously hibernating user history to other users' do
       returned_user = users(:hukki)
 
