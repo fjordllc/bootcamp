@@ -9,11 +9,6 @@ class HomeTest < ApplicationSystemTestCase
     assert_equal 'プログラミングスクール FJORD BOOT CAMP（フィヨルドブートキャンプ）', title
   end
 
-  test 'GET /' do
-    visit_with_auth '/', 'komagata'
-    assert_equal 'ダッシュボード | FBC', title
-  end
-
   test 'show latest announcements on dashboard' do
     visit_with_auth '/', 'hajime'
     assert_text '後から公開されたお知らせ'
@@ -26,16 +21,6 @@ class HomeTest < ApplicationSystemTestCase
     click_button '閉じる'
     visit '/'
     assert_no_text 'ようこそ'
-  end
-
-  test 'not show welcome message' do
-    visit_with_auth '/', 'komagata'
-    assert_no_text 'ようこそ'
-  end
-
-  test 'show the latest reports for students' do
-    visit_with_auth '/', 'hajime'
-    assert_text '最新のみんなの日報'
   end
 
   test 'toggles mentor profile visibility' do

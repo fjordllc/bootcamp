@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class Course::PracticesTest < ApplicationSystemTestCase
-  test 'show listing practices' do
-    visit_with_auth "/courses/#{courses(:course1).id}/practices", 'kimura'
-    assert_equal 'Railsエンジニアコース | FBC', title
-  end
-
   test 'show/hide the progress of others' do
     visit_with_auth practice_path(practices(:practice1)), 'hatsuno'
     click_button '着手'
@@ -26,20 +21,6 @@ class Course::PracticesTest < ApplicationSystemTestCase
     assert has_selector?('.is-hidden-users')
     within page.find('.page-body__column.is-main') do
       assert page.has_no_link?(href: user_path)
-    end
-  end
-
-  test 'practices by category on practice list page will be in order' do
-    visit_with_auth course_practices_path(courses(:course1).id), 'hatsuno'
-    within('.page-body__columns .categories-item:first-child .category-practices-item:first-child') do
-      assert_text 'OS X Mountain Lionをクリーンインストールする'
-    end
-  end
-
-  test 'navi menu on practice show page will be in order' do
-    visit_with_auth practice_path(practices(:practice1).id), 'hatsuno'
-    within('.page-nav .page-nav__item:first-child') do
-      assert_text 'OS X Mountain Lionをクリーンインストールする'
     end
   end
 

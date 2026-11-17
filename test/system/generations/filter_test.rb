@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'browserless_system_test_case'
+require 'application_system_test_case'
 
 module Generations
-  class FilterTest < BrowserlessSystemTestCase
+  class FilterTest < ApplicationSystemTestCase
     test 'all users filter for generation' do
       travel_to Time.zone.local(2021, 4, 1, 0, 0, 0) do
         visit_with_auth '/generations', 'komagata'

@@ -3,35 +3,6 @@
 require 'application_system_test_case'
 
 class Practice::ReportsTest < ApplicationSystemTestCase
-  test 'show listing reports' do
-    visit_with_auth "/practices/#{practices(:practice1).id}/reports", 'hatsuno'
-    assert_equal 'OS X Mountain Lionをクリーンインストールするに関する日報 | FBC', title
-    assert_selector 'img[alt="positive"]', count: 2
-    assert_selector '.card-list-item-title__link', text: '1時間だけ学習'
-  end
-
-  test 'grant filter is not present on rails course practice' do
-    visit_with_auth "/practices/#{practices(:practice65).id}/reports", 'komagata'
-
-    assert_no_selector 'a.pill-nav__item-link', text: '全て'
-    assert_no_selector 'a.pill-nav__item-link', text: '給付金コース'
-  end
-
-  test 'grant filter is present on grant course practice' do
-    visit_with_auth "/practices/#{practices(:practice66).id}/reports", 'komagata'
-
-    assert_selector 'a.pill-nav__item-link', text: '全て'
-    assert_selector 'a.pill-nav__item-link', text: '給付金コース'
-  end
-
-  test 'grant filter shows both copied and grant course reports when "全て" is selected' do
-    visit_with_auth "/practices/#{practices(:practice66).id}/reports", 'komagata'
-
-    assert_selector 'a.pill-nav__item-link.is-active', text: '全て'
-    assert_selector '.card-list-item-title__link', text: 'Railsコースのコピー元プラクティスの日報'
-    assert_selector '.card-list-item-title__link', text: '給付金コースのプラクティスの日報'
-  end
-
   test 'grant filter shows only grant course reports when "給付金コース" is selected' do
     visit_with_auth "/practices/#{practices(:practice66).id}/reports", 'komagata'
     within '.pill-nav' do

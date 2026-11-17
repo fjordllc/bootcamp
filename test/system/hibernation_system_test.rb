@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class HibernationTest < ApplicationSystemTestCase
+class HibernationSystemTest < ApplicationSystemTestCase
   test 'can not access hibernation without login' do
     visit '/hibernation'
     assert_equal 'FJORD BOOT CAMP（フィヨルドブートキャンプ）', title

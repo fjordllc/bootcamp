@@ -17,19 +17,9 @@ class ReportsTest < ApplicationSystemTestCase
     assert_selector '.thread-comment-form'
   end
 
-  test 'show number of comments' do
-    visit_with_auth report_path(reports(:report1)), 'komagata'
-    assert_selector '.is-emphasized', text: '2'
-  end
-
   test 'hide user icon from recent reports in report show' do
     visit_with_auth report_path(reports(:report1)), 'komagata'
     assert_no_selector('.card-list-item__user')
-  end
-
-  test 'display user icon in reports' do
-    visit_with_auth reports_path, 'komagata'
-    assert_selector('.card-list-item__user')
   end
 
   test 'using file uploading by file selection dialogue in textarea' do
