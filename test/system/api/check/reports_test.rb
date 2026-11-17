@@ -3,6 +3,16 @@
 require 'application_system_test_case'
 
 class Check::ReportsTest < ApplicationSystemTestCase
+  test 'non admin user is non botton' do
+    visit_with_auth "/reports/#{reports(:report2).id}", 'kimura'
+    assert_not has_button? '日報を確認'
+  end
+
+  test 'user can see stamp' do
+    visit_with_auth "/reports/#{reports(:report1).id}", 'kimura'
+    assert_text '確認済'
+  end
+
   test 'success report checking' do
     visit_with_auth "/reports/#{reports(:report20).id}", 'komagata'
     assert has_button? '日報を確認'
