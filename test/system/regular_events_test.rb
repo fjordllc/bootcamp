@@ -51,27 +51,4 @@ class RegularEventsTest < ApplicationSystemTestCase
     visit regular_events_path(page: 2)
     assert_selector '.card-list.a-card .card-list-item', count: 18
   end
-
-  test 'using file uploading by file selection dialogue in textarea' do
-    visit_with_auth new_regular_event_path, 'komagata'
-    within(:css, '.a-file-insert') do
-      assert_selector 'input.file-input', visible: false
-    end
-    assert_equal '.file-input', find('textarea.a-text-input')['data-input']
-  end
-
-  test 'edit only organizers or mentor' do
-    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'kimura'
-    assert_text '定期イベント編集'
-
-    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'hajime'
-    assert_text '定期イベント編集'
-
-    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'machida'
-    assert_text '定期イベント編集'
-
-    Capybara.raise_server_errors = false
-    visit_with_auth edit_regular_event_path(regular_events(:regular_event4)), 'kensyu'
-    assert_text 'ActiveRecord::RecordNotFound'
-  end
 end

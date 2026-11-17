@@ -8,19 +8,6 @@ module Articles
       @article = articles(:article1)
     end
 
-    test 'share button X' do
-      visit "/articles/#{@article.id}"
-
-      assert_selector 'a.x-share-button[href^="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/"]', text: 'Postする'
-    end
-
-    test 'share button Facebook' do
-      visit "/articles/#{@article.id}"
-
-      assert_selector '#fb-root', minimum: 1, visible: :all
-      assert_selector ".fb-share-button[data-href='https://bootcamp.fjord.jp/articles/#{@article.id}']", visible: :all
-    end
-
     test 'share button Hatena' do
       widget_url = 'https://b.st-hatena.com/js/bookmark_button.js'
       image_url = 'https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png'

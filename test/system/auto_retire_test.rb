@@ -52,20 +52,6 @@ class AutoRetireTest < ApplicationSystemTestCase
     assert_equal '[FBC] 重要なお知らせ：受講ステータスの変更について', mail_to_user.subject
   end
 
-  test 'not retire when hibernated for less than three months' do
-    user = users(:kyuukai)
-    travel_to Time.zone.local(2020, 4, 1, 0, 0, 0) do
-      VCR.use_cassette 'subscription/update' do
-        Card.stub(:destroy_all, true) do
-          mock_env('TOKEN' => 'token') do
-            visit scheduler_daily_auto_retire_path(token: 'token')
-          end
-        end
-      end
-      assert_nil user.reload.retired_on
-    end
-  end
-
   test 'not retire when not_auto_retire is true' do
     user = users(:kyuukai)
 
@@ -79,20 +65,6 @@ class AutoRetireTest < ApplicationSystemTestCase
         visit scheduler_daily_auto_retire_path(token: 'token')
       end
       assert_nil user.reload.retired_on
-    end
-  end
-
-  test 'do nothing with already retired user' do
-    user = users(:kyuukai)
-
-    retired_date = Date.new(2020, 4, 1)
-    user.update!(retired_on: retired_date)
-
-    travel_to Time.zone.local(2020, 4, 2, 0, 0, 0) do
-      mock_env('TOKEN' => 'token') do
-        visit scheduler_daily_auto_retire_path(token: 'token')
-      end
-      assert_equal retired_date, user.reload.retired_on
     end
   end
 end

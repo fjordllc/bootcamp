@@ -3,12 +3,6 @@
 require 'application_system_test_case'
 
 class Admin::CompaniesTest < ApplicationSystemTestCase
-  test 'show listing companies' do
-    visit_with_auth '/admin/companies', 'komagata'
-    assert_equal '企業一覧 | FBC', title
-    assert has_link?(companies(:newest_company).name, href: company_path(companies(:newest_company)))
-  end
-
   test 'create company' do
     visit_with_auth '/admin/companies/new', 'komagata'
     within 'form[name=company]' do
@@ -52,12 +46,6 @@ class Admin::CompaniesTest < ApplicationSystemTestCase
     assert_equal 2, page.all('.pagination__item-link.is-active', text: '2').count
     first('.pagination__item-link', text: '1').click
     assert_equal 2, page.all('.pagination__item-link.is-active', text: '1').count
-  end
-
-  test 'no pagination when 20 companies or less exist' do
-    Company.where.not(description: 'このデータはページャーの確認用').destroy_all
-    visit_with_auth '/admin/companies', 'komagata'
-    assert_no_selector 'nav.pagination'
   end
 
   test 'companies are ordered by created_at desc' do

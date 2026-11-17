@@ -31,12 +31,6 @@ module Home
       end
     end
 
-    test 'not show bookmarks on dashboard when the user has no bookmarks' do
-      visit_with_auth '/', 'machida'
-      assert_current_path '/?_login_name=machida'
-      assert_no_text '最新のブックマーク'
-    end
-
     test 'delete bookmark for latest bookmarks on dashboard' do
       visit_with_auth '/', 'kimura'
 

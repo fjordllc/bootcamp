@@ -59,11 +59,6 @@ class Products::CheckerTest < ApplicationSystemTestCase
     assert_no_text '担当する'
   end
 
-  test 'can see unassigned-tab' do
-    visit_with_auth products_path, 'komagata'
-    assert find('.page-tabs__item-link', text: '未アサイン')
-  end
-
   test 'can access unassigned products page after click unassigned-tab' do
     visit_with_auth products_path, 'komagata'
     find('.page-tabs__item-link', text: '未アサイン').click

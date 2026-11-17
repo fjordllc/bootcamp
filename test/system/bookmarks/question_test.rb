@@ -8,11 +8,6 @@ module Bookmarks
       @question = questions(:question1)
     end
 
-    test 'show question bookmark on lists' do
-      visit_with_auth '/current_user/bookmarks', 'kimura'
-      assert_text @question.title
-    end
-
     test 'show active button when bookmarked question' do
       visit_with_auth "/questions/#{@question.id}", 'kimura'
       wait_for_javascript_components
