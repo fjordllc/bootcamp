@@ -65,15 +65,20 @@ jobs:
             sudo timeout "$1" apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 "${@:2}"
           }
 
+          install_packages() {
+            apt_get 180 update || return 1
+            apt_get 300 install -y libvips libheif-dev || return 1
+          }
+
           for attempt in 1 2 3; do
-            if apt_get 180 update && apt_get 300 install -y libvips libheif-dev; then
-              break
+            if install_packages; then
+              exit 0
             fi
             if [ "$attempt" = 3 ]; then
               exit 1
             fi
 
-            sudo dpkg --configure -a || true
+            sudo timeout 120 dpkg --configure -a || true
             sudo rm -rf /var/lib/apt/lists/*
             sleep "$((attempt * 10))"
           done
@@ -162,23 +167,27 @@ jobs:
             sudo timeout "$1" apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 "${@:2}"
           }
 
+          install_packages() {
+            apt_get 180 update || return 1
+            apt_get 300 install -y fonts-noto-cjk ffmpeg imagemagick libvips libheif-dev libuv1-dev postgresql-client || return 1
+            for package in libheif-plugin-aomdec libheif-plugin-libde265; do
+              if apt-cache show "$package" >/dev/null 2>&1; then
+                apt_get 300 install -y "$package" || return 1
+              fi
+            done
+          }
+
           for attempt in 1 2 3; do
-            if apt_get 180 update && apt_get 300 install -y fonts-noto-cjk ffmpeg imagemagick libvips libheif-dev libuv1-dev postgresql-client; then
-              break
+            if install_packages; then
+              exit 0
             fi
             if [ "$attempt" = 3 ]; then
               exit 1
             fi
 
-            sudo dpkg --configure -a || true
+            sudo timeout 120 dpkg --configure -a || true
             sudo rm -rf /var/lib/apt/lists/*
             sleep "$((attempt * 10))"
-          done
-
-          for package in libheif-plugin-aomdec libheif-plugin-libde265; do
-            if apt-cache show "$package" >/dev/null 2>&1; then
-              apt_get 300 install -y "$package"
-            fi
           done
 
       - name: Install Playwright browser
