@@ -14,7 +14,9 @@ class API::CorrectAnswersController < API::BaseController
       next false unless @answer.update(type: 'CorrectAnswer')
 
       ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
-      ActiveSupport::Notifications.instrument('correct_answer.save', answer: @answer)
+      ActiveRecord.after_all_transactions_commit do
+        ActiveSupport::Notifications.instrument('correct_answer.save', answer: @answer)
+      end
       true
     end
     render_result(success)

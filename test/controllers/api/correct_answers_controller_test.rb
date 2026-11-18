@@ -51,6 +51,58 @@ class API::CorrectAnswersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'notification timeout keeps the selection committed and retry does not notify again' do
+    sign_in(:komagata)
+    answer = answers(:answer1)
+    notifications = 0
+    notify = lambda do |*|
+      notifications += 1
+      raise Net::ReadTimeout
+    end
+
+    ChatNotifier.stub(:message, notify) do
+      assert_raises(Net::ReadTimeout) do
+        post api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :turbo_stream
+      end
+      assert_equal 'CorrectAnswer', answer.reload.type
+      assert_equal 1, notifications
+
+      post api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :turbo_stream
+      assert_response :ok
+      assert_equal 1, notifications
+      assert_equal 'CorrectAnswer', answer.reload.type
+    end
+  end
+
+  test 'notification waits for the surrounding transaction to commit' do
+    sign_in(:komagata)
+    answer = answers(:answer1)
+    notifications = []
+    ChatNotifier.stub(:message, ->(message) { notifications << message }) do
+      Answer.transaction do
+        post api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :turbo_stream
+        assert_response :ok
+        assert_empty notifications
+      end
+      assert_equal 1, notifications.size
+    end
+  end
+
+  test 'rolling back the surrounding transaction does not notify' do
+    sign_in(:komagata)
+    answer = answers(:answer1)
+    notifications = []
+    ChatNotifier.stub(:message, ->(message) { notifications << message }) do
+      Answer.transaction do
+        post api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :turbo_stream
+        assert_response :ok
+        raise ActiveRecord::Rollback
+      end
+    end
+    assert_nil answer.reload.type
+    assert_empty notifications
+  end
+
   test 'HTML selection and cancellation redirect to the answer and JSON keeps its success statuses' do
     sign_in(:komagata)
     answer = answers(:answer1)
