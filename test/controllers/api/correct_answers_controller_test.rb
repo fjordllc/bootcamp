@@ -103,6 +103,81 @@ class API::CorrectAnswersControllerTest < ActionDispatch::IntegrationTest
     assert_empty notifications
   end
 
+  test 'selection and cancellation invalidate the cache after commit and not on repeated requests' do
+    sign_in(:komagata)
+    answer = answers(:answer1)
+    cache = ActiveSupport::Cache::MemoryStore.new
+    Rails.stub(:cache, cache) do
+      %i[post patch].each do |method|
+        cache.write('not_solved_question_count', 10)
+        Answer.transaction do
+          public_send(method, api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :json)
+          assert_response method == :post ? :ok : :no_content
+          assert_equal 10, cache.read('not_solved_question_count')
+          cache.write('not_solved_question_count', 99)
+        end
+        assert_nil cache.read('not_solved_question_count')
+
+        cache.write('not_solved_question_count', 10)
+        public_send(method, api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :json)
+        assert_equal 10, cache.read('not_solved_question_count')
+      end
+    end
+  end
+
+  test 'rolled back selection and cancellation do not invalidate the cache' do
+    sign_in(:komagata)
+    answer = answers(:answer1)
+    cache = ActiveSupport::Cache::MemoryStore.new
+    Rails.stub(:cache, cache) do
+      %i[post patch].each do |method|
+        original_type = method == :patch ? 'CorrectAnswer' : nil
+        Answer.find(answer.id).update!(type: original_type)
+        cache.write('not_solved_question_count', 10)
+        Answer.transaction do
+          public_send(method, api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :json)
+          assert_response method == :post ? :ok : :no_content
+          raise ActiveRecord::Rollback
+        end
+        assert_equal 10, cache.read('not_solved_question_count')
+        assert_equal original_type, Answer.find(answer.id).type if original_type
+        assert_nil Answer.find(answer.id).type unless original_type
+      end
+    end
+  end
+
+  test 'selection renders the locked display state even if cancelled after commit' do
+    sign_in(:komagata)
+    answer = answers(:answer1)
+    cancel = ->(*) { Answer.find(answer.id).update!(type: nil) }
+    ChatNotifier.stub(:message, cancel) do
+      post api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :turbo_stream
+    end
+
+    assert_response :ok
+    assert_nil answer.reload.type
+    assert_select 'template .js-solved-status', text: '解決済'
+    assert_select "template #answer_badge_#{answer.id}.correct-answer"
+    assert_select "template #answer_actions_#{answer.id} .cancel-best-answer-button:not(.is-hidden)"
+    assert_select 'template .make-best-answer-button:not(.is-hidden)', count: 0
+  end
+
+  test 'cancellation renders the locked display state even if selected again after commit' do
+    sign_in(:komagata)
+    answer = correct_answers(:correct_answer1)
+    select_again = ->(*) { Answer.find(answer.id).update!(type: 'CorrectAnswer') }
+    ActiveSupport::Notifications.subscribed(select_again, 'answer.save') do
+      patch api_answer_correct_answer_path(answer), params: { question_id: answer.question_id }, as: :turbo_stream
+    end
+
+    assert_response :ok
+    assert_equal 'CorrectAnswer', answer.reload.type
+    assert_select 'template .js-solved-status', text: '未解決'
+    assert_select "template #answer_badge_#{answer.id}.is-hidden"
+    assert_select "template #answer_actions_#{answer.id} .make-best-answer-button:not(.is-hidden)"
+    assert_select 'template .cancel-best-answer-button:not(.is-hidden)', count: 0
+  end
+
   test 'HTML selection and cancellation redirect to the answer and JSON keeps its success statuses' do
     sign_in(:komagata)
     answer = answers(:answer1)

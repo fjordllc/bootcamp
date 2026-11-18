@@ -1,4 +1,5 @@
-- if question.correct_answer.present?
+- correct_answer = local_assigns.fetch(:correct_answer) { question.correct_answer }
+- if correct_answer.present?
   span.a-title-label.is-solved.is-success.js-solved-status id=dom_id(question, :solved_status)
     | 解決済
 - elsif question.wip?

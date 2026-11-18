@@ -6,15 +6,14 @@ class API::CorrectAnswersController < API::BaseController
   before_action :authorize_question, only: %i[create update]
 
   def create
-    success = @question.with_lock do
-      @answer = @question.answers.find(params[:answer_id])
+    success = with_locked_answer do
       correct_answer = @question.correct_answer
       next true if correct_answer&.id == @answer.id
       next false if correct_answer
       next false unless @answer.update(type: 'CorrectAnswer')
 
-      ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
       ActiveRecord.after_all_transactions_commit do
+        ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
         ActiveSupport::Notifications.instrument('correct_answer.save', answer: @answer)
       end
       true
@@ -23,12 +22,13 @@ class API::CorrectAnswersController < API::BaseController
   end
 
   def update
-    success = @question.with_lock do
-      @answer = @question.answers.find(params[:answer_id])
+    success = with_locked_answer do
       next true unless @answer.type == 'CorrectAnswer'
       next false unless @answer.update(type: nil)
 
-      ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
+      ActiveRecord.after_all_transactions_commit do
+        ActiveSupport::Notifications.instrument('answer.save', answer: @answer, action: current_action_name)
+      end
       true
     end
     render_result(success)
@@ -36,8 +36,19 @@ class API::CorrectAnswersController < API::BaseController
 
   private
 
+  def with_locked_answer
+    @question.with_lock do
+      @answer = @question.answers.find(params[:answer_id])
+      success = yield
+      if success && request.format.turbo_stream?
+        @answers = @question.answers.reload.to_a
+        @correct_answer = @answers.find { |answer| answer.type == 'CorrectAnswer' }
+      end
+      success
+    end
+  end
+
   def render_result(success)
-    @question.reload
     respond_to do |format|
       format.turbo_stream { success ? render(:update) : head(:unprocessable_entity) }
       format.json do
