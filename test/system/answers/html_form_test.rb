@@ -15,6 +15,27 @@ module Answers
                 javaScriptEnabled: false
               }
 
+    test 'non-admin mentor can edit and delete only own answers without JavaScript' do
+      question = questions(:question1)
+      own = Answer.create!(question: question, user: users(:mentormentaro), description: 'メンター本人の回答')
+      other = answers(:answer1)
+      visit_with_auth question_path(question), 'mentormentaro'
+      within "#answer_#{other.id}" do
+        assert_no_link '内容修正'
+        assert_no_button '削除する'
+        assert_button 'ベストアンサーにする'
+      end
+      within("#answer_#{own.id}") { click_on '内容修正' }
+      within "#answer_#{own.id}" do
+        fill_in 'answer[description]', with: '本人が編集した回答'
+        click_button '保存する'
+      end
+      assert_selector "#answer_#{own.id} .answer-text", text: '本人が編集した回答'
+      within("#answer_#{own.id}") { click_button '削除する' }
+      assert_no_selector "#answer_#{own.id}"
+      assert_selector "#answer_#{other.id}"
+    end
+
     test 'select and cancel a best answer without JavaScript' do
       answer = answers(:answer1)
       visit_with_auth question_path(answer.question), 'komagata'
