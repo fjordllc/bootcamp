@@ -68,7 +68,7 @@ class UsersController < ApplicationController
       credit_card_payment: params[:credit_card_payment]
     ).call
 
-    result = UserRegistration.new(@user, params[:stripeToken], params[:idempotency_token], url_for(@user), session[:affiliate_rd_code]).call
+    result = UserRegistration.new(@user, params[:stripeToken], params[:idempotency_token], session[:affiliate_rd_code]).call
 
     unless result.success?
       render 'new', locals: { user: @user }

@@ -11,11 +11,10 @@ class UserRegistration
     end
   end
 
-  def initialize(user, stripe_token, idempotency_token, user_url, affiliate_rd_code)
+  def initialize(user, stripe_token, idempotency_token, affiliate_rd_code)
     @user = user
     @stripe_token = stripe_token
     @idempotency_token = idempotency_token
-    @user_url = user_url
     @affiliate_rd_code = affiliate_rd_code
   end
 
@@ -62,7 +61,8 @@ class UserRegistration
 
   def complete_registration
     UserMailer.welcome(@user).deliver_now
-    UserRegistrationNotifier.new.call(@user, @user_url)
+    user_url = Rails.application.routes.url_helpers.user_url(@user)
+    UserRegistrationNotifier.new.call(@user, user_url)
 
     return unless @user.trainee? || @user.student?
 
