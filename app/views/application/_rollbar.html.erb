@@ -1,9 +1,12 @@
+<%# hostBlockList: スタックトレースのファイルがこのアプリの外にあり、こちらでは修正できないエラーを報告しない。 %>
+<%# - chrome-extension: 利用者のブラウザ拡張の中で起きたエラー。 %>
+<%# - b.st-hatena.com: はてなブックマークボタンのスクリプトの中で起きたエラー。失敗してもボタンは画像リンクとして残る。 %>
 <script>
 var _rollbarConfig = {
     accessToken: "<%= ENV['ROLLBAR_CLIENT_TOKEN'] %>",
     captureUncaught: true,
     captureUnhandledRejections: true,
-    hostBlockList: ["^chrome-extension://"],
+    hostBlockList: ["^chrome-extension://", "^https://b\\.st-hatena\\.com/"],
     payload: {
         environment: "production"
     }
