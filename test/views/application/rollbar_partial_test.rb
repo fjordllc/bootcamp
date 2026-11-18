@@ -21,6 +21,17 @@ class RollbarPartialTest < ActionView::TestCase
     assert_not blocked?('https://example.com/?from=https://b.st-hatena.com/js/bookmark_button.js')
   end
 
+  test 'does not report the missing __gCrWeb error raised by the script Chrome for iOS injects into pages' do
+    assert ignored_message?("Can't find variable: __gCrWeb")
+    assert ignored_message?("ReferenceError: Can't find variable: __gCrWeb")
+  end
+
+  test 'reports missing variable errors of this application' do
+    assert_not ignored_message?("Can't find variable: Rails")
+    assert_not ignored_message?("Can't find variable: __gCrWebExtra")
+    assert_not ignored_message?('__gCrWeb is not a function')
+  end
+
   private
 
   # Rollbar.js drops an item when a stack frame's filename matches any hostBlockList entry as a regular expression.
@@ -28,10 +39,20 @@ class RollbarPartialTest < ActionView::TestCase
     host_block_list.any? { |pattern| Regexp.new(pattern).match?(filename) }
   end
 
+  def ignored_message?(message)
+    ignored_messages.any? { |pattern| Regexp.new(pattern, Regexp::IGNORECASE).match?(message) }
+  end
+
   def host_block_list
-    @host_block_list ||= begin
-      render partial: 'application/rollbar'
-      JSON.parse(rendered[/hostBlockList: (\[.*\]),$/, 1])
-    end
+    @host_block_list ||= rollbar_config_list('hostBlockList')
+  end
+
+  def ignored_messages
+    @ignored_messages ||= rollbar_config_list('ignoredMessages')
+  end
+
+  def rollbar_config_list(name)
+    render partial: 'application/rollbar' if rendered.blank?
+    JSON.parse(rendered[/#{name}: (\[.*\]),$/, 1])
   end
 end
