@@ -107,5 +107,11 @@ module Users
 
       assert_text 'ユーザーアイコンは指定された拡張子(PNG, JPG, JPEG, GIF, HEIC, HEIF形式)になっていないか、あるいは画像が破損している可能性があります'
     end
+
+    test 'not show grass hide button for graduates' do
+      visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
+      assert_text 'sotugyou'
+      assert_not has_button? '非表示'
+    end
   end
 end

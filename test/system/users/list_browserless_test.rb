@@ -16,13 +16,6 @@ module Users
       assert_no_link '相談部屋'
     end
 
-    test 'show myself' do
-      visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
-      assert_no_text '自社研修生'
-      assert_no_text 'フォローする'
-      assert_text '登録情報変更'
-    end
-
     test 'show users trainees for adviser' do
       visit_with_auth '/users?target=trainee', 'senpai'
       assert_text '自社研修生'

@@ -107,5 +107,12 @@ module Users
       filtered_users = all('.users-item__icon .a-user-role')
       assert(filtered_users.all? { |user| user[:class].split.include?('is-student') })
     end
+
+    test 'show myself' do
+      visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
+      assert_no_text '自社研修生'
+      assert_no_text 'フォローする'
+      assert_text '登録情報変更'
+    end
   end
 end

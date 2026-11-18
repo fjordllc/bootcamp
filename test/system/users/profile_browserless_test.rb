@@ -73,12 +73,6 @@ module Users
       assert_no_link '相談部屋'
     end
 
-    test 'not show grass hide button for graduates' do
-      visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
-      assert_text 'sotugyou'
-      assert_not has_button? '非表示'
-    end
-
     test 'show training end date if user is a trainee and has a training end date' do
       user = users(:kensyu)
       visit_with_auth user_path(user.id), 'kensyu'
