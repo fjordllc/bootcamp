@@ -11,8 +11,7 @@ class ProductCheckerNotifier
 
     return unless checker_id &&
                   checker_id != @current_user.id &&
-                  !@product.wip? &&
-                  (@product.saved_change_to_checker_id? || @product.saved_change_to_wip?)
+                  !@product.wip?
 
     ActivityDelivery.with(
       product: @product,
