@@ -11,7 +11,7 @@ macOS版の[Docker環境構築手順](development_on_docker.md)やホストPostg
 
 ## 関連ファイル
 
-- `Dockerfile.dev` - dev用軽量イメージ (Ruby 4.0.9 + Node 22)
+- `Dockerfile.dev` - dev用軽量イメージ (Ruby 4.0.10 + Node 22)
 - `docker-compose.yml` - web + db サービス定義
 
 ## 並列運用の仕組み
