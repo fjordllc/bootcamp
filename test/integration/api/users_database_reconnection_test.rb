@@ -6,6 +6,8 @@ class API::UsersDatabaseReconnectionTest < ActionDispatch::IntegrationTest
   self.use_transactional_tests = false
 
   class ServerSideConnectionCloser
+    TERMINATION_TIMEOUT_MS = 5_000
+
     def initialize(sql_pattern)
       @sql_pattern = sql_pattern
       @attempted = false
@@ -31,7 +33,8 @@ class API::UsersDatabaseReconnectionTest < ActionDispatch::IntegrationTest
       backend_pid = Integer(connection.select_value('SELECT pg_backend_pid()'))
       pool = connection.pool
       another_connection = pool.checkout
-      another_connection.select_value("SELECT pg_terminate_backend(#{backend_pid})")
+      terminated = another_connection.select_value("SELECT pg_terminate_backend(#{backend_pid}, #{TERMINATION_TIMEOUT_MS})")
+      ActiveModel::Type::Boolean.new.cast(terminated)
     ensure
       pool.checkin(another_connection) if another_connection
     end
@@ -47,7 +50,7 @@ class API::UsersDatabaseReconnectionTest < ActionDispatch::IntegrationTest
       get api_user_path(user.id, format: :json), headers: { 'Authorization' => "Bearer #{token}" }
     end
 
-    assert connection_closer.closed?
+    assert connection_closer.closed?, 'メンターメモを読む前に、DB接続の終了を制限時間内に確認できませんでした'
     assert_response :ok
     assert_equal(expected_contents, response.parsed_body['mentor_memos'].map { |memo| memo['content'] })
   end
