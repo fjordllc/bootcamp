@@ -30,6 +30,7 @@ Doorkeeper 5.8.2の`use_refresh_token`コンテキストブロックで、更新
 
 ## 関連資料
 
+- [ADR 0003: APIの利用に個人アクセストークンを発行する](0003-personal-access-tokens.md)（利用者本人が発行する個人アクセストークンを、有効期間の例外として定めています）
 - [APIの運用手順](../api.md#専用の読み取り連携でのoauth更新)
 - [Doorkeeper設定](../../config/initializers/doorkeeper.rb)
 - [OAuth更新の結合テスト](../../test/integration/oauth_refresh_test.rb)
