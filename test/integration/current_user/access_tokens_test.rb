@@ -51,6 +51,8 @@ class CurrentUser::AccessTokensTest < ActionDispatch::IntegrationTest
     access_token = PersonalAccessToken.for_user(mentor).first
     assert_equal %w[read write mentor], access_token.scopes.to_a
     assert_equal 30.days.to_i, access_token.expires_in
+    # 更新トークンは専用の読み取りクライアントだけに発行する（ADR 0004）。個人アクセストークンには付けない。
+    assert_nil access_token.refresh_token
     assert_select 'input#issued_access_token[value=?]', access_token.token
 
     reset!

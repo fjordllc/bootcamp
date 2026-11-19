@@ -64,7 +64,7 @@ curl -X PATCH https://bootcamp.fjord.jp/api/practices/1.json \
 
 ## 専用の読み取り連携でのOAuth更新
 
-アクセストークンの有効期間は7200秒です。更新トークンの初回発行は既定で無効です。Classroomなど、サーバー側でclient secretを保管できる読み取り専用の連携に限り、次の条件をすべて満たすと初回発行を許可します。
+OAuthの認可フローで発行するアクセストークンの有効期間は7200秒です（個人アクセストークンは発行時に選んだ有効期限に従い、更新トークンは発行しません）。更新トークンの初回発行は既定で無効です。Classroomなど、サーバー側でclient secretを保管できる読み取り専用の連携に限り、次の条件をすべて満たすと初回発行を許可します。
 
 - Bootcamp側の環境変数`BOOTCAMP_REFRESH_CLIENT_UID`に、専用OAuth applicationのUIDを1つだけ設定する。空値、前後の空白、複数UIDの列挙は指定しない。
 - MCP用ではないapplicationをconfidentialにし、登録するscopeを`read`だけにする。
