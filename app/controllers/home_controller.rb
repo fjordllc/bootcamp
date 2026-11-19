@@ -5,26 +5,31 @@ class HomeController < ApplicationController
   before_action :deny_inactive_user_login, if: :inactive_login?, only: %i[index]
 
   def index
-    respond_to :html
-
-    if current_user
-      display_dashboard
-      display_events_on_dashboard
-      display_pair_works_on_dashboard
-      display_welcome_message_for_adviser
-      set_required_fields
-      display_products_for_mentor if current_user.mentor? && !current_user.adviser?
-      render action: :index
-    else
-      @mentors = User.visible_sorted_mentors
-      @featured_articles = Article.featured
-      render template: 'welcome/index', layout: 'lp'
+    respond_to do |format|
+      format.html { current_user ? render_dashboard : render_welcome }
+      format.any { head :not_acceptable }
     end
   end
 
   def pricing; end
 
   private
+
+  def render_dashboard
+    display_dashboard
+    display_events_on_dashboard
+    display_pair_works_on_dashboard
+    display_welcome_message_for_adviser
+    set_required_fields
+    display_products_for_mentor if current_user.mentor? && !current_user.adviser?
+    render action: :index
+  end
+
+  def render_welcome
+    @mentors = User.visible_sorted_mentors
+    @featured_articles = Article.featured
+    render template: 'welcome/index', layout: 'lp'
+  end
 
   def set_required_fields
     @required_fields = RequiredField.new(
