@@ -28,6 +28,52 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'GET /api/users.json with search_word' do
+    token = create_token('kimura', 'testtest')
+    get api_users_path(format: :json, search_word: 'kimura'),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    login_names = JSON.parse(@response.body)['users'].map { |user| user['login_name'] }
+    assert_includes login_names, 'kimura'
+    assert_not_includes login_names, 'hatsuno'
+  end
+
+  test 'GET /api/users.json with blank search_word' do
+    token = create_token('kimura', 'testtest')
+    get api_users_path(format: :json, search_word: ' 　 '),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+    assert_empty JSON.parse(@response.body)['users']
+
+    get api_users_path(format: :json, search_word: ''),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+    assert_empty JSON.parse(@response.body)['users']
+  end
+
+  test 'GET /api/users.json with search_word and target retired as mentor' do
+    token = create_token('mentormentaro', 'testtest')
+    get api_users_path(format: :json, search_word: 'yame', target: 'retired'),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    login_names = JSON.parse(@response.body)['users'].map { |user| user['login_name'] }
+    assert_includes login_names, 'yameo'
+    assert_not_includes login_names, 'taikai'
+    assert_not_includes login_names, 'kimura'
+  end
+
+  test 'GET /api/users.json with search_word and target retired as student' do
+    token = create_token('kimura', 'testtest')
+    get api_users_path(format: :json, search_word: 'yame', target: 'retired'),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    login_names = JSON.parse(@response.body)['users'].map { |user| user['login_name'] }
+    assert_not_includes login_names, 'yameo'
+  end
+
   test 'GET /api/users/1234.json as admin' do
     get api_users_path(users(:kimura).id, format: :json)
     assert_response :unauthorized

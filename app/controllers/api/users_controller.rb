@@ -15,7 +15,9 @@ class API::UsersController < API::BaseController
     users = users.order(:last_activity_at) if @target == 'inactive'
     @users =
       if params[:search_word]
-        search_for_users(@target, users, params[:search_word])
+        SearchUser.new(word: params[:search_word], users:, target: @target)
+                  .search
+                  .preload(:company, :avatar_attachment, :course, :tags)
       else
         users
           .preload(:company, :avatar_attachment, :course, :tags)
@@ -41,13 +43,6 @@ class API::UsersController < API::BaseController
   end
 
   private
-
-  def search_for_users(target, target_users, search_word)
-    users = target_users.search_by_keywords({ word: search_word })
-    # search_by_keywords内では { unretired } というスコープが設定されている
-    # 退会したユーザーに対しキーワード検索を行う場合は、一旦 unscope(where: :retired_on) で { unretired } スコープを削除し、その後で retired スコープを設定する必要がある
-    target == 'retired' ? users.unscope(where: :retired_on).retired : users
-  end
 
   def target_allowlist
     target_allowlist = %w[student_and_trainee student trainee followings mentor graduate adviser year_end_party admin]
