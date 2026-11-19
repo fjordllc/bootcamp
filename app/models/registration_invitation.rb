@@ -31,6 +31,10 @@ class RegistrationInvitation
     valid_role && valid_context
   end
 
+  def assign_invitation_attributes_to(user)
+    user.assign_attributes(claims)
+  end
+
   class << self
     def generate(role:, company_id: nil, course_id: nil)
       claims = { 'role' => normalize_role(role) }

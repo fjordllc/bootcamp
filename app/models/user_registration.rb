@@ -84,7 +84,7 @@ class UserRegistration
 
   def build_user
     user = User.new(@user_params)
-    user.assign_attributes(@registration_invitation.claims) if @registration_invitation
+    @registration_invitation&.assign_invitation_attributes_to(user)
     user.assign_role
     user.course_id ||= Course.first.id
     user.build_discord_profile
