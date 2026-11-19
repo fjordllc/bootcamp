@@ -7,12 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: post review requested pr event
+      env:
+        FJORD_CHOICE_TOKEN: ${{ secrets.FJORD_CHOICE_TOKEN }}
+        PR_TITLE: ${{ github.event.pull_request.title }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        PR_STATE: ${{ github.event.pull_request.state }}
+        REVIEWER_UIDS: ${{ toJson(github.event.pull_request.requested_reviewers.*.id) }}
       run: |
-        curl -f -X POST https://fjord-choice.herokuapp.com/api/pulls \
-             -H 'Content-Type: application/json' \
-             -H 'Authorization: Token ${{ secrets.FJORD_CHOICE_TOKEN }}' \
-             -d '{"title": ${{ toJson(github.event.pull_request.title) }},
-                  "number": ${{ github.event.pull_request.number }},
-                  "state": ${{ toJson(github.event.pull_request.state) }},
-                  "reviewer_uids": ${{ toJson(github.event.pull_request.requested_reviewers.*.id) }}
-                  }'
+        jq -n \
+           --arg title "$PR_TITLE" \
+           --argjson number "$PR_NUMBER" \
+           --arg state "$PR_STATE" \
+           --argjson reviewer_uids "$REVIEWER_UIDS" \
+           '{title: $title, number: $number, state: $state, reviewer_uids: $reviewer_uids}' |
+          curl -f -X POST https://fjord-choice.herokuapp.com/api/pulls \
+               -H 'Content-Type: application/json' \
+               -H "Authorization: Token $FJORD_CHOICE_TOKEN" \
+               --data-binary @-
