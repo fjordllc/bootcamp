@@ -62,21 +62,25 @@ class UsersController < ApplicationController
   def create
     logger.info "[Signup] 1. start create. #{user_params[:email]}"
 
-    @user = UserRegistrationPreparation.new(
+    result = UserRegistration.new(
       user_params: user_params,
-      registration_invitation: @registration_invitation&.claims,
-      credit_card_payment: params[:credit_card_payment]
+      registration_invitation: @registration_invitation,
+      payment_params: {
+        credit_card_payment: params[:credit_card_payment],
+        stripe_token: params[:stripeToken],
+        idempotency_token: params[:idempotency_token]
+      },
+      affiliate_rd_code: session[:affiliate_rd_code]
     ).call
 
-    result = UserRegistration.new(@user, params[:stripeToken], params[:idempotency_token], session[:affiliate_rd_code]).call
+    @user = result.user
 
     unless result.success?
       render 'new', locals: { user: @user }
       return
     end
 
-    session.delete(:registration_invitation) if result.free?
-    session.delete(:affiliate_rd_code) if !result.free? && session[:affiliate_rd_code].present?
+    clear_signup_session(result)
 
     flash[:x_conversion] = 'signup' unless result.free?
     flash[:signup_email] = @user.email
@@ -148,5 +152,10 @@ class UsersController < ApplicationController
   def reject_registration_invitation
     session.delete(:registration_invitation)
     redirect_to root_path, notice: 'アドバイザー・メンター・研修生登録にはTOKENが必要です。'
+  end
+
+  def clear_signup_session(result)
+    session.delete(:registration_invitation) if result.free?
+    session.delete(:affiliate_rd_code) if !result.free? && session[:affiliate_rd_code].present?
   end
 end

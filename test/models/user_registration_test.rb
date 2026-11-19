@@ -25,6 +25,7 @@ class UserRegistrationTest < ActiveSupport::TestCase
   test 'passes the newly created user URL to the registration notifier' do
     actual_url = nil
     persisted_when_notified = false
+    result = nil
 
     UserRegistrationNotifier.stub(:new, lambda {
       Object.new.tap do |notifier|
@@ -34,13 +35,49 @@ class UserRegistrationTest < ActiveSupport::TestCase
         end
       end
     }) do
-      UserRegistration.new(@user, nil, nil, nil).call
+      result = UserRegistration.new(
+        user_params: @user.attributes.merge(password: 'password123'),
+        registration_invitation: nil,
+        payment_params: {
+          credit_card_payment: nil,
+          stripe_token: nil,
+          idempotency_token: nil
+        },
+        affiliate_rd_code: nil
+      ).call
     end
 
-    expected_url = Rails.application.routes.url_helpers.user_url(@user)
+    user = result.user
 
-    assert @user.persisted?
+    assert user.persisted?
     assert persisted_when_notified
+
+    expected_url = Rails.application.routes.url_helpers.user_url(user)
     assert_equal expected_url, actual_url
+  end
+
+  test 'applies invitation attributes to user' do
+    registration_invitation = RegistrationInvitation.new(
+      'role' => 'trainee_invoice_payment',
+      'company_id' => companies(:company2).id.to_s,
+      'course_id' => courses(:course1).id.to_s
+    )
+
+    result = UserRegistration.new(
+      user_params: @user.attributes.merge(password: 'password123'),
+      registration_invitation: registration_invitation,
+      payment_params: {
+        credit_card_payment: false,
+        stripe_token: nil,
+        idempotency_token: nil
+      },
+      affiliate_rd_code: nil
+    ).call
+
+    user = result.user
+
+    assert_equal companies(:company2).id, user.company_id
+    assert_equal courses(:course1).id, user.course_id
+    assert_equal 'trainee_invoice_payment', user.role
   end
 end
