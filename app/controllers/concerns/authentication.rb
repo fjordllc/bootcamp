@@ -8,6 +8,12 @@ module Authentication
 
   protected
 
+  def register_last_activity_time_to_db
+    super
+  rescue ActiveRecord::ConnectionFailed => e
+    Rails.logger.warn({ event: 'last_activity_time_not_registered', error_class: e.class.name, request_id: request.request_id }.to_json)
+  end
+
   def not_authenticated
     redirect_to root_path, alert: 'ログインしてください'
   end
