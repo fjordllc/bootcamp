@@ -1,0 +1,62 @@
+- title 'アクセストークン発行'
+- set_meta_tags description: 'APIを利用するための個人アクセストークンを発行するページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          | アクセストークン
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            = title
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to current_user_access_tokens_path, class: 'a-button is-md is-secondary is-block is-back' do
+                  | アクセストークン一覧
+  hr.a-border
+  .page-body
+    .container.is-md
+      = form_with model: @personal_access_token,
+        url: current_user_access_tokens_path,
+        local: true,
+        class: 'form',
+        html: { name: 'personal_access_token' } do |f|
+        = render 'errors', object: @personal_access_token
+        .form__items
+          .form__items-inner
+            .form-item
+              label.a-form-label
+                | スコープ
+              ul.block-checks.is-1-item
+                - (PersonalAccessToken.available_scopes(current_user) - [PersonalAccessToken::REQUIRED_SCOPE]).each do |scope|
+                  li.block-checks__item
+                    .a-block-check.is-checkbox
+                      = check_box_tag 'personal_access_token[scopes][]',
+                        scope,
+                        @personal_access_token.scopes.include?(scope),
+                        id: "personal_access_token_scopes_#{scope}",
+                        class: 'a-toggle-checkbox'
+                      label.a-block-check__label.is-ta-left(for="personal_access_token_scopes_#{scope}")
+                        = PersonalAccessToken::SCOPE_LABELS.fetch(scope)
+              .a-form-help
+                p
+                  | 読み取り（read）は常に付与されます。必要なスコープだけを選んでください。
+            .form-item
+              = f.label :expires_in_days, '有効期限', class: 'a-form-label'
+              .a-button.is-md.is-secondary.is-select.is-block
+                = f.select :expires_in_days, PersonalAccessToken.expiration_options
+        .form-actions
+          ul.form-actions__items
+            li.form-actions__item.is-main
+              button.a-button.is-lg.is-primary.is-block
+                | 発行する
+            li.form-actions__item.is-sub
+              = link_to 'キャンセル', current_user_access_tokens_path, class: 'a-button is-sm is-text'
