@@ -5,6 +5,10 @@ module McpOauth
     include McpOauth::Urls
     include McpOauth::RedirectUris
 
+    # OAuth token requests use client credentials, not browser activity logging.
+    # On stateless revoke, Sorcery's JWT callback receives Doorkeeper's token object.
+    skip_after_action :register_last_activity_time_to_db
+
     # create is inherited from Doorkeeper::TokensController.
     # rubocop:disable Rails/LexicallyScopedActionFilter
     before_action :validate_mcp_token_request, only: :create
