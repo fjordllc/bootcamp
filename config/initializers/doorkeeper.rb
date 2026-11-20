@@ -5,10 +5,13 @@ Doorkeeper.configure do
   resource_owner_authenticator do
     current_user || begin
       application = Doorkeeper.config.application_model.find_by(uid: params[:client_id])
-      if application&.mcp_client? && request.fullpath.bytesize > McpOauth::AuthorizationsController::MAX_RETURN_TO_URL_BYTESIZE
+      return_to_url_too_long = request.fullpath.bytesize > McpOauth::AuthorizationsController::MAX_RETURN_TO_URL_BYTESIZE
+      if application&.mcp_client? && return_to_url_too_long
         render json: { error: 'invalid_request' }, status: :bad_request
       else
-        session[:return_to_url] = request.fullpath if application&.mcp_client?
+        # ログイン後に認可リクエストへ戻れるよう、MCP以外のクライアントでも戻り先を保存する。
+        # セッションCookieに収まらない長さの場合は保存せず、従来どおりログイン後はトップへ進む。
+        session[:return_to_url] = request.fullpath unless return_to_url_too_long
         redirect_to(login_path)
       end
     end
