@@ -292,20 +292,18 @@ input:checked + .card-list-item__user-detail {
 }
 
 .card-list-item__thumbnail {
-  flex: 0 0 6rem;
+  flex: 0 0 8rem;
 }
 
 .card-list-item__thumbnail-inner {
-  position: relative;
-  padding-top: 52.5%;
   display: block;
+  aspect-ratio: 1.91 / 1;
 }
 
 .card-list-item__thumbnail-image {
+  display: block;
   height: 100%;
   width: 100%;
-  position: absolute;
-  inset: 0;
   object-fit: cover;
   border-radius: 4px;
 }
