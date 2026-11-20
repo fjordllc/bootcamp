@@ -10,6 +10,17 @@ module Commentable
              source: :user
   end
 
+  # コメントしたユーザーを、各ユーザーの最新コメントが古い順に返す（Comment.commented_usersと同じ並び）。
+  # commentsが読み込み済みなら、一覧でレコードごとにSQLを発行しないよう、読み込み済みのコメントから求める。
+  def users_ordered_by_latest_comment
+    return comments.commented_users unless comments.loaded?
+
+    comments.group_by(&:user_id).values
+            .map { |user_comments| user_comments.max_by(&:created_at) }
+            .sort_by(&:created_at)
+            .map(&:user)
+  end
+
   def title
     case self
     when Product

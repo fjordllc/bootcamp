@@ -21,10 +21,12 @@ class ReportsController < ApplicationController # rubocop:todo Metrics/ClassLeng
 
   def show
     @products = @report.user.products.not_wip.order(published_at: :desc)
+                       .preload(:practice, comments: { user: { avatar_attachment: :blob } }, checks: :user)
     @comments = @report.comments.order(:created_at)
+                       .preload(user: [{ avatar_attachment: :blob }, :company], reactions: :user)
     @recent_reports = Report.list.where(user_id: @report.user.id).limit(10)
     Footprint.find_or_create_for(@report, current_user)
-    @footprints = Footprint.fetch_for_resource(@report)
+    @footprints = Footprint.fetch_for_resource(@report).load
     respond_to do |format|
       format.html
       format.md
