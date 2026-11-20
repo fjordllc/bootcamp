@@ -11,7 +11,8 @@ Doorkeeper.configure do
       else
         # ログイン後に認可リクエストへ戻れるよう、MCP以外のクライアントでも戻り先を保存する。
         # セッションCookieに収まらない長さの場合は保存せず、従来どおりログイン後はトップへ進む。
-        session[:return_to_url] = request.fullpath unless return_to_url_too_long
+        # 以前の認可リクエストへ誤って戻らないよう、保存済みの戻り先も消す。
+        session[:return_to_url] = return_to_url_too_long ? nil : request.fullpath
         redirect_to(login_path)
       end
     end
