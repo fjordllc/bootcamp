@@ -5,8 +5,7 @@ json.delayed user.completed_at >= 2.weeks.ago.end_of_day if user.respond_to?(:co
 json.adviser user.adviser
 
 if admin_or_mentor_login?
-  mentor_memos = user.mentor_memos.order(Arel.sql('created_at IS NULL, created_at'))
-  json.mentor_memos mentor_memos do |memo|
+  json.mentor_memos user.mentor_memos.oldest_first do |memo|
     json.id memo.id
     json.content memo.content
     json.author memo.author&.long_name || 'メンター'

@@ -51,7 +51,7 @@ article.card-list-item(class="#{report.wip? ? 'is-wip' : ''}")
                   = comment_count(report)
               .card-list-item-meta__item
                 .card-list-item__user-icons
-                  = render partial: 'comments/user_icons', collection: report.comments.commented_users, as: :user
+                  = render partial: 'comments/user_icons', collection: report.users_ordered_by_latest_comment, as: :user
               .card-list-item-meta__item
                 .a-meta
                   | 〜

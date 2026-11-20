@@ -22,12 +22,18 @@ module Reactionable
   private
 
   def grouped_reactions
-    @grouped_reactions ||= reactions
-                           .joins(:user)
-                           .order(created_at: :asc)
-                           .pluck(:id, :kind, :"users.login_name").each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |array, hash|
+    @grouped_reactions ||= reaction_rows.each_with_object(Hash.new { |hash, key| hash[key] = [] }) do |array, hash|
       id, kind, login_name = array
       hash[kind] << { id:, login_name: }
     end.with_indifferent_access
+  end
+
+  # reactionsが読み込み済みなら、一覧でレコードごとにSQLを発行しないよう、読み込み済みのリアクションから求める。
+  def reaction_rows
+    if reactions.loaded?
+      reactions.select(&:user).sort_by(&:created_at).map { |reaction| [reaction.id, reaction.kind, reaction.user.login_name] }
+    else
+      reactions.joins(:user).order(created_at: :asc).pluck(:id, :kind, :'users.login_name')
+    end
   end
 end
