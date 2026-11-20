@@ -9,7 +9,7 @@ class Footprint < ApplicationRecord
 
   def self.fetch_for_resource(resource)
     where(footprintable: resource)
-      .includes(:user)
+      .with_avatar
       .where.not(user_id: resource.user.id)
       .order(created_at: :desc)
   end

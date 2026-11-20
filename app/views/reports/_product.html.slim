@@ -34,7 +34,7 @@ article.card-list-item(class="#{product.wip? ? 'is-wip' : ''}")
                   = comment_count(product)
               .card-list-item-meta__item
                 .card-list-item__user-icons
-                  = render partial: 'comments/user_icons', collection: product.comments.commented_users, as: :user
+                  = render partial: 'comments/user_icons', collection: product.users_ordered_by_latest_comment, as: :user
               .card-list-item-meta__item
                 .a-meta
                   | 〜

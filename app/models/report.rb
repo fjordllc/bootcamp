@@ -57,7 +57,7 @@ class Report < ApplicationRecord
 
   scope :list, lambda {
     with_avatar
-      .preload([:comments, { checks: { user: { avatar_attachment: :blob } } }])
+      .preload(comments: { user: { avatar_attachment: :blob } }, checks: { user: { avatar_attachment: :blob } })
       .default_order
   }
 
