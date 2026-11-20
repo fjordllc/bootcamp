@@ -73,6 +73,20 @@ class OauthLoginReturnTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+  test 'does not return to an earlier authorization request after one too long for the session cookie' do
+    get oauth_authorization_path, params: authorization_params
+    assert_redirected_to login_path
+    assert_not_nil session[:return_to_url]
+
+    get oauth_authorization_path, params: authorization_params.merge(state: 'a' * 3000)
+    assert_redirected_to login_path
+    assert_nil session[:return_to_url]
+
+    post user_sessions_path, params: { user: { login: 'kimura', password: 'testtest' } }
+
+    assert_redirected_to root_url
+  end
+
   private
 
   def authorization_params
