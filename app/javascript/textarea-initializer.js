@@ -26,6 +26,8 @@ const TextareaMarkdown =
   TextareaMarkdownModule.default ||
   TextareaMarkdownModule
 
+const initializedMarkdown = new WeakSet()
+
 export default class {
   static initialize(selector) {
     const textareas = document.querySelectorAll(selector)
@@ -39,16 +41,22 @@ export default class {
       })
     }
 
+    let disconnected = false
+    let tribute
+    const observers = []
+
     // autosize
     autosize(textareas)
     textareas.forEach((textarea) => {
-      new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.target.scrollHeight !== 0) {
             autosize.update(entry.target)
           }
         })
-      }).observe(textarea)
+      })
+      observer.observe(textarea)
+      observers.push(observer)
     })
 
     // auto-completion
@@ -56,11 +64,12 @@ export default class {
     const mention = new TextareaAutocomplteMention()
 
     mention.fetchValues((json) => {
+      if (disconnected) return
       emoji.addUserData(json)
       mention.values = json
       mention.values.unshift({ login_name: 'mentor', name: 'メンター' })
       const collection = [emoji.params(), mention.params()]
-      const tribute = new Tribute({
+      tribute = new Tribute({
         collection
       })
       guardTributeMenuClicks(tribute)
@@ -75,7 +84,9 @@ export default class {
 
     // markdown
     Array.from(textareas).forEach((textarea) => {
-      if (textarea.dataset.textareaMarkdownInitialized) return
+      if (initializedMarkdown.has(textarea)) return
+      initializedMarkdown.add(textarea)
+      delete textarea.dataset.tribute
       textarea.dataset.textareaMarkdownInitialized = 'true'
       /* eslint-disable no-new */
       new TextareaMarkdown(textarea, {
@@ -117,7 +128,20 @@ export default class {
     // Convert selected text to markdown link on URL paste
     new TextareaMarkdownLinkify().linkify(selector)
 
-    ReplaceLinkToCard(selector)
+    const cleanupLinkCards = ReplaceLinkToCard(selector)
+
+    return () => {
+      disconnected = true
+      observers.forEach((observer) => observer.disconnect())
+      autosize.destroy(textareas)
+      textareas.forEach((textarea) => {
+        if (tribute && textarea.dataset.tribute) {
+          tribute.detach(textarea)
+          delete textarea.dataset.tribute
+        }
+      })
+      cleanupLinkCards?.()
+    }
   }
 
   static uninitialize(selector) {

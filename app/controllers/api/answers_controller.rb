@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class API::AnswersController < API::BaseController
+  include QuestionShowPreparation
   include Rails.application.routes.url_helpers
   before_action :set_answer, only: %i[update destroy]
-  before_action :set_available_emojis, only: %i[index create]
+  before_action :set_available_emojis, only: %i[index create update]
   before_action -> { doorkeeper_authorize! :write }, only: %i[create update destroy], if: -> { doorkeeper_token.present? }
 
   def index
@@ -26,29 +27,31 @@ class API::AnswersController < API::BaseController
   end
 
   def create
-    question = Question.find(params[:question_id])
-    @answer = question.answers.new(answer_params)
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     if @answer.save
       ActiveSupport::Notifications.instrument('answer.create', answer: @answer)
-      render_created_answer(question)
+      render_created_answer
     else
-      render_validation_errors(@answer)
+      render_invalid_answer
     end
   end
 
   def update
+    @question = @answer.question
     if @answer.update(answer_params)
-      request.format.json? ? render(json: answer_json(@answer), status: :ok) : head(:ok)
+      render_updated_answer
     else
-      render_validation_errors(@answer)
+      @editing_answer = @answer
+      render_invalid_update
     end
   end
 
   def destroy
-    @answer.destroy
-    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: current_action_name) if @answer.type == 'CorrectAnswer'
-    request.format.json? ? render(json: { id: @answer.id }, status: :ok) : head(:no_content)
+    destroyed = @answer.destroy
+    ActiveSupport::Notifications.instrument('answer.destroy', answer: @answer, action: current_action_name) if destroyed && @answer.type == 'CorrectAnswer'
+    render_destroy
   end
 
   private
@@ -66,11 +69,58 @@ class API::AnswersController < API::BaseController
     params.require(:answer).permit(:description)
   end
 
-  def render_created_answer(question)
-    if request.format.json?
-      render json: answer_json(@answer), status: :created
-    else
-      render partial: 'questions/answer', locals: { question:, answer: @answer, user: current_user }, status: :created
+  def render_created_answer
+    respond_to do |format|
+      format.turbo_stream { render :create, status: :created }
+      format.json { render json: answer_json(@answer), status: :created }
+      format.html do
+        redirect_to question_path(@question, anchor: "answer_#{@answer.id}"),
+                    status: :see_other, notice: '回答を投稿しました！'
+      end
+    end
+  end
+
+  def render_invalid_answer
+    respond_to do |format|
+      format.turbo_stream { render :create, status: :unprocessable_entity }
+      format.json { render_validation_errors(@answer) }
+      format.html do
+        prepare_question_show
+        render 'questions/show', status: :unprocessable_entity
+      end
+    end
+  end
+
+  def render_updated_answer
+    respond_to do |format|
+      format.turbo_stream
+      format.json { render json: answer_json(@answer), status: :ok }
+      format.html { redirect_to question_path(@question, anchor: "answer_#{@answer.id}"), status: :see_other }
+    end
+  end
+
+  def render_invalid_update
+    respond_to do |format|
+      format.turbo_stream { render :update, status: :unprocessable_entity }
+      format.json { render_validation_errors(@answer) }
+      format.html do
+        prepare_question_show
+        @answer = Answer.new
+        render 'questions/show', status: :unprocessable_entity
+      end
+    end
+  end
+
+  def render_destroy
+    @question = @answer.question.reload
+    respond_to do |format|
+      format.turbo_stream { @answer.destroyed? ? render(:destroy) : head(:unprocessable_entity) }
+      format.json { @answer.destroyed? ? render(json: { id: @answer.id }, status: :ok) : render_validation_errors(@answer) }
+      format.html do
+        anchor = @answer.destroyed? ? helpers.dom_id(@question, :answers) : "answer_#{@answer.id}"
+        redirect_to question_path(@question, anchor: anchor), status: :see_other,
+                                                              alert: @answer.destroyed? ? nil : '回答を削除できませんでした。'
+      end
     end
   end
 
