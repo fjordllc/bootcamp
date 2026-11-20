@@ -5,13 +5,13 @@ require 'test_helper'
 class MentorMemoTest < ActiveSupport::TestCase
   self.use_transactional_tests = false
 
-  test '.oldest_first puts memos without created_at last' do
-    assert_equal [mentor_memos(:kimura), mentor_memos(:migrated_kimura)],
+  test '.oldest_first orders memos from oldest to newest and puts memos without created_at last' do
+    assert_equal [mentor_memos(:kimura), mentor_memos(:newer_kimura), mentor_memos(:migrated_kimura)],
                  users(:kimura).mentor_memos.oldest_first.to_a
   end
 
   test '.oldest_first loads memos after the database server closed the connection' do
-    expected_memos = [mentor_memos(:kimura), mentor_memos(:migrated_kimura)]
+    expected_memos = [mentor_memos(:kimura), mentor_memos(:newer_kimura), mentor_memos(:migrated_kimura)]
     memos = users(:kimura).mentor_memos.oldest_first
 
     close_freshly_leased_connection_from_server

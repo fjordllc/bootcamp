@@ -5,6 +5,13 @@ kimura:
   created_at: 2024/01/01
   updated_at: 2024/02/01
 
+newer_kimura:
+  user: kimura
+  author: machida
+  content: この生徒は朝の時間帯に質問することが多いです。
+  created_at: 2024/03/01
+  updated_at: 2024/03/01
+
 migrated_kimura:
   user: kimura
   content: 2025年4月1日 メンター戸崎よりコメント：この生徒は英語で話した方がスムーズ
