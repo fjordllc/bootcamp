@@ -1,0 +1,164 @@
+# frozen_string_literal: true
+
+require 'browserless_system_test_case'
+
+module Users
+  class ProfileBrowserlessTest < BrowserlessSystemTestCase
+    test 'show profile' do
+      user = users(:hatsuno)
+      visit_with_auth "/users/#{user.id}", 'hatsuno'
+      assert_equal 'hatsunoさんのプロフィール | FBC', title
+      assert_selector "a[href='https://x.com/#{user.twitter_account}'] i.fa-x-twitter", visible: :all
+    end
+
+    test "retire reason isn't displayed when login user isn't admin" do
+      visit_with_auth "/users/#{users(:yameo).id}", 'kimura'
+      assert_text 'yameo'
+      assert_no_text '退会理由'
+    end
+
+    test "normal user can't see unchecked number table" do
+      visit_with_auth "/users/#{users(:hatsuno).id}", 'hatsuno'
+      assert_equal 0, all('.admin-table').length
+    end
+
+    test 'show users role' do
+      visit_with_auth "/users/#{users(:komagata).id}", 'komagata'
+      assert_text '管理者'
+
+      visit_with_auth "/users/#{users(:mentormentaro).id}", 'mentormentaro'
+      assert_text 'メンター'
+
+      visit_with_auth "/users/#{users(:advijirou).id}", 'advijirou'
+      assert_text 'アドバイザー'
+
+      visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
+      assert_text '研修生'
+
+      visit_with_auth "/users/#{users(:sotugyou).id}", 'sotugyou'
+      assert_text '卒業生'
+
+      visit_with_auth "/users/#{users(:kyuukai).id}", 'kyuukai'
+      assert_text '休会中'
+    end
+
+    test 'show daily report download button' do
+      visit_with_auth "/users/#{users(:kimura).id}", 'komagata'
+      assert_text '日報ダウンロード'
+    end
+
+    test 'not show daily report download button' do
+      visit_with_auth "/users/#{users(:kimura).id}", 'hatsuno'
+      assert_no_text '日報ダウンロード'
+    end
+
+    test 'show link to talk room when logined as admin' do
+      kimura = users(:kimura)
+      visit_with_auth "/users/#{kimura.id}", 'komagata'
+      assert_text 'プロフィール'
+      assert_link '相談部屋', href: "/talks/#{kimura.talk.id}"
+    end
+
+    test 'should not show link to talk room of admin even if logined as admin' do
+      machida = users(:machida)
+      visit_with_auth "/users/#{machida.id}", 'komagata'
+      assert_text 'プロフィール'
+      assert_no_link '相談部屋'
+    end
+
+    test 'should not show link to talk room when logined as no-admin' do
+      hatsuno = users(:hatsuno)
+      visit_with_auth "/users/#{hatsuno.id}", 'kimura'
+      assert_text 'プロフィール'
+      assert_no_link '相談部屋'
+    end
+
+    test 'show training end date if user is a trainee and has a training end date' do
+      user = users(:kensyu)
+      visit_with_auth user_path(user.id), 'kensyu'
+      assert has_text?('研修終了予定日')
+      assert has_text?('2022年04月01日')
+    end
+
+    test 'if the number of days it took to graduate is positive, the value is displayed.' do
+      user = users(:sotugyou)
+      user.update!(created_at: Time.zone.today - 1, graduated_on: Time.zone.today, job: 'office_worker')
+      visit_with_auth "/users/#{user.id}", 'sotugyou'
+      assert_text '卒業 1日'
+    end
+
+    test 'if the number of days it took to graduate is negative, the value is not displayed.' do
+      user = users(:sotugyou)
+      user.update!(created_at: Time.zone.today, graduated_on: Time.zone.today - 1, job: 'office_worker')
+      visit_with_auth "/users/#{user.id}", 'sotugyou'
+      assert_text 'sotugyou'
+      assert_no_text '卒業 1日'
+    end
+
+    test 'should not show previously hibernating user history to other users' do
+      returned_user = users(:hukki)
+
+      # 研修終了済み
+      visit_with_auth user_path(returned_user), 'kensyuowata'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # 研修中
+      visit_with_auth user_path(returned_user), 'kensyu'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # アドバイザー
+      visit_with_auth user_path(returned_user), 'advijirou'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # 一般受講生
+      visit_with_auth user_path(returned_user), 'hatsuno'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+
+      # 卒業生
+      visit_with_auth user_path(returned_user), 'sotugyou'
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hukki'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+    end
+
+    test 'should not show hibernation history on user profile when user has never hibernated' do
+      never_hibernated_user = users(:hatsuno)
+
+      visit_with_auth user_path(never_hibernated_user), 'komagata'
+
+      assert_selector '.page-main-header__title', text: 'プロフィール'
+      assert_selector '.page-content-header__title', text: 'hatsuno'
+      assert_no_selector '.card-header__title', text: /^休会履歴/
+    end
+
+    test 'visible learning time frames table on profile pages non advisors and grad users' do
+      hatsuno = users(:hatsuno)
+      mentormentaro = users(:mentormentaro)
+      kensyu = users(:kensyu)
+
+      LearningTimeFramesUser.create!(user: hatsuno, learning_time_frame_id: 1)
+      LearningTimeFramesUser.create!(user: mentormentaro, learning_time_frame_id: 2)
+      LearningTimeFramesUser.create!(user: kensyu, learning_time_frame_id: 3)
+
+      visit_with_auth "/users/#{hatsuno.id}", 'kimura'
+      assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+      assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+
+      visit_with_auth "/users/#{mentormentaro.id}", 'kimura'
+      assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+      assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+
+      visit_with_auth "/users/#{kensyu.id}", 'kimura'
+      assert_selector 'h1.page-main-header__title', text: 'プロフィール'
+      assert_selector 'h2.card-header__title', text: '主な活動予定時間'
+    end
+  end
+end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Article::SponsorshipsTest < ApplicationSystemTestCase
+class Article::SponsorshipsTest < BrowserlessSystemTestCase
   test 'show listing only sponsorship articles' do
     sponsorship_article = Article.create!(
       title: 'sponsorshipページに表示される記事のタイトルです。',

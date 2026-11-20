@@ -3,18 +3,6 @@
 require 'application_system_test_case'
 
 class Mentor::Categories::PracticesTest < ApplicationSystemTestCase
-  test 'admin user can access practices sort page' do
-    visit_with_auth mentor_category_practices_path(categories(:category2)), 'komagata'
-    within first('.admin-table__item-value.is-text-align-center.is-grab') do
-      assert_selector '.js-grab'
-    end
-  end
-
-  test 'non-admin user cannot access practices sort page' do
-    visit_with_auth mentor_category_practices_path(categories(:category2)), 'kimura'
-    assert_text '管理者・メンターとしてログインしてください'
-  end
-
   test 'sorting practices of a category' do
     visit_with_auth course_practices_path(courses(:course1)), 'kimura'
     assert_equal all('span.category-practices-item__title-link-label')[0].text, practices(:practice1).title

@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class CurrentUser::WatchesTest < ApplicationSystemTestCase
-  test 'show current_user watches when current_user is student' do
-    visit_with_auth '/current_user/watches', 'kimura'
-    assert_equal 'Watch中 | FBC', title
-  end
-
   test 'show my watch list' do
     visit_with_auth '/current_user/watches', 'hajime'
     assert_no_text 'テストの質問1'

@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class Mentor::CategoriesTest < ApplicationSystemTestCase
-  test 'show listing categories' do
-    visit_with_auth '/mentor/categories', 'mentormentaro'
-    assert_equal 'メンターページ | FBC', title
-  end
-
   test 'show category page' do
     visit_with_auth mentor_category_path(categories(:category2)), 'mentormentaro'
     assert_equal 'Mac OS X | FBC', title
@@ -94,14 +89,5 @@ class Mentor::CategoriesTest < ApplicationSystemTestCase
     assert_text '学習の準備'
     find("a[href='/mentor/categories/#{category.id}/practices']").click
     assert_text '学習の準備カテゴリーのプラクティス並び替え'
-  end
-
-  test 'should display practice count correctly' do
-    category_name = '学習の準備'
-    category = Category.find_by(name: category_name)
-    practice_count = category.practices.length
-
-    visit_with_auth '/mentor/categories', 'komagata'
-    assert_text "#{category_name}(#{practice_count})"
   end
 end

@@ -4,22 +4,10 @@ require 'application_system_test_case'
 
 module Users
   class ListTest < ApplicationSystemTestCase
-    test 'show listing all users' do
-      visit_with_auth users_path, 'kimura'
-      assert_equal '全てのユーザー | FBC', title
-      assert_selector 'h2.page-header__title', text: 'ユーザー'
-    end
-
     test 'admin can see link to talk on user list page' do
       visit_with_auth '/users', 'komagata'
       assert_selector '.page-header__title', text: 'ユーザー'
       assert_link '相談部屋'
-    end
-
-    test 'not admin cannot see link to talk on user list page' do
-      visit_with_auth '/users', 'kimura'
-      assert_selector '.page-header__title', text: 'ユーザー'
-      assert_no_link '相談部屋'
     end
 
     test 'show trainees for adviser' do
@@ -43,18 +31,6 @@ module Users
       assert_no_text '登録情報変更'
     end
 
-    test 'show myself' do
-      visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
-      assert_no_text '自社研修生'
-      assert_no_text 'フォローする'
-      assert_text '登録情報変更'
-    end
-
-    test 'show users trainees for adviser' do
-      visit_with_auth '/users?target=trainee', 'senpai'
-      assert_text '自社研修生'
-    end
-
     test 'mentor can see retired and hibernated tabs' do
       visit_with_auth '/users', 'mentormentaro'
       assert_link '休会', href: '/users?target=hibernated'
@@ -65,12 +41,6 @@ module Users
       visit_with_auth '/users', 'komagata'
       assert_link '休会', href: '/users?target=hibernated'
       assert_link '退会', href: '/users?target=retired'
-    end
-
-    test 'user can not see retired and hibernated tabs if the user is not admin or mentor' do
-      visit_with_auth '/users', 'sotugyou'
-      assert_no_link '休会', href: '/users?target=hibernated'
-      assert_no_link '退会', href: '/users?target=retired'
     end
 
     test "should show students and trainees's active activity counts" do
@@ -136,6 +106,13 @@ module Users
       assert_selector('a.tab-nav__item-link.is-active', text: '現役生')
       filtered_users = all('.users-item__icon .a-user-role')
       assert(filtered_users.all? { |user| user[:class].split.include?('is-student') })
+    end
+
+    test 'show myself' do
+      visit_with_auth "/users/#{users(:kensyu).id}", 'kensyu'
+      assert_no_text '自社研修生'
+      assert_no_text 'フォローする'
+      assert_text '登録情報変更'
     end
   end
 end

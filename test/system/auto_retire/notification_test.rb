@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module AutoRetire
-  class NotificationTest < ApplicationSystemTestCase
+  class NotificationTest < BrowserlessSystemTestCase
     setup do
       @delivery_mode = AbstractNotifier.delivery_mode
       AbstractNotifier.delivery_mode = :normal

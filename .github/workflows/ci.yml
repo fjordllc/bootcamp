@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 env:
-  RUBY_VERSION: 4.0.9
+  RUBY_VERSION: 4.0.10
   NODE_VERSION: 22.23.4
   BUNDLE_JOBS: "3"
   BUNDLE_RETRY: "3"
@@ -61,8 +61,27 @@ jobs:
 
       - name: Install system packages
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libvips libheif-dev
+          apt_get() {
+            sudo timeout "$1" apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 "${@:2}"
+          }
+
+          install_packages() {
+            apt_get 300 update || return 1
+            apt_get 900 install -y libvips libheif-dev || return 1
+          }
+
+          for attempt in 1 2 3; do
+            if install_packages; then
+              exit 0
+            fi
+            if [ "$attempt" = 3 ]; then
+              exit 1
+            fi
+
+            sudo timeout 120 dpkg --configure -a || true
+            sudo rm -rf /var/lib/apt/lists/*
+            sleep "$((attempt * 10))"
+          done
 
       - name: RuboCop
         run: bundle exec rubocop --format progress
@@ -142,14 +161,56 @@ jobs:
       - name: Install npm packages
         run: npm ci
 
+      - name: Get week for apt package cache
+        id: apt-cache-week
+        run: echo "week=$(date +%G-%V)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache apt packages
+        uses: actions/cache@v4
+        with:
+          path: ~/apt-archives
+          key: apt-archives-test-${{ hashFiles('.github/workflows/ci.yml') }}-${{ steps.apt-cache-week.outputs.week }}
+          restore-keys: |
+            apt-archives-test-${{ hashFiles('.github/workflows/ci.yml') }}-
+
       - name: Install system packages
         run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk ffmpeg imagemagick libvips libheif-dev libuv1-dev postgresql-client
-          for package in libheif-plugin-aomdec libheif-plugin-libde265; do
-            if apt-cache show "$package" >/dev/null 2>&1; then
-              sudo apt-get install -y "$package"
+          archives="$HOME/apt-archives"
+          mkdir -p "$archives/partial"
+          echo "Cached apt packages: $(find "$archives" -name '*.deb' | wc -l)"
+
+          apt_get() {
+            sudo timeout "$1" apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 -o Dir::Cache::archives="$archives" "${@:2}"
+          }
+
+          install_packages() {
+            apt_get 300 update || return 1
+            apt_get 900 install -y fonts-noto-cjk ffmpeg imagemagick libvips libheif-dev libuv1-dev postgresql-client || return 1
+            for package in libheif-plugin-aomdec libheif-plugin-libde265; do
+              if apt-cache show "$package" >/dev/null 2>&1; then
+                apt_get 900 install -y "$package" || return 1
+              fi
+            done
+          }
+
+          save_archives() {
+            sudo chown -R "$(id -u):$(id -g)" "$archives"
+            rm -rf "$archives/partial" "$archives/lock"
+            echo "Apt packages to cache: $(find "$archives" -name '*.deb' | wc -l) ($(du -sh "$archives" | cut -f1))"
+          }
+
+          for attempt in 1 2 3; do
+            if install_packages; then
+              save_archives
+              exit 0
             fi
+            if [ "$attempt" = 3 ]; then
+              exit 1
+            fi
+
+            sudo timeout 120 dpkg --configure -a || true
+            sudo rm -rf /var/lib/apt/lists/*
+            sleep "$((attempt * 10))"
           done
 
       - name: Install Playwright browser

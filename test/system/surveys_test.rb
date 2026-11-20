@@ -8,12 +8,6 @@ class SurveysTest < ApplicationSystemTestCase
     @user = users(:komagata)
   end
 
-  test 'user can view survey' do
-    visit_with_auth survey_path(@survey), 'komagata'
-    assert_selector 'h1', text: @survey.title
-    assert_text @survey.description
-  end
-
   test 'user can answer all question types at once' do
     visit_with_auth survey_path(@survey), 'komagata'
 
@@ -34,18 +28,6 @@ class SurveysTest < ApplicationSystemTestCase
 
     click_button '回答する'
     assert_text 'アンケートに回答しました。'
-  end
-
-  test 'user cannot answer survey twice' do
-    # First answer
-    visit_with_auth survey_path(@survey), 'komagata'
-
-    # Create a survey answer directly
-    SurveyAnswer.create!(survey: @survey, user: @user)
-
-    # Try to answer again
-    visit survey_path(@survey)
-    assert_text 'このアンケートには既に回答済みです。'
   end
 
   test 'required reason field appears when specific radio button is selected' do

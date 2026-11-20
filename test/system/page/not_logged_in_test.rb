@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Page::NotLoggedInTest < ApplicationSystemTestCase
+class Page::NotLoggedInTest < BrowserlessSystemTestCase
   test 'when not logged in user access docs, meta description is displayed' do
     logout
     target_page = pages(:page1)

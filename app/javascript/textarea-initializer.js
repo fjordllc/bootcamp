@@ -1,4 +1,5 @@
 import Tribute from 'tributejs'
+import guardTributeMenuClicks from 'tribute-menu-events'
 import TextareaAutocomplteEmoji from 'textarea-autocomplte-emoji'
 import TextareaAutocomplteMention from 'textarea-autocomplte-mention'
 import TextareaMarkdownModule from 'textarea-markdown'
@@ -62,6 +63,7 @@ export default class {
       const tribute = new Tribute({
         collection
       })
+      guardTributeMenuClicks(tribute)
 
       textareas.forEach((textarea) => {
         if (!textarea.dataset.tribute) {
@@ -123,6 +125,7 @@ export default class {
     textareas.forEach((textarea) => {
       const cloneTextarea = textarea.cloneNode(true)
       delete cloneTextarea.dataset.textareaMarkdownInitialized
+      delete cloneTextarea.dataset.tribute
       textarea.parentNode.replaceChild(cloneTextarea, textarea)
     })
   }

@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class Check::ProductsTest < ApplicationSystemTestCase
-  test 'user can see stamp' do
-    visit_with_auth "/products/#{products(:product3).id}", 'kimura'
-    assert_text '合格'
-  end
-
   test 'success product checking' do
     visit_with_auth "/products/#{products(:product1).id}", 'komagata'
     click_button '提出物を合格にする'

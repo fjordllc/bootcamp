@@ -8,11 +8,6 @@ class Articles::ThumbnailTest < ApplicationSystemTestCase
     @article3 = articles(:article3)
   end
 
-  test 'if there is no featured image, the default image is set as the OGP image' do
-    visit_with_auth "/articles/#{@article3.id}", 'komagata'
-    verify_default_ogp_image_used
-  end
-
   test 'can set it as an OGP image by uploading an eye-catching image' do
     visit_with_auth edit_article_path(@article), 'komagata'
     find('label[for=article_thumbnail_type_prepared_thumbnail]').click

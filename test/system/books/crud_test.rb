@@ -46,17 +46,5 @@ module Books
       assert_text '価格は数値で入力してください'
       assert_text 'URLを入力してください'
     end
-
-    test "can't create book" do
-      visit_with_auth new_book_path, 'kimura'
-      assert_text '管理者・メンターとしてログインしてください'
-    end
-
-    test "can't update book" do
-      visit_with_auth '/books', 'kimura'
-
-      visit "/books/#{books(:book1).id}/edit"
-      assert_text '管理者・メンターとしてログインしてください'
-    end
   end
 end

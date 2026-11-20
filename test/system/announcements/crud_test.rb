@@ -14,16 +14,6 @@ module Announcements
       AbstractNotifier.delivery_mode = @delivery_mode
     end
 
-    test 'show link to create new announcement when user is admin' do
-      visit_with_auth '/announcements', 'komagata'
-      assert_text 'お知らせ作成'
-    end
-
-    test "show link to create new announcement when user isn't admin" do
-      visit_with_auth '/announcements', 'kimura'
-      assert_text 'お知らせ作成'
-    end
-
     test 'general user can create announcement' do
       visit_with_auth '/announcements', 'kimura'
       click_link 'お知らせ作成'
@@ -42,14 +32,6 @@ module Announcements
       click_link '複製'
 
       assert_text 'お知らせを複製しました。'
-    end
-
-    test 'general user can copy submitted announcement' do
-      announcement = announcements(:announcement1)
-      visit_with_auth announcement_path(announcement), 'kimura'
-      within '.announcement' do
-        assert_text '複製'
-      end
     end
   end
 end

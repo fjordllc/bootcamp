@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class Practice::MoviesTest < ApplicationSystemTestCase
+class Practice::MoviesTest < BrowserlessSystemTestCase
   test 'show listing movies' do
     visit_with_auth "/practices/#{practices(:practice1).id}/movies", 'hatsuno'
     assert_equal 'OS X Mountain Lionをクリーンインストールするに関する動画 | FBC', title

@@ -27,6 +27,9 @@ class Report < ApplicationRecord
   belongs_to :user, touch: true
   alias sender user
 
+  # PostgreSQLの文字列型はNULLバイトを保存できないため、取り除いてから保存する
+  normalizes :title, :description, with: ->(value) { value.delete("\u0000") }
+
   validates :title, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 255 }
   validates :description, presence: true
   validates :user, presence: true
@@ -147,9 +150,7 @@ class Report < ApplicationRecord
   end
 
   def save_uniquely
-    transaction do
-      save
-    end
+    transaction { save }
   rescue ActiveRecord::RecordNotUnique
     errors.add(:base, '学習日はすでに存在します')
     false

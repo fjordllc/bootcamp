@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class EventsTest < ApplicationSystemTestCase
+class EventsTest < BrowserlessSystemTestCase
   setup do
     @raise_server_errors = Capybara.raise_server_errors
   end

@@ -1,5 +1,5 @@
 # Dependency stage - reusable without application sources
-FROM ruby:4.0.9-slim as gems
+FROM ruby:4.0.10-slim as gems
 
 ENV RAILS_ENV production
 WORKDIR /app
@@ -42,7 +42,7 @@ ENV RAILS_LOG_TO_STDOUT true
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # Production stage - minimal runtime image
-FROM ruby:4.0.9-slim as production
+FROM ruby:4.0.10-slim as production
 
 ENV RAILS_ENV production
 WORKDIR /app

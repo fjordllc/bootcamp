@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class User::QuestionsTest < ApplicationSystemTestCase
+class User::QuestionsTest < BrowserlessSystemTestCase
   test 'show listing questions' do
     visit_with_auth "/users/#{users(:hatsuno).id}/questions", 'hatsuno'
     assert_equal 'hatsunoの質問一覧 | FBC', title

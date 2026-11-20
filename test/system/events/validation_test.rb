@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Events
-  class ValidationTest < ApplicationSystemTestCase
+  class ValidationTest < BrowserlessSystemTestCase
     test 'cannot create a new event when start_at > end_at' do
       visit_with_auth new_event_path, 'kimura'
       within 'form[name=event]' do

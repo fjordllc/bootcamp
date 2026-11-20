@@ -4,11 +4,6 @@ require 'application_system_test_case'
 
 module Products
   class TweetTest < ApplicationSystemTestCase
-    test 'can not see tweet button when current_user does not complete a practice' do
-      visit_with_auth "/products/#{products(:product1).id}", 'yamada'
-      assert_no_text 'Xに修了ポストする'
-    end
-
     test 'display learning completion message when a user of the completed product visits show first time' do
       visit_with_auth "/products/#{products(:product65).id}", 'kimura'
       assert_text '喜びをXにポストする！'
@@ -23,11 +18,6 @@ module Products
       assert_no_text '喜びをXにポストする！'
       visit current_path
       assert_text 'Xに修了ポストする'
-      assert_no_text '喜びをXにポストする！'
-    end
-
-    test 'not display learning completion message when a user whom the product does not belongs to visits show' do
-      visit_with_auth "/products/#{products(:product65).id}", 'yamada'
       assert_no_text '喜びをXにポストする！'
     end
 

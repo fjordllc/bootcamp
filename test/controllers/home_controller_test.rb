@@ -23,7 +23,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   test 'anonymous JSON requests are not acceptable' do
     get root_path(format: :json)
 
-    assert_response :not_acceptable
+    assert_not_acceptable_without_exception
   end
 
   test 'authenticated JSON requests are not acceptable' do
@@ -31,7 +31,29 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
 
     get root_path, headers: { 'Accept' => 'application/json' }
 
-    assert_response :not_acceptable
+    assert_not_acceptable_without_exception
+  end
+
+  test 'unregistered format requests are not acceptable' do
+    get root_path(format: :unregistered)
+
+    assert_not_acceptable_without_exception
+  end
+
+  test 'requests accepting HTML after another format view the public landing page' do
+    get root_path, headers: { 'Accept' => 'application/json, text/html' }
+
+    assert_response :success
+    assert_equal 'text/html', response.media_type
+    assert_select 'body.welcome-home'
+  end
+
+  test 'requests accepting any format view the public landing page' do
+    get root_path, headers: { 'Accept' => '*/*' }
+
+    assert_response :success
+    assert_equal 'text/html', response.media_type
+    assert_select 'body.welcome-home'
   end
 
   test 'training completion rejects an existing session at the root' do
@@ -179,6 +201,11 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def assert_not_acceptable_without_exception
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
 
   def assert_inactive_session_rejected(alert)
     assert_redirected_to root_path

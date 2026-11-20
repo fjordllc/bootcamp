@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
 module Products
-  class OrderTest < ApplicationSystemTestCase
+  class OrderTest < BrowserlessSystemTestCase
     test 'products order on all tab' do
       Product.update_all(created_at: 1.day.ago, published_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
       # 最新と最古の提出物を画面上で判定するため、提出物を1ページ内に収める

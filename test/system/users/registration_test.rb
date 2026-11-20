@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 require 'supports/registration_invitation_helper'
 
 module Users
-  class RegistrationTest < ApplicationSystemTestCase
+  class RegistrationTest < BrowserlessSystemTestCase
     include RegistrationInvitationHelper
 
     test 'GET /users/new' do

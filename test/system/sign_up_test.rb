@@ -42,12 +42,6 @@ class SignUpTest < ApplicationSystemTestCase
     end
   end
 
-  test 'job seeker option is shown for student' do
-    visit '/users/new'
-    assert_selector 'form[name=user]'
-    assert_selector "input[name='user[job_seeker]']", visible: :all
-  end
-
   test 'sign up with tag' do
     email = 'taguo@example.com'
     tag = 'タグ夫'

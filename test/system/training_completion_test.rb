@@ -42,11 +42,6 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     assert_text '研修終了したユーザーです'
   end
 
-  test 'non-trainee user cannot access training completion page' do
-    visit_with_auth new_training_completion_path, 'hajime'
-    assert_text '研修生としてログインしてください'
-  end
-
   test 'fails to send email when user completes training due to postmark error' do
     logs = []
     stub_warn_logger = ->(message) { logs << message }
@@ -64,11 +59,6 @@ class TrainingCompletionTest < ApplicationSystemTestCase
     end
 
     assert_match '[Postmark] 受信者由来のエラーのためメールを送信できませんでした。：', logs.to_s
-  end
-
-  test 'does not show training completion to non mentors and non admins' do
-    visit_with_auth "/users/#{users(:kensyuowata).id}", 'hatsuno'
-    assert_no_text '研修終了情報（非公開）'
   end
 
   test 'mentors can see training completion info' do

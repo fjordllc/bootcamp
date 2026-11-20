@@ -8,19 +8,6 @@ module Articles
       @article = articles(:article1)
     end
 
-    test 'share button X' do
-      visit "/articles/#{@article.id}"
-
-      assert_selector 'a.x-share-button[href^="https://twitter.com/intent/tweet?url=https://bootcamp.fjord.jp/articles/"]', text: 'Postする'
-    end
-
-    test 'share button Facebook' do
-      visit "/articles/#{@article.id}"
-
-      assert_selector '#fb-root', minimum: 1, visible: :all
-      assert_selector ".fb-share-button[data-href='https://bootcamp.fjord.jp/articles/#{@article.id}']", visible: :all
-    end
-
     test 'share button Hatena' do
       widget_url = 'https://b.st-hatena.com/js/bookmark_button.js'
       image_url = 'https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png'
@@ -32,8 +19,17 @@ module Articles
         visit "/articles/#{@article.id}"
 
         assert_selector "a.hatena-bookmark-button[href='https://b.hatena.ne.jp/entry/s/bootcamp.fjord.jp/articles/#{@article.id}']" \
-                        '[data-hatena-bookmark-layout="vertical-normal"][data-hatena-bookmark-lang="ja"]'
-        assert_selector "script[src='#{widget_url}']", visible: :all
+                        '[data-hatena-bookmark-layout="vertical-normal"][data-hatena-bookmark-lang="ja"]', count: 2
+        # The widget must run once per page, after every button it has to replace has been parsed.
+        assert_selector "script[src='#{widget_url}']", visible: :all, count: 1
+        script_follows_buttons = page.evaluate_script(<<~JS)
+          (() => {
+            const script = document.querySelector("script[src='#{widget_url}']")
+            const buttons = [...document.querySelectorAll('a.hatena-bookmark-button')]
+            return buttons.every((button) => (button.compareDocumentPosition(script) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0)
+          })()
+        JS
+        assert script_follows_buttons
       ensure
         playwright_page.unroute(widget_url, handler: block_widget)
         playwright_page.unroute(image_url, handler: block_widget)

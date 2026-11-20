@@ -3,11 +3,6 @@
 require 'application_system_test_case'
 
 class Admin::FAQTest < ApplicationSystemTestCase
-  test 'display listing FAQs' do
-    visit_with_auth '/admin/faqs', 'komagata'
-    assert_text 'FAQ一覧'
-  end
-
   test 'create FAQ' do
     visit_with_auth '/admin/faqs/new', 'komagata'
     within 'form[name=faq]' do

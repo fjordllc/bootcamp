@@ -10,11 +10,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_text '質問のタブに関して。。。追加質問'
   end
 
-  test 'show welcome message' do
-    visit_with_auth '/', 'hatsuno'
-    assert_text 'ようこそ'
-  end
-
   test 'not show welcome message' do
     visit_with_auth '/', 'hatsuno'
     assert_text 'ようこそ'

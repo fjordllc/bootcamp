@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+require 'browserless_system_test_case'
 
-class User::AreasTest < ApplicationSystemTestCase
+class User::AreasTest < BrowserlessSystemTestCase
   test 'show side menu' do
     visit_with_auth '/users/areas', 'kimura'
     within '.page-body__column.is-sub' do
