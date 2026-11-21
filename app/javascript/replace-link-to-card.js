@@ -1,6 +1,7 @@
 import CSRF from 'csrf'
 import { debounce } from 'debounce'
 import escapeHTML from 'escapeHtml'
+import sanitizeMarkdown from 'markdown-sanitizer'
 
 export default (selector) => {
   const textareas = document.querySelectorAll(selector)
@@ -124,7 +125,7 @@ const embedToTweet = async (targetLink, url) => {
     if (!response.ok) throw new Error(`Error: ${response.status}`)
 
     const embedTweet = await response.json()
-    targetLink.insertAdjacentHTML('afterend', embedTweet.html)
+    targetLink.insertAdjacentHTML('afterend', sanitizeMarkdown(embedTweet.html))
     targetLink.remove()
     loadTwitterScript()
   } catch (error) {
@@ -176,7 +177,7 @@ const embedToLinkCard = async (targetLink, url) => {
 
     targetLink.insertAdjacentHTML(
       'afterend',
-      `
+      sanitizeMarkdown(`
       <div class="a-link-card">
         <div class="a-link-card__title">
           <a href="${url}" target="_blank" rel="noopener" class="a-link-card__title-link">
@@ -206,7 +207,7 @@ const embedToLinkCard = async (targetLink, url) => {
           </div>
         </div>
       </div>
-      `
+      `)
     )
     targetLink.remove()
   } catch (error) {
@@ -218,7 +219,7 @@ const embedToLinkCard = async (targetLink, url) => {
 const handleEmbedFailure = (targetLink, url) => {
   targetLink.insertAdjacentHTML(
     'afterend',
-    `
+    sanitizeMarkdown(`
     <div class="a-link-card embed-error">
       <!-- リンクの変換に失敗しました。以下のリンクをご確認ください。 -->
       <div class="embed-error__inner">
@@ -228,7 +229,7 @@ const handleEmbedFailure = (targetLink, url) => {
         </a>
       </div>
     </div>
-    `
+    `)
   )
   targetLink.remove()
 }
