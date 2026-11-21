@@ -20,6 +20,7 @@ env:
   BUNDLE_JOBS: "3"
   BUNDLE_RETRY: "3"
   TZ: Asia/Tokyo
+  TEST_SHARDS: 8
 
 jobs:
   build:
@@ -44,6 +45,27 @@ jobs:
 
       - name: Install npm packages
         run: npm ci
+
+      # mainで記録した所要時間を使い、各シャードの合計時間が揃うようにテストを振り分ける。
+      # シャードごとに振り分けると、参照する記録が食い違ったときにテストが漏れるため、ここで一度だけ決める。
+      - name: Restore test timings
+        uses: actions/cache/restore@v4
+        with:
+          path: tmp/test_timings.json
+          key: test-timings-${{ github.run_id }}
+          restore-keys: |
+            test-timings-
+
+      - name: Split test files into shards
+        run: ruby bin/ci-test-timings split --shards "$TEST_SHARDS" --timings tmp/test_timings.json --output tmp/test_shards
+
+      - name: Upload test shards
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-shards
+          path: tmp/test_shards
+          if-no-files-found: error
+          overwrite: true
 
   check:
     runs-on: ubuntu-latest
@@ -140,7 +162,6 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:postgres@localhost/ci_test
       TEST_SHARD: ${{ matrix.shard }}
-      TEST_SHARDS: 8
 
     steps:
       - name: Checkout
@@ -236,13 +257,30 @@ jobs:
       - name: Precompile assets
         run: bundle exec rails assets:clean assets:precompile
 
+      - name: Download test shards
+        uses: actions/download-artifact@v4
+        with:
+          name: test-shards
+          path: tmp/test_shards
+
       - name: Select test files
         run: |
-          ruby -e 'files = Dir["test/**/*_test.rb"].sort.each_with_index.select { |_, i| i % ENV.fetch("TEST_SHARDS").to_i == ENV.fetch("TEST_SHARD").to_i }.map(&:first); abort "No test files selected" if files.empty?; File.write("tmp/test_files.txt", files.join("\n") + "\n")'
+          cp "tmp/test_shards/shard-${TEST_SHARD}.txt" tmp/test_files.txt
           wc -l tmp/test_files.txt
 
       - name: Run Rails tests
+        env:
+          TEST_TIMINGS_PATH: tmp/test_timings/shard-${{ matrix.shard }}.json
         run: xargs bundle exec rails test < tmp/test_files.txt
+
+      - name: Upload test timings
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-timings-${{ matrix.shard }}
+          path: tmp/test_timings
+          if-no-files-found: ignore
+          overwrite: true
 
       - name: Upload screenshots
         if: failure()
@@ -253,3 +291,44 @@ jobs:
             tmp/screenshots
             tmp/capybara
           if-no-files-found: ignore
+
+  test-timings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: test
+    if: ${{ !cancelled() }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Download test timings
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-timings-*
+          path: tmp/test_timings
+          merge-multiple: true
+
+      - name: Merge test timings
+        run: ruby bin/ci-test-timings merge --input tmp/test_timings --output tmp/test_timings.json --summary "$GITHUB_STEP_SUMMARY" > /dev/null
+
+      - name: Upload merged test timings
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-timings
+          path: tmp/test_timings.json
+          if-no-files-found: ignore
+          overwrite: true
+
+      # 全シャードが成功したmainの記録だけを、次回以降の振り分けに使う。
+      - name: Save test timings
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.test.result == 'success' }}
+        uses: actions/cache/save@v4
+        with:
+          path: tmp/test_timings.json
+          key: test-timings-${{ github.run_id }}
