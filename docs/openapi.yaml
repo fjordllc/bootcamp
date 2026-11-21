@@ -527,6 +527,39 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+  /api/users/{user_id}/membership:
+    get:
+      tags: [Users]
+      summary: ユーザーがBootcampにログインできる状態かを取得する。
+      description: >-
+        外部サービスが利用者の在籍を確かめるためのAPI。メンターまたは管理者だけが呼び出せる。
+        `active` は、対象ユーザーが退会・休会・研修終了のいずれでもないときに `true` になる。
+      security:
+        - sessionCookie: []
+        - oauth2: [read]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: ユーザーの在籍状態。
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, login_name, active]
+                properties:
+                  id:
+                    type: integer
+                  login_name:
+                    type: string
+                  active:
+                    type: boolean
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /api/users/tags/{tag}:
     get:
       tags: [Users]
