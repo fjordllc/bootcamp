@@ -63,6 +63,15 @@ class API::Users::MembershipsTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
+  test 'forbids an OAuth token without the read scope even when its owner is a mentor' do
+    application = Doorkeeper::Application.create!(name: 'Write only test', redirect_uri: 'https://example.invalid/callback', scopes: 'write')
+    token = Doorkeeper::AccessToken.create!(application_id: application.id, resource_owner_id: users(:mentormentaro).id, scopes: 'write').token
+
+    get api_user_membership_path(@user, format: :json), headers: bearer_headers(token)
+
+    assert_response :forbidden
+  end
+
   test 'returns not found for a missing user' do
     get api_user_membership_path(0, format: :json), headers: bearer_headers(read_token(users(:mentormentaro)))
 
