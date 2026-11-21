@@ -534,6 +534,9 @@ paths:
       description: >-
         外部サービスが利用者の在籍を確かめるためのAPI。メンターまたは管理者だけが呼び出せる。
         `active` は、対象ユーザーが退会・休会・研修終了のいずれでもないときに `true` になる。
+      security:
+        - sessionCookie: []
+        - oauth2: [read]
       parameters:
         - $ref: '#/components/parameters/UserId'
       responses:

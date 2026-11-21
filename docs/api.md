@@ -49,7 +49,7 @@ npm run lint:openapi
 
 `GET /api/users/:user_id/membership`（`.json` 付きも可）は、外部サービスが「この利用者はいまもBootcampにログインできる状態か」を確かめるためのAPIです。Bootcampのログインを通らずに利用者を識別するサービス（たとえばClassroomのパスキーでのログイン）が、退会・休会・研修終了した利用者を通さないために使います。
 
-- `API::BaseController` の既存認証を使います。有効なセッション、APIのJWT、または通常のOAuth `read` が必要です。
+- `API::BaseController` の既存認証を使います。有効なセッション、APIのJWT、または通常のOAuth `read` が必要です。`read` のないOAuthは403です。
 - 他人の在籍状態を返すため、呼び出せるのはメンターと管理者だけです。それ以外は、自分自身を対象にした場合や存在しないIDを指定した場合も含めて403です。
 - 応答は `{ "id": 123, "login_name": "kimura", "active": true }` です。`active` は、対象ユーザーが退会（`retired_on`）・休会（`hibernated_at`）・研修終了（`training_completed_at`）のいずれでもないときに `true` です。Bootcampのログインと `API::BaseController` が利用者を拒否する条件（`User#inactive?`）と同じ判定で、最近の活動の有無を表す `User#active?` とは別です。
 - 退会・休会・研修終了したユーザーもIDで取得でき、200で `active: false` を返します。存在しないIDは404です。
