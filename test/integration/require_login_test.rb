@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
-require 'supports/login_assert_helper'
+require 'test_helper'
 
-class RequireLoginTest < ApplicationSystemTestCase
-  include LoginAssertHelper
+class RequireLoginTest < ActionDispatch::IntegrationTest
   test 'redirect to welcome page and show message when you visit login required pages without login' do
     assert_login_required '/announcements'
     assert_login_required '/books'
@@ -75,5 +73,23 @@ class RequireLoginTest < ApplicationSystemTestCase
     assert_no_login_required('/pp', 'プライバシーポリシー')
     assert_no_login_required('/law', '特定商取引法に基づく表記')
     assert_no_login_required('/coc', 'アンチハラスメントポリシー')
+  end
+
+  private
+
+  def assert_login_required(path)
+    get path
+
+    assert_redirected_to root_path, "#{path} should require login"
+    assert_equal 'ログインしてください', flash[:alert]
+  end
+
+  def assert_no_login_required(path, text)
+    get path
+    follow_redirect! while response.redirect?
+
+    assert_response :success, "#{path} should not require login"
+    assert_includes response.body, text
+    assert_not_includes response.body, 'ログインしてください'
   end
 end
