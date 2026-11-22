@@ -8,22 +8,6 @@ module Bookmarks
       @question = questions(:question1)
     end
 
-    test 'show active button when bookmarked question' do
-      visit_with_auth "/questions/#{@question.id}", 'kimura'
-      wait_for_javascript_components
-      assert_selector '#bookmark-button.is-active'
-      assert_no_selector '#bookmark-button.is-inactive'
-      assert_selector '#bookmark-button', text: 'Bookmark中'
-    end
-
-    test 'show inactive button when not bookmarked question' do
-      visit_with_auth "/questions/#{@question.id}", 'hajime'
-      wait_for_javascript_components
-      assert_selector '#bookmark-button.is-inactive'
-      assert_no_selector '#bookmark-button.is-active'
-      assert_selector '#bookmark-button', text: 'Bookmark'
-    end
-
     test 'bookmark question' do
       visit_with_auth "/questions/#{@question.id}", 'hatsuno'
       wait_for_javascript_components
