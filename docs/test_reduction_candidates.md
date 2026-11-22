@@ -16,6 +16,7 @@
 | A | 書き方を直す（テストは残す） | 30 | 約610秒 | 約580秒 |
 | B | 重複しているので消す、または1つにまとめる | 約90 | 約190秒 | 約150秒 |
 | C | 下の層へ移す（C-5を除く） | 約380 | 約620秒 | 約450秒 |
+| C-6 | JavaScriptの単体テストへ移す（Cの内数を含む） | 約30 | 約60秒 | 約50秒 |
 | C-5 | 操作をしない表示の確認（調査が必要） | 約400 | 約320秒 | 未定 |
 
 Aは振る舞いを変えずに済み、効果も最も大きいので、最初に行います。
@@ -151,6 +152,15 @@ Aは振る舞いを変えずに済み、効果も最も大きいので、最初�
 2. 同じページを開くテストが複数あるものは、1件にまとめます。ページを開く回数が減ります。
 
 時間の大きいファイルは、`users/profile_test.rb`（8件、25秒）、`home/events_test.rb`（7件、12秒）、`home/required_fields_test.rb`（8件、10秒）、`practices_test.rb`（12件、9秒）、`users/list_test.rb`（7件、7秒）です。
+
+### C-6. JavaScriptの単体テストへ移す（約30件、約60秒）
+
+`test/javascript/` には `node --test` で走るテストが4ファイルあり、CIの `check` ジョブで実行しています。ブラウザーを使わず、全体で1秒もかかりません。DOMに頼らない変換や判定は、ここで確かめられます。
+
+- **Markdownの変換**: `markdown_test.rb`（10件、15秒）、`reports/markdown_test.rb`（8件、12秒）、`markdown_link_test.rb`（4件、9秒）は、入力したMarkdownがどのHTMLになるかを画面で確かめています。`app/javascript/markdown-it-*.js` の変換は、`markdown_wiki_link_test.mjs` と同じ方法で確かめられます。画面では、プレビューが表示されることを1件だけ確かめます。
+- **タグ名の検証**: 空白を含むタグ、ドットだけのタグ、先頭の `#` の扱いを、`questions/tag_test.rb`、`page/tags_test.rb`、`current_user/tags_test.rb`、`user/tags_test.rb` が画面で確かめています（11件、20秒）。判定は `app/javascript/parse_tags.js` などにあります。
+
+クリックへの反応や表示の切り替えなど、DOMを操作するコードは、今の仕組みでは確かめられません。jsdomなどの導入が必要になるため、ここでは対象にしていません。
 
 ## 残すもの
 
