@@ -158,7 +158,7 @@ Aは振る舞いを変えずに済み、効果も最も大きいので、最初�
 `test/javascript/` には `node --test` で走るテストが4ファイルあり、CIの `check` ジョブで実行しています。ブラウザーを使わず、全体で1秒もかかりません。DOMに頼らない変換や判定は、ここで確かめられます。
 
 - **Markdownの変換**: `markdown_test.rb`（10件、15秒）、`reports/markdown_test.rb`（8件、12秒）、`markdown_link_test.rb`（4件、9秒）は、入力したMarkdownがどのHTMLになるかを画面で確かめています。`app/javascript/markdown-it-*.js` の変換は、`markdown_wiki_link_test.mjs` と同じ方法で確かめられます。画面では、プレビューが表示されることを1件だけ確かめます。
-- **タグ名の検証**: 空白を含むタグ、ドットだけのタグ、先頭の `#` の扱いを、`questions/tag_test.rb`、`page/tags_test.rb`、`current_user/tags_test.rb`、`user/tags_test.rb` が画面で確かめています（11件、20秒）。判定は `app/javascript/parse_tags.js` などにあります。
+- **タグ名の検証**: 空白を含むタグ、ドットだけのタグ、先頭の `#` の扱いを、`questions/tag_test.rb`、`page/tags_test.rb`、`current_user/tags_test.rb`、`user/tags_test.rb` が画面で確かめています（11件、20秒）。判定は `app/javascript/validate-tag-name.js` にあります。
 
 クリックへの反応や表示の切り替えなど、DOMを操作するコードは、今の仕組みでは確かめられません。jsdomなどの導入が必要になるため、ここでは対象にしていません。
 
