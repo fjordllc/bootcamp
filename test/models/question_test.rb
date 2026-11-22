@@ -4,6 +4,8 @@ require 'test_helper'
 require Rails.root.join('app/models/question_auto_closer')
 
 class QuestionTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   test '#last_answer' do
     questioner = users(:kimura)
     answerer = users(:komagata)
@@ -134,5 +136,27 @@ class QuestionTest < ActiveSupport::TestCase
     )
     assert_equal '質問を作成しました。', published_question.generate_notice_message(:create)
     assert_equal '質問を更新しました。', published_question.generate_notice_message(:update)
+  end
+
+  test '.notify_certain_period_passed_after_last_answer' do
+    delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
+    questioner = users(:kimura)
+    question = Question.create!(title: 'テストの質問', description: 'テスト', user: questioner,
+                                created_at: '2022-10-31', updated_at: '2022-10-31', published_at: '2022-10-31')
+    Answer.create!(description: '最後の回答', user: users(:komagata), question:, created_at: '2022-10-31', updated_at: '2022-10-31')
+    no_correct_answer_notifications = Notification.where(user: questioner, kind: :no_correct_answer, link: "/questions/#{question.id}")
+
+    travel_to Time.zone.local(2022, 11, 6, 0, 0, 0) do
+      perform_enqueued_jobs { Question.notify_certain_period_passed_after_last_answer }
+      assert_empty no_correct_answer_notifications
+    end
+
+    travel_to Time.zone.local(2022, 11, 7, 0, 0, 0) do
+      perform_enqueued_jobs { Question.notify_certain_period_passed_after_last_answer }
+      assert_equal ['Q&A「テストの質問」のベストアンサーがまだ選ばれていません。'], no_correct_answer_notifications.map(&:message)
+    end
+  ensure
+    AbstractNotifier.delivery_mode = delivery_mode
   end
 end
