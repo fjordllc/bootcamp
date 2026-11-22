@@ -6,7 +6,7 @@ module Home
   class GrassTest < ApplicationSystemTestCase
     test 'show grass hide button for graduates' do
       visit_with_auth '/', 'kimura'
-      assert_not has_button? '非表示'
+      assert_no_button '非表示'
 
       visit_with_auth '/', 'sotugyou'
       assert_selector 'h2.card-header__title', text: '学習時間'

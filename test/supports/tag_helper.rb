@@ -41,13 +41,13 @@ module TagHelper
   end
 
   def fill_in_tag(name, selector = '.tagify__input')
-    tag_count_before = all('.tagify__tag', visible: :all).count
     tag_input = find(selector, match: :first)
+    tag_count_before = all('.tagify__tag', visible: :all, wait: 0).count
     page.execute_script('arguments[0].click()', tag_input)
     tag_input.send_keys(name, :return)
     assert_selector('.tagify__tag', count: tag_count_before + 1, wait: 10, visible: :all)
     # Wait for the hidden input to be updated with the new tag (React components only)
-    return unless has_selector?("input[type='hidden'][name*='tag_list']", visible: :all)
+    return unless has_selector?("input[type='hidden'][name*='tag_list']", visible: :all, wait: 0)
 
     assert_selector("input[type='hidden'][name*='tag_list'][value*='#{name}']", visible: :all, wait: 10)
   end

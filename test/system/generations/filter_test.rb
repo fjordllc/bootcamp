@@ -59,7 +59,7 @@ module Generations
           within all('.a-user-role.is-mentor').last do
             assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'mentormentaro (メンタ 麺太郎): メンター'
           end
-          assert_empty all('.a-user-role.is-retired')
+          assert_no_selector '.a-user-role.is-retired'
         end
       end
     end
@@ -76,7 +76,7 @@ module Generations
           within first('.a-user-role.is-trainee') do
             assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'kensyu (Kensyu Seiko)'
           end
-          assert_empty all('.a-user-role.is-retired')
+          assert_no_selector '.a-user-role.is-retired'
         end
       end
     end
@@ -93,7 +93,7 @@ module Generations
           within first('.a-user-role.is-adviser') do
             assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'advijirou (アドバイ 次郎): アドバイザー'
           end
-          assert_empty all('.a-user-role.is-retired')
+          assert_no_selector '.a-user-role.is-retired'
         end
       end
     end
@@ -110,7 +110,7 @@ module Generations
           within first('.a-user-role.is-graduate') do
             assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'sotugyou (卒業 太郎)'
           end
-          assert_empty all('.a-user-role.is-retired')
+          assert_no_selector '.a-user-role.is-retired'
         end
       end
     end
@@ -127,7 +127,7 @@ module Generations
           within all('.a-user-role.is-mentor').last do
             assert_equal first('.a-user-icons__item-icon.a-user-icon')['title'], 'mentormentaro (メンタ 麺太郎): メンター'
           end
-          assert_empty all('.a-user-role.is-retired')
+          assert_no_selector '.a-user-role.is-retired'
         end
       end
     end
