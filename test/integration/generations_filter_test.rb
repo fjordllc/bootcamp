@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class GenerationsTest < ActionDispatch::IntegrationTest
+class GenerationsFilterTest < ActionDispatch::IntegrationTest
   test 'filter generations by target' do
     post user_sessions_path, params: { user: { login: 'adminonly', password: 'testtest' } }
 

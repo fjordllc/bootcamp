@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-# 対象ごとの絞り込みは test/integration/generations_test.rb と test/models/generation_test.rb で確かめる。
+# 対象ごとの絞り込みは test/integration/generations_filter_test.rb と test/models/generation_test.rb で確かめる。
 module Generations
   class FilterTest < ApplicationSystemTestCase
     test 'all users filter for generation' do
