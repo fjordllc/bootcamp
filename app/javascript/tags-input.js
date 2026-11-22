@@ -1,32 +1,9 @@
 import Tagify from '@yaireo/tagify'
 import { get } from '@rails/request.js'
-
-function validateTagName(text) {
-  if (/\s+/.test(text.value)) {
-    return 'スペースを含むタグは作成できません'
-  } else if (text.value === '.') {
-    return 'ドット1つだけのタグは作成できません'
-  } else if (/^(#|＃|♯)/.test(text.value)) {
-    return '#を先頭に含むタグは作成できません'
-  } else {
-    return true
-  }
-}
-
-function transformHeadSharp(text) {
-  if (/^(#|＃|♯)/.test(text.value)) {
-    text.value = text.value.length === 1 ? '' : text.value.slice(1)
-  }
-}
-
-function headIsSharpOrOctothorpe(text) {
-  return /^(#|＃|♯).*/.test(text)
-}
-
-function parseTags(value) {
-  if (!value || value === '') return []
-  return value.split(',')
-}
+import transformHeadSharp from 'transform-head-sharp'
+import validateTagName from 'validate-tag-name'
+import headIsSharpOrOctothorpe from 'head-is-sharp-or-octothorpe'
+import parseTags from 'parse_tags'
 
 function syncHiddenInput(tagify, hiddenInput) {
   const values = tagify.value
