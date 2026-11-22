@@ -31,6 +31,16 @@ class FirstReportNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  test 'does not notify when the user has already posted a report' do
+    author = users(:kimura)
+    assert author.reports.exists?
+    report = Report.create!(user: author, title: 'test title', description: 'test', reported_on: Date.current)
+
+    assert_no_difference -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count } do
+      FirstReportNotifier.new.call('report.create', Time.current, Time.current, 'unique_id', report:)
+    end
+  end
+
   private
 
   def build_wip_report(user)
