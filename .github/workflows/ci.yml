@@ -273,13 +273,18 @@ jobs:
 
       - name: Enable pgvector extension
         run: |
+          # 接続したまま応答が返らない場合にも期限で打ち切れるよう、psql自体も残り時間で止める。
           deadline=$((SECONDS + 120))
-          until psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;" 2> /dev/null; do
-            if [ "$SECONDS" -ge "$deadline" ]; then
+          while true; do
+            remaining=$((deadline - SECONDS))
+            if [ "$remaining" -le 0 ]; then
               echo "PostgreSQL did not become ready in time"
               cat "$RUNNER_TEMP/postgres-start.log" || true
               docker logs postgres || true
               exit 1
+            fi
+            if timeout "$remaining" psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;" 2> /dev/null; then
+              break
             fi
             sleep 1
           done
