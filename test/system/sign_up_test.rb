@@ -4,6 +4,8 @@ require 'application_system_test_case'
 
 class SignUpTest < ApplicationSystemTestCase
   setup do
+    @delivery_mode = AbstractNotifier.delivery_mode
+    AbstractNotifier.delivery_mode = :normal
     @bot_token = Discord::Server.authorize_token
     Discord::Server.authorize_token = nil
     Capybara.reset_sessions!
@@ -12,6 +14,7 @@ class SignUpTest < ApplicationSystemTestCase
   end
 
   teardown do
+    AbstractNotifier.delivery_mode = @delivery_mode
     Discord::Server.authorize_token = @bot_token
   end
 
@@ -40,6 +43,7 @@ class SignUpTest < ApplicationSystemTestCase
       click_button '参加する'
       assert_text '参加登録が完了しました'
     end
+    assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'fooさんが新しく入会しました！')
   end
 
   test 'sign up with tag' do

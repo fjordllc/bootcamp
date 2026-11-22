@@ -8,6 +8,8 @@ module SignUp
     include RegistrationInvitationHelper
 
     setup do
+      @delivery_mode = AbstractNotifier.delivery_mode
+      AbstractNotifier.delivery_mode = :normal
       @bot_token = Discord::Server.authorize_token
       Discord::Server.authorize_token = nil
       Capybara.reset_sessions!
@@ -16,6 +18,7 @@ module SignUp
     end
 
     teardown do
+      AbstractNotifier.delivery_mode = @delivery_mode
       Discord::Server.authorize_token = @bot_token
     end
 
@@ -44,6 +47,7 @@ module SignUp
       click_button '参加する'
       assert_text '研修生登録が完了しました'
       assert User.find_by(email:).trainee?
+      assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'fooさん(研修生)が新しく入会しました！')
     end
 
     test 'sign up as a trainee who pays by credit card' do

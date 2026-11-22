@@ -8,6 +8,8 @@ module SignUp
     include RegistrationInvitationHelper
 
     setup do
+      @delivery_mode = AbstractNotifier.delivery_mode
+      AbstractNotifier.delivery_mode = :normal
       @bot_token = Discord::Server.authorize_token
       Discord::Server.authorize_token = nil
       Capybara.reset_sessions!
@@ -16,6 +18,7 @@ module SignUp
     end
 
     teardown do
+      AbstractNotifier.delivery_mode = @delivery_mode
       Discord::Server.authorize_token = @bot_token
     end
 
@@ -39,6 +42,7 @@ module SignUp
       click_button 'アドバイザー登録'
       assert_text 'アドバイザー登録が完了しました'
       assert User.find_by(email:).adviser?
+      assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'fooさん(アドバイザー)が新しく入会しました！')
     end
 
     test 'sign up as mentor' do
@@ -62,6 +66,7 @@ module SignUp
       click_button 'メンター登録'
       assert_text 'メンター登録が完了しました'
       assert User.find_by(email:).mentor?
+      assert_user_has_notification(user: users(:komagata), kind: Notification.kinds[:signed_up], text: 'shunkaさん(メンター)が新しく入会しました！')
     end
 
     test 'sign up as adviser with company_id' do

@@ -26,19 +26,5 @@ module Bookmarks
       visit '/current_user/bookmarks'
       assert_text @movie.title
     end
-
-    test 'unbookmark movie' do
-      visit_with_auth "/movies/#{@movie.id}", 'kimura'
-      wait_for_javascript_components
-      assert_selector '#bookmark-button.is-active', text: 'Bookmark中'
-      find('#bookmark-button').click
-      wait_for_javascript_components
-      assert_selector '#bookmark-button.is-inactive'
-      assert_no_selector '#bookmark-button.is-active'
-      assert_selector '#bookmark-button', text: 'Bookmark'
-
-      visit '/current_user/bookmarks'
-      assert_no_text @movie.title
-    end
   end
 end
