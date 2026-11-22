@@ -26,6 +26,27 @@ class ReportNotifierTest < ActiveSupport::TestCase
     assert_notify_only_when_initially_posted(report, -> { AbstractNotifier::Testing::Driver.enqueued_deliveries.count })
   end
 
+  test 'notifies mentors when reports with negative emotion are submitted twice in a row' do
+    author = users(:kimura)
+    author.reports.destroy_all
+    notifier = ReportNotifier.new
+    negative_notifications = lambda {
+      AbstractNotifier::Testing::Driver.enqueued_deliveries.count { |delivery| delivery[:kind] == :consecutive_negative_report }
+    }
+
+    first = Report.create!(user: author, title: 'test title 1', description: 'test 1', reported_on: Date.current.prev_day, emotion: 'negative')
+    assert_no_difference negative_notifications do
+      notifier.call('report.create', Time.current, Time.current, 'unique_id', report: first)
+    end
+
+    second = Report.create!(user: author, title: 'test title 2', description: 'test 2', reported_on: Date.current, emotion: 'negative')
+    assert_difference negative_notifications, User.mentor.count do
+      notifier.call('report.create', Time.current, Time.current, 'unique_id', report: second)
+    end
+    delivery = AbstractNotifier::Testing::Driver.enqueued_deliveries.reverse.find { |d| d[:kind] == :consecutive_negative_report }
+    assert_equal 'kimuraさんが2回連続でnegativeアイコンの日報を提出しました。', delivery[:body]
+  end
+
   private
 
   def build_wip_report(user, title:, description:)
