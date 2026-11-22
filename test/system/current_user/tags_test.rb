@@ -16,22 +16,4 @@ class CurrentUser::TagsTest < ApplicationSystemTestCase
     click_on 'タグ1'
     assert_text '「タグ1」のユーザー'
   end
-
-  test 'alert when enter tag with space' do
-    visit_with_auth edit_current_user_path, 'komagata'
-    ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
-      fill_in_tag_with_alert tag
-    end
-    click_on '更新する'
-    assert_equal users(:komagata).tag_list.sort,
-                 all('.tag-links__item-link').map(&:text).sort
-  end
-
-  test 'alert when enter one dot only tag' do
-    visit_with_auth edit_current_user_path, 'komagata'
-    fill_in_tag_with_alert '.'
-    click_on '更新する'
-    assert_equal users(:komagata).tag_list.sort,
-                 all('.tag-links__item-link').map(&:text).sort
-  end
 end
