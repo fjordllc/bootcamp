@@ -25,7 +25,7 @@ CIのテスト時間の93%をシステムテストが占めている。2026-11-2
 | ログイン必須、役割ごとの権限、リダイレクト | `test/integration/` または `test/controllers/` |
 | 入力検証、並び順、絞り込み、集計 | `test/models/`、`test/queries/` |
 | 通知が作られること、宛先、文面 | `test/models/`、`test/notifiers/`、`test/deliveries/`、`test/mailers/` |
-| JavaScriptの変換や判定（Markdownの変換、タグ名の検証など、DOMに頼らない処理） | `test/javascript/`（`node --test`） |
+| JavaScriptの変換や判定（Markdownの変換、タグ名の検証など、DOMに頼らない処理） | `test/javascript/*.mjs`（`node --test`。CIが実行するのは拡張子 `.mjs` のファイルだけ） |
 | サーバーが描画する表示 | `BrowserlessSystemTestCase`、`test/components/`、`test/integration/` |
 | コメント、ブックマーク、タグ、リアクション、Watchなどの共通部品 | 操作は1つの対象でだけ確かめる。ほかの対象は表示だけを確かめる |
 

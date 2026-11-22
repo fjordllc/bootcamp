@@ -43,7 +43,7 @@ Aは振る舞いを変えずに済み、効果も最も大きいので、最初�
 
 ### A-2. 「あること」の判定で、ないことを確かめている（9件、約150秒）
 
-`assert_not has_button?` や、結果を使っていない `has_selector?` は、要素が現れるのを上限まで待ちます。`assert_no_button` などに置き換えます。
+`assert_not has_button?` や、結果を使っていない `has_selector?` は、要素が現れるのを上限まで待ちます。ないことを確かめている箇所は `assert_no_button` などに、あることを確かめたい箇所（`graduation_test.rb` の更新成功のメッセージなど）は `assert_text` や `assert_selector` に置き換えます。どちらにするかは、テストごとの期待する結果で決めます。
 
 | 場所 | 該当する行 | 今の時間 |
 | --- | --- | --- |
@@ -155,7 +155,7 @@ Aは振る舞いを変えずに済み、効果も最も大きいので、最初�
 
 ### C-6. JavaScriptの単体テストへ移す（約30件、約60秒）
 
-`test/javascript/` には `node --test` で走るテストが4ファイルあり、CIの `check` ジョブで実行しています。ブラウザーを使わず、全体で1秒もかかりません。DOMに頼らない変換や判定は、ここで確かめられます。
+`test/javascript/` には `node --test` で走るテスト（`*.mjs`）が4ファイルあり、CIの `check` ジョブで実行しています。ブラウザーを使わず、全体で1秒もかかりません。DOMに頼らない変換や判定は、ここで確かめられます。
 
 - **Markdownの変換**: `markdown_test.rb`（10件、15秒）、`reports/markdown_test.rb`（8件、12秒）、`markdown_link_test.rb`（4件、9秒）は、入力したMarkdownがどのHTMLになるかを画面で確かめています。`app/javascript/markdown-it-*.js` の変換は、`markdown_wiki_link_test.mjs` と同じ方法で確かめられます。画面では、プレビューが表示されることを1件だけ確かめます。
 - **タグ名の検証**: 空白を含むタグ、ドットだけのタグ、先頭の `#` の扱いを、`questions/tag_test.rb`、`page/tags_test.rb`、`current_user/tags_test.rb`、`user/tags_test.rb` が画面で確かめています（11件、20秒）。判定は `app/javascript/validate-tag-name.js` にあります。
