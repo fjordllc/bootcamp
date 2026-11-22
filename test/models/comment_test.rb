@@ -71,6 +71,29 @@ class CommentTest < ActiveSupport::TestCase
     )
   end
 
+  test 'notifies admins when the owner comments on their talk room' do
+    kimura = users(:kimura)
+
+    perform_enqueued_jobs do
+      Comment.create!(user: kimura, commentable: kimura.talk, description: 'test')
+    end
+
+    assert_equal ['kimuraさんの相談部屋でkimuraさんからコメントが届きました。'], talk_notification_messages(users(:machida), kimura.talk)
+    assert_empty talk_notification_messages(kimura, kimura.talk)
+  end
+
+  test 'notifies the owner and the other admins when an admin comments on a talk room' do
+    kimura = users(:kimura)
+
+    perform_enqueued_jobs do
+      Comment.create!(user: users(:komagata), commentable: kimura.talk, description: 'test')
+    end
+
+    assert_equal ['相談部屋でkomagataさんからコメントがありました。'], talk_notification_messages(kimura, kimura.talk)
+    assert_equal ['kimuraさんの相談部屋でkomagataさんからコメントが届きました。'], talk_notification_messages(users(:machida), kimura.talk)
+    assert_empty talk_notification_messages(users(:komagata), kimura.talk)
+  end
+
   test 'not notify mentor watching product of submitted when comment on product' do
     perform_enqueued_jobs do
       Comment.create!(
@@ -179,5 +202,11 @@ class CommentTest < ActiveSupport::TestCase
   test '#title returns commentable title if present' do
     comment = comments(:comment1)
     assert_equal '作業週1日目', comment.title
+  end
+
+  private
+
+  def talk_notification_messages(user, talk)
+    Notification.where(user:, kind: :came_comment, link: "/talks/#{talk.id}#latest-comment").map(&:message)
   end
 end
