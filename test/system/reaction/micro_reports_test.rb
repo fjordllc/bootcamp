@@ -3,34 +3,13 @@
 require 'application_system_test_case'
 
 class Reaction::MicroReportsTest < ApplicationSystemTestCase
-  test 'show reaction of micro report' do
-    visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-
-    assert_text '👍1❤️1'
-  end
-
+  # 取り消しなど、リアクションの操作の場合分けは test/system/reactions/report_test.rb で確かめる。
+  # ここでは、この対象でリアクションの部品が働くことだけを確かめる。
   test 'reaction to micro report' do
     visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
     first('.js-reaction-dropdown-toggle').click
     first(".js-reaction-dropdown li[data-reaction-kind='eyes']").click
 
     assert_text '👍1❤️1👀1'
-  end
-
-  test 'delete reaction of micro report on dropdown' do
-    visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    first('.js-reaction-dropdown-toggle').click
-    first(".js-reaction-dropdown li[data-reaction-kind='heart']").click
-
-    assert_text '👍1'
-    assert_no_text '❤️'
-  end
-
-  test 'delete reaction of micro report on fotter' do
-    visit_with_auth user_micro_reports_path(users(:hajime)), 'hatsuno'
-    first(".js-reaction li[data-reaction-kind='heart']").click
-
-    assert_text '👍1'
-    assert_no_text '❤️'
   end
 end
