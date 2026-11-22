@@ -24,7 +24,8 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # node_modulesのキャッシュをtestジョブと共有するため、同じイメージで動かす。
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
@@ -37,14 +38,32 @@ jobs:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
 
+      # node_modulesはキャッシュがないときだけここで作る。testジョブは復元するだけで済む。
+      - name: Look up node_modules cache
+        id: node-modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node-modules-ubuntu-24.04-${{ runner.arch }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json') }}
+          lookup-only: true
+
       - name: Set up Node
+        if: steps.node-modules.outputs.cache-hit != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       - name: Install npm packages
+        if: steps.node-modules.outputs.cache-hit != 'true'
         run: npm ci
+
+      - name: Save node_modules cache
+        if: steps.node-modules.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: node-modules-ubuntu-24.04-${{ runner.arch }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json') }}
 
       # mainで記録した所要時間を使い、各シャードの合計時間が揃うようにテストを振り分ける。
       # シャードごとに振り分けると、参照する記録が食い違ったときにテストが漏れるため、ここで一度だけ決める。
@@ -140,21 +159,6 @@ jobs:
       matrix:
         shard: [0, 1, 2, 3, 4, 5, 6, 7]
 
-    services:
-      postgres:
-        image: pgvector/pgvector:pg14
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ci_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d ci_test"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
-
     env:
       PGHOST: 127.0.0.1
       PGUSER: postgres
@@ -164,6 +168,14 @@ jobs:
       TEST_SHARD: ${{ matrix.shard }}
 
     steps:
+      # servicesで起動するとイメージの取得が終わるまで他の準備を始められないため、裏で起動して準備と並行させる。
+      # 起動の完了は「Enable pgvector extension」で待つ。
+      - name: Start PostgreSQL in the background
+        run: |
+          nohup docker run --detach --name postgres \
+            --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres --env POSTGRES_DB=ci_test \
+            --publish 5432:5432 pgvector/pgvector:pg14 > "$RUNNER_TEMP/postgres-start.log" 2>&1 &
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -177,9 +189,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
+
+      - name: Restore node_modules cache
+        id: node-modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node-modules-ubuntu-24.04-${{ runner.arch }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install npm packages
+        if: steps.node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Get week for apt package cache
@@ -196,6 +215,13 @@ jobs:
 
       - name: Install system packages
         run: |
+          # 使い捨ての環境なので、dpkgのfsyncとman-dbの更新を省く。
+          echo force-unsafe-io | sudo tee /etc/dpkg/dpkg.cfg.d/force-unsafe-io > /dev/null
+          sudo rm -f /var/lib/man-db/auto-update
+
+          ls /etc/apt/apt.conf.d
+          apt-config dump | grep -i -E 'Post-Invoke|Pre-Invoke' || true
+
           archives="$HOME/apt-archives"
           mkdir -p "$archives/partial"
           echo "Cached apt packages: $(find "$archives" -name '*.deb' | wc -l)"
@@ -249,7 +275,17 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Enable pgvector extension
-        run: psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
+        run: |
+          deadline=$((SECONDS + 120))
+          until psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;" 2> /dev/null; do
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              echo "PostgreSQL did not become ready in time"
+              cat "$RUNNER_TEMP/postgres-start.log" || true
+              docker logs postgres || true
+              exit 1
+            fi
+            sleep 1
+          done
 
       - name: Prepare database
         run: bundle exec rails db:prepare
