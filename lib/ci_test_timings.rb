@@ -32,7 +32,8 @@ module CiTestTimings
     known = files.filter_map { |file| timings[file] }.sort
     return DEFAULT_SECONDS if known.empty?
 
-    known[known.size / 2]
+    middle = known.size / 2
+    known.size.odd? ? known[middle] : (known[middle - 1] + known[middle]) / 2.0
   end
 
   # 各シャードの記録（TestTimingsReporter の出力）を1つにまとめる。

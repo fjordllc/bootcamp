@@ -40,6 +40,15 @@ class CiTestTimingsTest < ActiveSupport::TestCase
     assert_equal [40.0, 40.0], shards.pluck(:seconds)
   end
 
+  test 'split uses the mean of the two middle values when an even number of files have timings' do
+    timings = { 'a_test.rb' => 10.0, 'b_test.rb' => 30.0 }
+
+    shards = CiTestTimings.split(%w[a_test.rb b_test.rb new_test.rb], timings, 2)
+
+    assert_equal [%w[b_test.rb], %w[a_test.rb new_test.rb]], shards.pluck(:files)
+    assert_equal [30.0, 30.0], shards.pluck(:seconds)
+  end
+
   test 'split gives the same result regardless of input order' do
     timings = { 'a_test.rb' => 3.0, 'b_test.rb' => 3.0, 'c_test.rb' => 1.0 }
     files = %w[a_test.rb b_test.rb c_test.rb d_test.rb]
