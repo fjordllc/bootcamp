@@ -30,6 +30,29 @@ class GenerationTest < ActiveSupport::TestCase
     assert_not_includes Generation.new(5).target_users('all'), users(:yameo)
   end
 
+  test '#target_users returns only users of the target role' do
+    {
+      'trainee' => :kensyu,
+      'adviser' => :advijirou,
+      'graduate' => :sotugyou,
+      'mentor' => :mentormentaro
+    }.each do |target, login_name|
+      target_users = Generation.new(5).target_users(target)
+
+      assert_includes target_users, users(login_name), "#{target}に#{login_name}が含まれること"
+      assert_not_includes target_users, users(:yameo), "#{target}に退会者が含まれないこと"
+      assert_not_includes target_users, users(:kimura), "#{target}に現役生が含まれないこと"
+    end
+  end
+
+  test '.generations returns only generations that have target users' do
+    travel_to Time.zone.local(2014, 4, 1, 0, 0, 0) do
+      %w[trainee adviser graduate mentor retired].each do |target|
+        assert_includes Generation.generations(target).map(&:number), 5, "#{target}の5期生が含まれること"
+      end
+    end
+  end
+
   test '#count_classmates_by_target' do
     expected = {
       students: 18,
