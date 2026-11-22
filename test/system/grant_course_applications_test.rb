@@ -21,10 +21,10 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     fill_in 'grant_course_application_tel1', with: '090'
     fill_in 'grant_course_application_tel2', with: '1234'
     fill_in 'grant_course_application_tel3', with: '5678'
-    check 'grant_course_application_trial_period', allow_label_click: true, visible: false
-    check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
-    check 'grant_course_application_privacy_policy', allow_label_click: true, visible: false
-    check 'notes', allow_label_click: true, visible: false
+    check 'grant_course_application_trial_period', allow_label_click: true
+    check 'grant_course_application_privacy_policy', allow_label_click: true
+    check 'grant_course_application_privacy_policy', allow_label_click: true
+    check 'notes', allow_label_click: true
 
     click_button '申請する'
 
@@ -36,7 +36,7 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
   test 'user sees error messages when submitting invalid form' do
     visit new_grant_course_application_path
 
-    check 'notes', allow_label_click: true, visible: false
+    check 'notes', allow_label_click: true
     # Submit without entering any information
     click_button '申請する'
 
@@ -64,7 +64,7 @@ class GrantCourseApplicationsTest < ApplicationSystemTestCase
     fill_in 'grant_course_application[last_name_kana]', with: 'やまだ'
     fill_in 'grant_course_application[first_name_kana]', with: 'たろう'
 
-    check 'notes', allow_label_click: true, visible: false
+    check 'notes', allow_label_click: true
     click_button '申請する'
 
     assert_no_text 'セイを入力してください'

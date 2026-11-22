@@ -112,7 +112,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'show input for retire date when checked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    check 'retire_checkbox', allow_label_click: true, visible: false
+    check 'retire_checkbox', allow_label_click: true
     assert_selector '#user_retired_on'
   end
 
@@ -127,9 +127,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:yameo)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert has_checked_field?('retire_checkbox', visible: false)
-    uncheck 'retire_checkbox', allow_label_click: true, visible: false
+    uncheck 'retire_checkbox', allow_label_click: true
     assert has_unchecked_field?('retire_checkbox', visible: false)
-    check 'retire_checkbox', allow_label_click: true, visible: false
+    check 'retire_checkbox', allow_label_click: true
     assert has_field?('user_retired_on', with: '')
   end
 
@@ -164,7 +164,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'show input for graduation date when checked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    check 'graduation_checkbox', allow_label_click: true, visible: false
+    check 'graduation_checkbox', allow_label_click: true
     assert_selector '#user_graduated_on'
   end
 
@@ -178,9 +178,9 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'reset value of graduation date when unchecked' do
     user = users(:sotugyou)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    uncheck 'graduation_checkbox', allow_label_click: true, visible: false
+    uncheck 'graduation_checkbox', allow_label_click: true
     assert has_unchecked_field?('graduation_checkbox', visible: false)
-    check 'graduation_checkbox', allow_label_click: true, visible: false
+    check 'graduation_checkbox', allow_label_click: true
     assert has_field?('user_graduated_on', with: '')
   end
 
@@ -270,10 +270,10 @@ class Admin::UsersTest < ApplicationSystemTestCase
   test 'reset value of training end date when unchecked' do
     user = users(:kensyu)
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
-    uncheck 'checkbox_trainee', allow_label_click: true, visible: false
+    uncheck 'checkbox_trainee', allow_label_click: true
     assert has_unchecked_field?('checkbox_trainee', visible: false)
     assert_selector '.js-training-info-block', visible: :hidden
-    check 'checkbox_trainee', allow_label_click: true, visible: false
+    check 'checkbox_trainee', allow_label_click: true
     assert has_checked_field?('checkbox_trainee', visible: false)
     assert has_field?('user_training_ends_on', with: '')
   end
@@ -302,7 +302,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:advijirou)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_no_text 'メンター紹介用公開プロフィール'
-    check 'checkbox_mentor', allow_label_click: true, visible: false
+    check 'checkbox_mentor', allow_label_click: true
     assert has_checked_field?('checkbox_mentor', visible: false)
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました'
@@ -315,7 +315,7 @@ class Admin::UsersTest < ApplicationSystemTestCase
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'メンター紹介用公開プロフィール'
     assert has_checked_field?('user_show_mentor_profile', visible: false)
-    uncheck 'user_show_mentor_profile', allow_label_click: true, visible: false
+    uncheck 'user_show_mentor_profile', allow_label_click: true
     assert_no_checked_field('user_show_mentor_profile', visible: false)
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました'
@@ -327,8 +327,8 @@ class Admin::UsersTest < ApplicationSystemTestCase
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'UNIX (1/9)', normalize_ws: true
-    check 'UNIX', allow_label_click: true, visible: false
-    check 'Terminalの基礎を覚える', allow_label_click: true, visible: false
+    check 'UNIX', allow_label_click: true
+    check 'Terminalの基礎を覚える', allow_label_click: true
     click_on '更新する'
     assert_text 'ユーザー情報を更新しました'
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
