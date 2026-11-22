@@ -173,7 +173,7 @@ module Home
     end
 
     def assert_event_card(event_label, events_texts)
-      return assert_not has_selector?(:xpath, event_xpath.call(0)) if events_texts.empty?
+      return assert_no_selector(:xpath, event_xpath.call(0)) if events_texts.empty?
 
       events_texts.each_with_index do |event_texts, idx|
         card_list_element = find(:xpath, event_xpath(event_label, idx))
