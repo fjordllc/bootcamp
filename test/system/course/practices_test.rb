@@ -10,7 +10,7 @@ class Course::PracticesTest < ApplicationSystemTestCase
     visit course_practices_path(courses(:course1).id)
 
     assert page.find(:css, '#display-progress', visible: false).checked?
-    assert_not has_selector?('.is-hidden-users')
+    assert_no_selector '.is-hidden-users'
     user_path = user_path(users(:hatsuno).id)
     within page.find('.page-body__column.is-main') do
       assert page.has_link?(href: user_path)
