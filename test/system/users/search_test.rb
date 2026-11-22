@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 # 検索する列、対象ごとの絞り込み、検索フォームを出す画面は
-# test/integration/users/search_test.rb で確かめる。
+# test/integration/users_search_test.rb で確かめる。
 class Users::SearchTest < ApplicationSystemTestCase
   test 'search users from the form' do
     visit_with_auth '/users', 'komagata'

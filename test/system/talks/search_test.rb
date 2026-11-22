@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 # 検索する列、対象ごとの絞り込み、一覧の切り替えは
-# test/integration/talks/search_test.rb で確かめる。
+# test/integration/talks_search_test.rb で確かめる。
 class Talks::SearchTest < ApplicationSystemTestCase
   test 'search talks from the form' do
     visit_with_auth '/talks', 'komagata'
