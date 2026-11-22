@@ -215,12 +215,9 @@ jobs:
 
       - name: Install system packages
         run: |
-          # 使い捨ての環境なので、dpkgのfsyncとman-dbの更新を省く。
+          # 使い捨ての環境なので、dpkgのfsync、man-dbの更新、apt-get update後の索引の更新（appstream、command-not-found）を省く。
           echo force-unsafe-io | sudo tee /etc/dpkg/dpkg.cfg.d/force-unsafe-io > /dev/null
-          sudo rm -f /var/lib/man-db/auto-update
-
-          ls /etc/apt/apt.conf.d
-          apt-config dump | grep -i -E 'Post-Invoke|Pre-Invoke' || true
+          sudo rm -f /var/lib/man-db/auto-update /etc/apt/apt.conf.d/50appstream /etc/apt/apt.conf.d/50command-not-found
 
           archives="$HOME/apt-archives"
           mkdir -p "$archives/partial"
