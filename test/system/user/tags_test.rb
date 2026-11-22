@@ -74,6 +74,7 @@ class User::TagsTest < ApplicationSystemTestCase
     assert_no_text name
   end
 
+  # タグ名の変更と統合の場合分けは test/integration/api/tags_test.rb で確かめる。
   test 'update tag with not existing tag' do
     tag = acts_as_taggable_on_tags('beginner')
     update_tag_text = '上級者'
@@ -92,27 +93,6 @@ class User::TagsTest < ApplicationSystemTestCase
     visit_with_auth pages_tag_path(tag.name), 'komagata'
     assert_no_selector '.card-list-item'
     visit_with_auth pages_tag_path(update_tag_text), 'komagata'
-    assert_selector '.card-list-item'
-  end
-
-  test 'update tag with existing tag' do
-    tag = acts_as_taggable_on_tags('beginner')
-    update_tag = acts_as_taggable_on_tags('intermediate')
-
-    visit_with_auth users_tag_path(tag.name, all: 'true'), 'komagata'
-    click_button 'タグ名変更'
-    fill_in_open_tag_modal update_tag.name
-    click_save_tag_name_change
-    assert_text 'タグ「中級者」'
-
-    visit_with_auth users_tag_path(tag.name), 'komagata'
-    assert_text "#{tag.name}のユーザーはいません"
-    visit_with_auth users_tag_path(update_tag.name), 'komagata'
-    assert_text "タグ「#{update_tag.name}」のユーザー（2）"
-
-    visit_with_auth pages_tag_path(tag.name), 'komagata'
-    assert_no_selector '.card-list-item'
-    visit_with_auth pages_tag_path(update_tag.name), 'komagata'
     assert_selector '.card-list-item'
   end
 
