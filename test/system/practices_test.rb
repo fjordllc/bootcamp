@@ -3,57 +3,11 @@
 require 'application_system_test_case'
 
 class PracticesTest < ApplicationSystemTestCase
-  test 'show practice' do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'hatsuno'
-    assert_equal 'プラクティス OS X Mountain Lionをクリーンインストールする | FBC', title
-  end
-
-  test 'show practice quiz as the primary next action' do
-    practice = practices(:practice3)
-    quiz = PracticeQuiz.create!(practice:, published: false)
-    question = quiz.practice_quiz_questions.create!(
-      question_type: :single_choice,
-      body: '正しいものを選んでください。',
-      explanation: '解説です。',
-      position: 1,
-      published: false
-    )
-    question.practice_quiz_choices.create!(body: '正解', correct: true, position: 1)
-    question.practice_quiz_choices.create!(body: '不正解', correct: false, position: 2)
-    question.update!(published: true)
-    quiz.update!(published: true)
-
-    visit_with_auth practice_path(practice), 'kimura'
-
-    quiz_link = find_link '理解度テストに進む'
-    assert_includes quiz_link[:class], 'is-primary'
-    assert_equal practice_practice_quiz_path(practice), URI.parse(quiz_link[:href]).path
-  end
-
-  test 'show link to all practices with same category' do
-    user = users(:hatsuno)
-    practice1 = practices(:practice1)
-    category = practice1.category(user.course)
-    visit_with_auth "/practices/#{practice1.id}", 'hatsuno'
-    category.practices.each do |practice|
-      assert has_link? practice.title
-    end
-  end
-
+  # 表示の出し分けは test/integration/practice_display_test.rb で確かめる。
   test 'finish a practice' do
     visit_with_auth "/practices/#{practices(:practice3).id}", 'komagata'
     find('#js-complete').click
-    assert_not has_link? '修了'
-  end
-
-  test "show [提出物を作る] or [提出物] link if user don't have to submit product" do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'machida'
-    assert_link '提出物を作る'
-  end
-
-  test "don't show [提出物を作る] link if user don't have to submit product" do
-    visit_with_auth "/practices/#{practices(:practice1).id}", 'mentormentaro'
-    assert_no_link '提出物を作る'
+    assert_text '修了しています'
   end
 
   test 'can see tweet button when current_user has completed a practice' do
@@ -90,32 +44,6 @@ class PracticesTest < ApplicationSystemTestCase
     assert_equal 'started', practice.status(users(:hatsuno))
   end
 
-  test 'show other practices' do
-    practice = practices(:practice2)
-    visit_with_auth "/practices/#{practice.id}", 'kimura'
-    titles = all('.page-nav__item-link').map(&:text)
-    index1 = titles.rindex 'Terminalの基礎を覚える'
-    index2 = titles.rindex 'Debianをインストールする'
-    assert index1 < index2
-  end
-
-  test 'show last updated user icon' do
-    visit_with_auth "/practices/#{practices(:practice55).id}", 'hajime'
-    within '.thread-header__user-icon-link' do
-      assert_selector 'img[alt="komagata (Komagata Masaki): 管理者、メンター"]'
-    end
-  end
-
-  test 'add all questions to questions tab on practices page and display all questions default' do
-    practice = practices(:practice1)
-    visit_with_auth "/practices/#{practice.id}/questions", 'komagata'
-    assert_text '質問 （12）'
-    assert_text '全ての質問'
-    assert_text '解決済み'
-    assert_text '未解決'
-    assert_equal practice.questions.length, 12
-  end
-
   test 'link between grant course practice and source practice' do
     grant_course_practice = practices(:practice64)
     source_practice = practices(:practice23)
@@ -128,48 +56,5 @@ class PracticesTest < ApplicationSystemTestCase
     click_link '給付金コース'
     assert_current_path practice_path(grant_course_practice)
     assert_text 'rubyをインストールする（Reスキル）'
-  end
-
-  test 'hide grant course practice link from non grant course user' do
-    source_practice = practices(:practice23)
-    visit_with_auth practice_path(source_practice), 'kimura'
-    assert_text 'rubyをインストールする'
-    assert_no_link '給付金コース'
-  end
-
-  test 'show status guidance link on source practice for grant course user' do
-    source_practice = practices(:practice23)
-
-    visit_with_auth practice_path(source_practice), 'grant-course'
-
-    assert_link '給付金コースへ移動する', href: practice_path(practices(:practice64))
-    assert_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
-    assert_text '提出・修了は、給付金コースのプラクティス側で行ってください。'
-    assert_no_text '提出の前に、提出時の注意点を確認しよう'
-    assert_no_text '提出物を作成し提出し、メンターから確認をもらったら'
-    assert_no_text 'このプラクティスを修了にしてください。'
-    assert_no_text 'このプラクティスに提出物はありません。'
-    assert_no_text '修了条件をクリアしたら修了にしてください。'
-  end
-
-  test 'show normal status buttons on source practice for non grant course user' do
-    source_practice = practices(:practice23)
-
-    visit_with_auth practice_path(source_practice), 'kimura'
-
-    assert_selector '.practice-status-buttons__button'
-    assert_no_link '給付金コースへ移動する'
-    assert_no_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
-    assert_no_text '提出・修了は、給付金コースのプラクティス側で行ってください。'
-  end
-
-  test 'show normal status buttons on grant course practice for grant course user' do
-    grant_course_practice = practices(:practice64)
-
-    visit_with_auth practice_path(grant_course_practice), 'grant-course'
-
-    assert_selector '.practice-status-buttons__button'
-    assert_no_link '給付金コースへ移動する'
-    assert_no_text '進捗のステータス変更は、給付金コースのプラクティス側で行ってください。'
   end
 end

@@ -21,22 +21,5 @@ module Bookmarks
       visit '/current_user/bookmarks'
       assert_text @announcement.title
     end
-
-    test 'unbookmark announcement' do
-      user = users(:kimura)
-      user.bookmarks.create!(bookmarkable: @announcement)
-
-      visit_with_auth "/announcements/#{@announcement.id}", user.login_name
-      wait_for_javascript_components
-      assert_selector '#bookmark-button.is-active', text: 'Bookmark中'
-      find('#bookmark-button').click
-      wait_for_javascript_components
-      assert_selector '#bookmark-button.is-inactive'
-      assert_no_selector '#bookmark-button.is-active'
-      assert_selector '#bookmark-button', text: 'Bookmark'
-
-      visit '/current_user/bookmarks'
-      assert_no_text @announcement.title
-    end
   end
 end

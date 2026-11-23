@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# CIのテストをシャードへ振り分け、各シャードの所要時間の記録をまとめる。
+#
+#   bin/ci-test-timings split --shards 8 --timings tmp/test_timings.json --output tmp/test_shards
+#   bin/ci-test-timings merge --input tmp/test_timings --output tmp/test_timings.json [--summary FILE]
+
+require 'fileutils'
+require 'optparse'
+require_relative '../lib/ci_test_timings'
+
+USAGE = 'Usage: bin/ci-test-timings split --shards N --output DIR [--timings FILE] | merge --input DIR --output FILE [--summary FILE]'
+
+command = ARGV.shift
+options = {}
+OptionParser.new do |parser|
+  parser.on('--shards N', Integer)
+  parser.on('--timings FILE')
+  parser.on('--input DIR')
+  parser.on('--output PATH')
+  parser.on('--summary FILE')
+end.parse!(ARGV, into: options)
+
+case command
+when 'split'
+  shard_count = options[:shards]
+  output = options[:output]
+  abort USAGE unless shard_count&.positive? && output
+
+  files = Dir['test/**/*_test.rb']
+  timings = CiTestTimings.load_file_timings(options[:timings])
+  shards = CiTestTimings.split(files, timings, shard_count)
+  abort 'No test files selected for some shards' if shards.any? { |shard| shard[:files].empty? }
+
+  FileUtils.mkdir_p(output)
+  shards.each_with_index do |shard, index|
+    File.write(File.join(output, "shard-#{index}.txt"), "#{shard[:files].join("\n")}\n")
+    puts format('shard %<index>d: %<count>d files, estimated %<seconds>.1fs', index:, count: shard[:files].size, seconds: shard[:seconds])
+  end
+  puts "#{(files & timings.keys).size} of #{files.size} files have recorded timings"
+when 'merge'
+  input = options[:input]
+  output = options[:output]
+  abort USAGE unless input && output
+
+  reports = Dir[File.join(input, '**', 'shard-*.json')].map { |path| JSON.parse(File.read(path)) }
+  merged = CiTestTimings.merge(reports)
+  summary = CiTestTimings.summary(merged)
+  unless reports.empty?
+    FileUtils.mkdir_p(File.dirname(output))
+    File.write(output, JSON.generate(merged))
+  end
+  File.write(options[:summary], summary, mode: 'a') if options[:summary]
+  puts summary
+else
+  abort USAGE
+end

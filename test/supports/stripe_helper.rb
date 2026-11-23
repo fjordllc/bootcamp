@@ -5,8 +5,6 @@ module StripeHelper
     wait_and_fill_stripe_field('cardnumber', card)
     wait_and_fill_stripe_field('exp-date', exp)
     wait_and_fill_stripe_field('cvc', cvc)
-
-    page.has_no_css?('iframe[name^="__privateStripeFrame"]')
   end
 
   private

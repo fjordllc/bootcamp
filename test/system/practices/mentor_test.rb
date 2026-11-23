@@ -99,7 +99,7 @@ module Practices
       end
       assert_text 'プラクティスを更新しました'
       visit "/products/#{product.id}"
-      check 'toggle-mentor-memo-body', allow_label_click: true, visible: false
+      check 'toggle-mentor-memo-body', allow_label_click: true
       assert_text 'メンター向けのメモの内容です'
 
       visit new_product_path(practice_id: practice.id)

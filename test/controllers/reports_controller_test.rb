@@ -113,4 +113,87 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'show issues the same number of queries regardless of the number of comments, reactions, footprints and products' do
+    user = users(:with_hyphen)
+    report = user.reports.order(:reported_on).last
+    setup_report_page_records(report)
+
+    many = count_queries { get report_path(report, _login_name: 'mentormentaro') }
+    assert_response :ok
+
+    trim_report_page_records(report)
+
+    few = count_queries { get report_path(report, _login_name: 'mentormentaro') }
+    assert_response :ok
+    assert_equal few, many
+  end
+
+  private
+
+  # アバターを持つユーザーは、テスト環境では表示のたびにアバターの付け替えを試みてSQL回数が変わるため使わない。
+  def report_page_viewers
+    [users(:kimura), users(:hajime), users(:sotugyou)]
+  end
+
+  def setup_report_page_records(report)
+    products = report.user.products.not_wip.limit(20).to_a
+    recent_reports = Report.list.where(user_id: report.user_id).limit(10).to_a
+    insert_report_page_comments([report] * 4 + products + recent_reports)
+    insert_report_page_reactions(report.comments)
+    insert_report_page_checks(products + recent_reports)
+    report_page_viewers.each { |viewer| Footprint.find_or_create_by!(user: viewer, footprintable: report) }
+    get report_path(report, _login_name: 'mentormentaro') # キャッシュなど初回だけの処理を済ませる
+  end
+
+  def insert_report_page_comments(commentables)
+    now = Time.current
+    comments = commentables.flat_map.with_index do |commentable, i|
+      report_page_viewers.map.with_index do |viewer, j|
+        { user_id: viewer.id, commentable_type: commentable.class.name, commentable_id: commentable.id,
+          description: 'コメント', created_at: now + i + j, updated_at: now + i + j }
+      end
+    end
+    Comment.insert_all!(comments) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def insert_report_page_reactions(comments)
+    now = Time.current
+    reactions = comments.flat_map do |comment|
+      report_page_viewers.map do |viewer|
+        { user_id: viewer.id, reactionable_type: 'Comment', reactionable_id: comment.id, kind: 0, created_at: now, updated_at: now }
+      end
+    end
+    Reaction.insert_all!(reactions) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def insert_report_page_checks(checkables)
+    now = Time.current
+    checks = checkables.reject { |checkable| checkable.checks.exists? }.map do |checkable|
+      { user_id: users(:sotugyou).id, checkable_type: checkable.class.name, checkable_id: checkable.id, created_at: now, updated_at: now }
+    end
+    Check.insert_all!(checks) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def trim_report_page_records(report)
+    user = report.user
+    kept_product = user.products.not_wip.order(published_at: :desc).first
+    user.products.where.not(id: kept_product.id).find_each(&:destroy!)
+    kept_comment = report.comments.order(:created_at).first
+    report.comments.where.not(id: kept_comment.id).delete_all
+    Footprint.where(footprintable: report).where.not(user: users(:mentormentaro)).order(:id).offset(1).delete_all
+    Reaction.where(reactionable: kept_comment).order(:id).offset(1).delete_all
+    Report.where(user:).where.not(id: report.id).find_each do |other_report|
+      other_report.comments.order(:id).offset(1).delete_all
+    end
+  end
+
+  def count_queries(&)
+    count = 0
+    counter = lambda do |*, payload|
+      count += 1 unless payload[:name].in?(%w[SCHEMA TRANSACTION])
+    end
+    ActiveSupport::Notifications.subscribed(counter, 'sql.active_record', &)
+    count
+  end
 end

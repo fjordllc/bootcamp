@@ -12,6 +12,7 @@ require 'minitest/mock'
 require 'minitest/retry'
 require 'supports/api_helper'
 require 'supports/vcr_helper'
+require 'supports/test_timings_reporter'
 require 'abstract_notifier/testing/minitest'
 require 'webmock/minitest'
 

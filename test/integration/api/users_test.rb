@@ -37,7 +37,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
     assert_equal(
-      [mentor_memos(:kimura).content, mentor_memos(:migrated_kimura).content],
+      [mentor_memos(:kimura).content, mentor_memos(:newer_kimura).content, mentor_memos(:migrated_kimura).content],
       JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] }
     )
   end
@@ -51,7 +51,7 @@ class API::UsersTest < ActionDispatch::IntegrationTest
         headers: { 'Authorization' => "Bearer #{token}" }
     assert_response :ok
     assert_equal(
-      [mentor_memos(:kimura).content, mentor_memos(:migrated_kimura).content],
+      [mentor_memos(:kimura).content, mentor_memos(:newer_kimura).content, mentor_memos(:migrated_kimura).content],
       JSON.parse(@response.body)['mentor_memos'].map { |memo| memo['content'] }
     )
   end

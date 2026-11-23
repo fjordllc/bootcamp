@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class Movie::TagsTest < ApplicationSystemTestCase
+  # タグ名の変更と統合の場合分けは test/integration/api/tags_test.rb で確かめる。
+  # 同じ名前では変更できないことは test/system/user/tags_test.rb で確かめる。
   test 'update tags without page transitions' do
     visit_with_auth movie_path(movies(:movie2)), 'komagata'
     click_tag_edit
@@ -21,27 +23,5 @@ class Movie::TagsTest < ApplicationSystemTestCase
     click_save_tag_name_change
 
     assert_text "タグ「#{new_tag_name}」の動画（1）"
-  end
-
-  test 'admin merges a tag into an existing tag' do
-    existing_tag = acts_as_taggable_on_tags('game')
-    new_tag = acts_as_taggable_on_tags('beginner')
-
-    visit_with_auth movies_tag_path(existing_tag.name, all: 'true'), 'komagata'
-
-    click_tag_name_change
-    fill_in_open_tag_modal new_tag.name
-    click_save_tag_name_change
-
-    assert_text "タグ「#{new_tag.name}」の動画（2）"
-  end
-
-  test 'update tag with same value' do
-    tag = acts_as_taggable_on_tags('cat')
-
-    visit_with_auth movies_tag_path(tag.name, all: 'true'), 'komagata'
-    click_tag_name_change
-    fill_in('tag[name]', with: tag.name)
-    assert_selector('button.is-primary[disabled]', text: '変更')
   end
 end

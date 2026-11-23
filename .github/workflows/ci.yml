@@ -20,10 +20,12 @@ env:
   BUNDLE_JOBS: "3"
   BUNDLE_RETRY: "3"
   TZ: Asia/Tokyo
+  TEST_SHARDS: 8
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # node_modulesのキャッシュをtestジョブと共有するため、同じイメージで動かす。
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
@@ -36,14 +38,53 @@ jobs:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
 
+      # node_modulesはキャッシュがないときだけここで作る。testジョブは復元するだけで済む。
+      - name: Look up node_modules cache
+        id: node-modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node-modules-ubuntu-24.04-${{ runner.arch }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json') }}
+          lookup-only: true
+
       - name: Set up Node
+        if: steps.node-modules.outputs.cache-hit != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       - name: Install npm packages
+        if: steps.node-modules.outputs.cache-hit != 'true'
         run: npm ci
+
+      - name: Save node_modules cache
+        if: steps.node-modules.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: node-modules-ubuntu-24.04-${{ runner.arch }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json') }}
+
+      # mainで記録した所要時間を使い、各シャードの合計時間が揃うようにテストを振り分ける。
+      # シャードごとに振り分けると、参照する記録が食い違ったときにテストが漏れるため、ここで一度だけ決める。
+      - name: Restore test timings
+        uses: actions/cache/restore@v4
+        with:
+          path: tmp/test_timings.json
+          key: test-timings-${{ github.run_id }}
+          restore-keys: |
+            test-timings-
+
+      - name: Split test files into shards
+        run: ruby bin/ci-test-timings split --shards "$TEST_SHARDS" --timings tmp/test_timings.json --output tmp/test_shards
+
+      - name: Upload test shards
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-shards
+          path: tmp/test_shards
+          if-no-files-found: error
+          overwrite: true
 
   check:
     runs-on: ubuntu-latest
@@ -118,21 +159,6 @@ jobs:
       matrix:
         shard: [0, 1, 2, 3, 4, 5, 6, 7]
 
-    services:
-      postgres:
-        image: pgvector/pgvector:pg14
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ci_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d ci_test"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
-
     env:
       PGHOST: 127.0.0.1
       PGUSER: postgres
@@ -140,9 +166,16 @@ jobs:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:postgres@localhost/ci_test
       TEST_SHARD: ${{ matrix.shard }}
-      TEST_SHARDS: 8
 
     steps:
+      # servicesで起動するとイメージの取得が終わるまで他の準備を始められないため、裏で起動して準備と並行させる。
+      # 起動の完了は「Enable pgvector extension」で待つ。
+      - name: Start PostgreSQL in the background
+        run: |
+          nohup docker run --detach --name postgres \
+            --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres --env POSTGRES_DB=ci_test \
+            --publish 5432:5432 pgvector/pgvector:pg14 > "$RUNNER_TEMP/postgres-start.log" 2>&1 &
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -156,9 +189,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
+
+      - name: Restore node_modules cache
+        id: node-modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node-modules-ubuntu-24.04-${{ runner.arch }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install npm packages
+        if: steps.node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Get week for apt package cache
@@ -175,6 +215,10 @@ jobs:
 
       - name: Install system packages
         run: |
+          # 使い捨ての環境なので、dpkgのfsyncとman-dbの更新を省く。
+          echo force-unsafe-io | sudo tee /etc/dpkg/dpkg.cfg.d/force-unsafe-io > /dev/null
+          sudo rm -f /var/lib/man-db/auto-update
+
           archives="$HOME/apt-archives"
           mkdir -p "$archives/partial"
           echo "Cached apt packages: $(find "$archives" -name '*.deb' | wc -l)"
@@ -228,7 +272,22 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Enable pgvector extension
-        run: psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;"
+        run: |
+          # 接続したまま応答が返らない場合にも期限で打ち切れるよう、psql自体も残り時間で止める。
+          deadline=$((SECONDS + 120))
+          while true; do
+            remaining=$((deadline - SECONDS))
+            if [ "$remaining" -le 0 ]; then
+              echo "PostgreSQL did not become ready in time"
+              cat "$RUNNER_TEMP/postgres-start.log" || true
+              docker logs postgres || true
+              exit 1
+            fi
+            if timeout "$remaining" psql -h localhost -U postgres -d ci_test -c "CREATE EXTENSION IF NOT EXISTS vector;" 2> /dev/null; then
+              break
+            fi
+            sleep 1
+          done
 
       - name: Prepare database
         run: bundle exec rails db:prepare
@@ -236,13 +295,30 @@ jobs:
       - name: Precompile assets
         run: bundle exec rails assets:clean assets:precompile
 
+      - name: Download test shards
+        uses: actions/download-artifact@v4
+        with:
+          name: test-shards
+          path: tmp/test_shards
+
       - name: Select test files
         run: |
-          ruby -e 'files = Dir["test/**/*_test.rb"].sort.each_with_index.select { |_, i| i % ENV.fetch("TEST_SHARDS").to_i == ENV.fetch("TEST_SHARD").to_i }.map(&:first); abort "No test files selected" if files.empty?; File.write("tmp/test_files.txt", files.join("\n") + "\n")'
+          cp "tmp/test_shards/shard-${TEST_SHARD}.txt" tmp/test_files.txt
           wc -l tmp/test_files.txt
 
       - name: Run Rails tests
+        env:
+          TEST_TIMINGS_PATH: tmp/test_timings/shard-${{ matrix.shard }}.json
         run: xargs bundle exec rails test < tmp/test_files.txt
+
+      - name: Upload test timings
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-timings-${{ matrix.shard }}
+          path: tmp/test_timings
+          if-no-files-found: ignore
+          overwrite: true
 
       - name: Upload screenshots
         if: failure()
@@ -253,3 +329,44 @@ jobs:
             tmp/screenshots
             tmp/capybara
           if-no-files-found: ignore
+
+  test-timings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: test
+    if: ${{ !cancelled() }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Download test timings
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-timings-*
+          path: tmp/test_timings
+          merge-multiple: true
+
+      - name: Merge test timings
+        run: ruby bin/ci-test-timings merge --input tmp/test_timings --output tmp/test_timings.json --summary "$GITHUB_STEP_SUMMARY" > /dev/null
+
+      - name: Upload merged test timings
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-timings
+          path: tmp/test_timings.json
+          if-no-files-found: ignore
+          overwrite: true
+
+      # 全シャードが成功したmainの記録だけを、次回以降の振り分けに使う。
+      - name: Save test timings
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.test.result == 'success' }}
+        uses: actions/cache/save@v4
+        with:
+          path: tmp/test_timings.json
+          key: test-timings-${{ github.run_id }}

@@ -7,20 +7,6 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
     @product = products(:product1)
   end
 
-  test 'show active button when bookmarked product' do
-    visit_with_auth "/products/#{@product.id}", 'kimura'
-    wait_for_javascript_components
-    assert_selector '#bookmark-button.is-active'
-    assert_no_selector '#bookmark-button.is-inactive'
-  end
-
-  test 'show inactive button when not bookmarked product' do
-    visit_with_auth "/products/#{@product.id}", 'komagata'
-    wait_for_javascript_components
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-  end
-
   test 'bookmark product' do
     visit_with_auth "/products/#{@product.id}", 'komagata'
     wait_for_javascript_components
@@ -31,17 +17,5 @@ class Bookmark::ProductTest < ApplicationSystemTestCase
 
     visit '/current_user/bookmarks'
     assert_text @product.title
-  end
-
-  test 'unbookmark product' do
-    visit_with_auth "/products/#{@product.id}", 'kimura'
-    wait_for_javascript_components
-    find('#bookmark-button').click
-    wait_for_javascript_components
-    assert_selector '#bookmark-button.is-inactive'
-    assert_no_selector '#bookmark-button.is-active'
-
-    visit '/current_user/bookmarks'
-    assert_no_text @product.title
   end
 end

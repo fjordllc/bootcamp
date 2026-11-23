@@ -3,11 +3,8 @@
 require 'application_system_test_case'
 
 class Page::TagsTest < ApplicationSystemTestCase
-  test 'admin can edit tag' do
-    tag = acts_as_taggable_on_tags('game')
-    assert_admin_can_edit_tag(pages_tag_path(tag.name, all: 'true'))
-  end
-
+  # タグ名の変更と統合の場合分けは test/integration/api/tags_test.rb で確かめる。
+  # 同じ名前では変更できないことは test/system/user/tags_test.rb で確かめる。
   test 'users except admin cannot edit tag' do
     tag = acts_as_taggable_on_tags('game')
     assert_non_admin_cannot_edit_tag(pages_tag_path(tag.name, all: 'true'))
@@ -37,64 +34,5 @@ class Page::TagsTest < ApplicationSystemTestCase
     assert_no_selector '.card-list-item'
     visit_with_auth pages_tag_path(update_tag.name), 'komagata'
     assert_selector '.card-list-item'
-  end
-
-  test 'update tag with same value' do
-    tag = acts_as_taggable_on_tags('beginner')
-    assert_tag_update_button_disabled_for_same_value(pages_tag_path(tag.name, all: 'true'), tag.name)
-  end
-
-  test 'alert when enter tag with space on creation page' do
-    visit_with_auth new_page_path, 'kimura'
-    ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
-      fill_in_tag_with_alert tag
-      assert_no_selector('.tagify__tag')
-    end
-    fill_in_tag 'foo'
-    assert_selector('input[name="page[tag_list]"][value="foo"]', visible: false)
-    within('form[name=page]') do
-      fill_in('page[title]', with: 'test title')
-      fill_in('page[body]', with: 'test body')
-      click_button 'Docを公開'
-    end
-    assert_selector('.tag-links__item-link', text: 'foo', count: 1)
-  end
-
-  test 'alert when enter one dot only tag on creation page' do
-    visit_with_auth new_page_path, 'kimura'
-    fill_in_tag_with_alert '.'
-    fill_in_tag 'foo'
-    within('form[name=page]') do
-      fill_in('page[title]', with: 'test title')
-      fill_in('page[body]', with: 'test body')
-      click_button 'Docを公開'
-    end
-    assert_equal ['foo'], all('.tag-links__item-link').map(&:text).sort
-  end
-
-  test 'alert when enter tag with space on update page' do
-    visit_with_auth "/pages/#{pages(:page3).id}/edit", 'kimura'
-    ['半角スペースは 使えない', '全角スペースも　使えない'].each do |tag|
-      fill_in_tag_with_alert tag
-    end
-    fill_in_tag 'foo'
-    within('form[name=page]') do
-      fill_in('page[title]', with: 'test title')
-      fill_in('page[body]', with: 'test body')
-      click_button '内容を更新'
-    end
-    assert_equal ['foo'], all('.tag-links__item-link').map(&:text).sort
-  end
-
-  test 'alert when enter one dot only tag on update page' do
-    visit_with_auth "/pages/#{pages(:page3).id}/edit", 'kimura'
-    fill_in_tag_with_alert '.'
-    fill_in_tag 'foo'
-    within('form[name=page]') do
-      fill_in('page[title]', with: 'test title')
-      fill_in('page[body]', with: 'test body')
-      click_button '内容を更新'
-    end
-    assert_equal ['foo'], all('.tag-links__item-link').map(&:text)
   end
 end
