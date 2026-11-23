@@ -3,6 +3,9 @@
 module HomeHelper
   def anchor_to_required_field(attribute)
     {
+      description: 'form-description',
+      job: 'form-job',
+      os: 'form-os',
       avatar_attached: 'form-user-avatar',
       tag_list_count: 'form-tag-list',
       after_graduation_hope: 'form-after-graduation-hope',

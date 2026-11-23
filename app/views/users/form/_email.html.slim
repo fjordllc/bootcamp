@@ -1,6 +1,6 @@
 .form-item
   = f.label :email, class: 'a-form-label is-required'
-  = f.text_field :email, class: 'a-text-input', placeholder: 'komagata@fjord.jp'
+  = f.email_field :email, class: 'a-text-input', placeholder: 'komagata@fjord.jp', autocomplete: 'email'
   - unless user.adviser? || user.mentor?
     .a-form-help
       p

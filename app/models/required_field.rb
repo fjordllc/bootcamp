@@ -4,6 +4,9 @@ class RequiredField
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  attribute :description, :string
+  attribute :job, :string
+  attribute :os, :string
   attribute :avatar_attached, :boolean
   attribute :tag_list_count, :integer
   attribute :after_graduation_hope, :string
@@ -13,6 +16,9 @@ class RequiredField
   attribute :graduated, :boolean
   attribute :learning_time_frames, :boolean
 
+  validates :description, presence: { message: '自己紹介を登録してください。' }
+  validates :job, presence: { message: '職業を登録してください。' }
+  validates :os, presence: { message: '学習に使うマシン・OSを登録してください。' }
   validates :avatar_attached, presence: { message: 'ユーザーアイコンを登録してください。' }
   validates :tag_list_count, numericality: { greater_than: 0, message: 'タグを登録してください。' }
   validates :after_graduation_hope, presence: { message: 'フィヨルドブートキャンプを卒業した自分はどうなっていたいかを登録してください。' }, unless: :graduated

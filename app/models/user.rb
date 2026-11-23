@@ -6,7 +6,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include Searchable
   include StagingEnvironment
 
-  attr_accessor :credit_card_payment, :role, :uploaded_avatar
+  attr_accessor :credit_card_payment, :role, :uploaded_avatar, :profile_deferred
 
   authenticates_with_sorcery!
   VALID_SORT_COLUMNS = %w[id login_name company_id last_activity_at created_at report comment asc desc].freeze
@@ -225,7 +225,7 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validates :name, presence: true
-  validates :description, presence: true
+  validates :description, presence: true, unless: -> { profile_attribute_deferred?(:description) }
   validates :nda, presence: true
   validates :password, length: { minimum: 4 }, confirmation: true, if: :password_required?
   validates :mail_notification, inclusion: { in: [true, false] }
@@ -276,11 +276,11 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   with_options if: -> { !staff? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
-    validates :job, presence: true
+    validates :job, presence: true, unless: -> { profile_attribute_deferred?(:job) }
   end
 
   with_options if: -> { !adviser? && !validation_context.in?(%i[reset_password retirement training_completion]) } do
-    validates :os, presence: true
+    validates :os, presence: true, unless: -> { profile_attribute_deferred?(:os) }
   end
 
   with_options if: -> { validation_context.in?(%i[retirement training_completion]) } do
@@ -653,6 +653,11 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
     !admin? && !adviser? && !mentor? && !trainee?
   end
 
+  # 参加登録で、自己紹介・職業・OSなどを登録後に回せるか
+  def profile_deferrable_signup?
+    new_record? && student? && !grant_course?
+  end
+
   def current_student?
     !admin? && !adviser? && !mentor? && !graduated? && !retired?
   end
@@ -965,6 +970,15 @@ class User < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   private
+
+  # 参加登録では、自己紹介・職業・OSをあとから入力できる。
+  # 登録時は profile_deferred が指定された場合だけ、登録後はまだ一度も入力していない場合だけ必須にしない。
+  # 一度入力した値を空にすることはできない。未入力のあいだはダッシュボードで入力を促す。
+  def profile_attribute_deferred?(attribute)
+    return profile_deferred.present? if new_record?
+
+    attribute_in_database(attribute).blank?
+  end
 
   def password_required?
     new_record? || password.present?

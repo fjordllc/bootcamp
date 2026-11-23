@@ -1,3 +1,6 @@
+- notice_first = local_assigns.fetch(:notice_first, false)
+- if notice_first
+  = render 'card_notice'
 .form-item
   label.a-form-label(for='card-element') カード番号
   #card-element.a-text-input.is-stripe
@@ -7,4 +10,5 @@
       br
       | プリペイドのクレジットカードは登録できない場合があります。
   #card-errors(role='alert')
+- unless notice_first
   = render 'card_notice'

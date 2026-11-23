@@ -72,6 +72,7 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
     @user.credit_card_payment = params[:credit_card_payment]
     @user.uploaded_avatar = user_params[:avatar]
     @user.unsubscribe_email_token = SecureRandom.urlsafe_base64
+    @user.profile_deferred = @user.profile_deferrable_signup?
 
     if @user.staff? || @user.trainee?
       create_free_user!

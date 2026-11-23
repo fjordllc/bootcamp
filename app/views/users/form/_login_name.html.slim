@@ -1,6 +1,9 @@
-.form-item
+.form-item data-controller='login-name-input'
   = f.label :login_name, class: 'a-form-label is-required'
-  = f.text_field :login_name, class: 'a-text-input', autocomplete: 'address-line3', placeholder: 'komagata'
+  = f.text_field :login_name, class: 'a-text-input', autocomplete: 'address-line3', placeholder: 'komagata',
+    autocapitalize: 'off', spellcheck: false,
+    data: { login_name_input_target: 'input', action: 'input->login-name-input#check' }
+  p.a-form-help.is-danger hidden=true data-login-name-input-target='message' aria-live='polite'
   .a-form-help
     ul
       li
