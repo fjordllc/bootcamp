@@ -1,0 +1,67 @@
+- title 'アクセストークン'
+- set_meta_tags description: 'APIを利用するための個人アクセストークンの一覧ページです。'
+
+header.page-header
+  .container
+    .page-header__inner
+      .page-header__start
+        h2.page-header__title
+          = title
+
+main.page-main
+  header.page-main-header
+    .container
+      .page-main-header__inner
+        .page-main-header__start
+          h1.page-main-header__title
+            | アクセストークン一覧
+        .page-main-header__end
+          .page-main-header-actions
+            .page-main-header-actions__items
+              .page-main-header-actions__item
+                = link_to new_current_user_access_token_path, class: 'a-button is-md is-secondary is-block' do
+                  i.fa-regular.fa-plus
+                  span
+                    | アクセストークン発行
+  hr.a-border
+  .page-body
+    .container.is-lg
+      - if @access_tokens.empty?
+        .o-empty-message
+          .o-empty-message__icon
+            i.fa-regular.fa-sad-tear
+          p.o-empty-message__text
+            | 発行済みのアクセストークンはありません。
+      - else
+        .admin-table
+          table.admin-table__table
+            thead.admin-table__header
+              tr.admin-table__labels
+                th.admin-table__label
+                  | スコープ
+                th.admin-table__label
+                  | 発行日時
+                th.admin-table__label
+                  | 有効期限
+                th.admin-table__label
+                  | 操作
+            tbody.admin-table__items
+              - @access_tokens.each do |access_token|
+                tr.admin-table__item(id="access_token_#{access_token.id}")
+                  td.admin-table__item-value
+                    = access_token.scopes.to_a.join(' ')
+                  td.admin-table__item-value
+                    = l access_token.created_at
+                  td.admin-table__item-value
+                    - if access_token.expires_at.nil?
+                      | 無期限
+                    - elsif access_token.expired?
+                      | 期限切れ（#{l access_token.expires_at}）
+                    - else
+                      = l access_token.expires_at
+                  td.admin-table__item-value.is-text-align-center
+                    = link_to '失効',
+                      current_user_access_token_path(access_token),
+                      data: { confirm: '本当によろしいですか？失効させたアクセストークンは元に戻せません。' },
+                      method: :delete,
+                      class: 'a-button is-sm is-muted-text'

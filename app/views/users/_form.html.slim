@@ -67,6 +67,12 @@
             = link_to '管理者としてパスワードを変更', edit_admin_user_password_path(@user), class: 'a-button is-md is-secondary'
           - else
             = link_to 'パスワード変更はこちらから', edit_current_user_password_path, class: 'a-button is-md is-secondary'
+    - if url == current_user_path && admin_or_mentor_login?
+      .form__items
+        h3.form__items-title APIアクセストークン
+        .form-item
+          .form-item__button
+            = link_to 'アクセストークンの管理はこちらから', current_user_access_tokens_path, class: 'a-button is-md is-secondary'
     .form__items
       h3.form__items-title SNSアカウント
       = render 'users/form/sns', f: f

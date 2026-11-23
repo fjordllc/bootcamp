@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :products, only: %i(index)
     resources :watches, only: %i(index)
     resources :bookmarks, only: %i(index destroy)
+    resources :access_tokens, only: %i[index new create destroy]
     get '/bookmarks/dashboard', to: 'bookmarks#dashboard'
   end
 end
