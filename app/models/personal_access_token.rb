@@ -8,6 +8,7 @@ class PersonalAccessToken
 
   APPLICATION_NAME = '個人アクセストークン'
   REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
+  APPLICATION_LOCK_KEY = 1_792_556
   REQUIRED_SCOPE = 'read'
   APPLICATION_SCOPES = 'read write mentor admin'
   EXPIRATION_DAYS = [30, 90, 365].freeze
@@ -30,12 +31,7 @@ class PersonalAccessToken
 
   class << self
     def application
-      Doorkeeper::Application.find_by(name: APPLICATION_NAME) ||
-        Doorkeeper::Application.create!(
-          name: APPLICATION_NAME,
-          redirect_uri: REDIRECT_URI,
-          scopes: APPLICATION_SCOPES
-        )
+      find_application || create_application
     end
 
     def for_user(user)
@@ -53,6 +49,25 @@ class PersonalAccessToken
       scopes << 'mentor' if user.admin_or_mentor?
       scopes << 'admin' if user.admin?
       scopes
+    end
+
+    private
+
+    def find_application
+      Doorkeeper::Application.find_by(name: APPLICATION_NAME)
+    end
+
+    # oauth_applications.name には一意制約がないため、同時に初回の発行があっても
+    # 専用アプリケーションが2つできないよう、作成を直列にする。
+    def create_application
+      Doorkeeper::Application.transaction do
+        Doorkeeper::Application.connection.execute("SELECT pg_advisory_xact_lock(#{APPLICATION_LOCK_KEY})")
+        find_application || Doorkeeper::Application.create!(
+          name: APPLICATION_NAME,
+          redirect_uri: REDIRECT_URI,
+          scopes: APPLICATION_SCOPES
+        )
+      end
     end
   end
 
