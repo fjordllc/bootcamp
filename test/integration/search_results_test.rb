@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class SearchablesTest < ActionDispatch::IntegrationTest
+class SearchResultsTest < ActionDispatch::IntegrationTest
   USER_ICON = 'img.card-list-item-meta__icon.a-user-icon'
 
   test 'shows matched word in bold' do
