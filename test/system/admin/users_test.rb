@@ -3,32 +3,7 @@
 require 'application_system_test_case'
 
 class Admin::UsersTest < ApplicationSystemTestCase
-  test 'show listing graduated and office_worker' do
-    visit_with_auth '/admin/users?target=graduate&job=office_worker', 'komagata'
-    assert_equal '管理ページ | FBC', title
-    assert_text 'sotugyou-with-job（卒業 就職済美）'
-    assert_no_text 'sotugyou（卒業 太郎）'
-  end
-
-  test 'exclude hibernated and retired users from year-end-party email list' do
-    visit_with_auth '/admin/users?target=year_end_party', 'komagata'
-    assert_equal '管理ページ | FBC', title
-    assert_no_text users(:kyuukai).email
-    assert_no_text users(:yameo).email
-    assert_text users(:kimura).email
-  end
-
-  test 'an error occurs when updating user-data' do
-    user = users(:hatsuno)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    within 'form[name=user]' do
-      fill_in 'user[login_name]', with: ''
-      fill_in 'user[login_name]', with: 'komagata'
-      click_on '更新する'
-    end
-    assert_text 'アカウントはすでに存在します'
-  end
-
+  # 一覧の絞り込みと、画面の操作に頼らない更新は test/integration/admin/user_management_test.rb で確かめる。
   test 'update user' do
     user = users(:hatsuno)
     reset_avatar(user)
@@ -88,20 +63,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
   end
 
-  test 'update advisor with company' do
-    user = users(:senpai)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    within 'form[name=user]' do
-      find('.choices').click
-      first('.choices__item', text: 'Lokka Inc.').click
-      click_on '更新する'
-    end
-    assert_text 'ユーザー情報を更新しました。'
-    visit "/users/#{user.id}"
-    found_value = all('.user-metas__item-value').find { |element| element.text.include?('Lokka Inc.') }
-    assert_not_nil(found_value, "Expected to find '.user-metas__item-value' with text 'Lokka Inc.'")
-  end
-
   test 'hide input for retire date when unchecked' do
     user = users(:hatsuno)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
@@ -131,27 +92,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_unchecked_field?('retire_checkbox', visible: false)
     check 'retire_checkbox', allow_label_click: true
     assert has_field?('user_retired_on', with: '')
-  end
-
-  test 'make user retired' do
-    user = users(:hatsuno)
-    times_channel_id = '987654321987654321'
-    user.discord_profile.update!(times_id: times_channel_id)
-    # Clear subscription_id and customer_id to avoid Stripe API calls during retirement
-    user.update_columns(subscription_id: nil, customer_id: nil) # rubocop:disable Rails/SkipsModelValidations
-    date = Date.current
-
-    Discord::Server.stub(:delete_text_channel, true) do
-      visit_with_auth edit_admin_user_path(user.id), 'komagata'
-      check '退会済', allow_label_click: true
-      fill_in 'user_retired_on', with: date
-      click_on '更新する'
-
-      assert_text 'ユーザー情報を更新しました。'
-    end
-    assert_equal date, user.reload.retired_on
-    user.discord_profile.reload
-    assert_nil user.discord_profile.times_id, "times_id should be nil but was #{user.discord_profile.times_id}"
   end
 
   test 'hide input for graduation date when unchecked' do
@@ -184,29 +124,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_graduated_on', with: '')
   end
 
-  test 'make user graduated' do
-    user = users(:hatsuno)
-    date = Date.current
-
-    stub_request(:get, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}")
-      .to_return(status: 200, body: { id: user.subscription_id, status: 'active' }.to_json)
-    stub_request(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}")
-      .to_return(status: 200, body: { id: user.subscription_id, cancel_at_period_end: true }.to_json)
-
-    Card.stub(:destroy_all, true) do
-      visit_with_auth edit_admin_user_path(user.id), 'komagata'
-      check '卒業済', allow_label_click: true
-      fill_in 'user_graduated_on', with: date
-      click_on '更新する'
-    end
-    assert_text 'ユーザー情報を更新しました。'
-    assert_equal date, user.reload.graduated_on
-
-    assert_requested(:post, "https://api.stripe.com/v1/subscriptions/#{user.subscription_id}") do |req|
-      req.body.include?('cancel_at_period_end=true')
-    end
-  end
-
   test 'edit user tag' do
     user = users(:kimura)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
@@ -216,55 +133,11 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_includes user.reload.tag_list, '追加タグ'
   end
 
-  test 'does not display advisor in the list of trial period users' do
-    start = Time.current - 20.years
-    seven_days_later = Time.current + 7.days
-    visit_with_auth new_admin_campaign_path, 'komagata'
-    within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: Time.zone.parse(start.to_s)
-      fill_in 'campaign[end_at]', with: Time.zone.parse(seven_days_later.to_s)
-      fill_in 'campaign[title]', with: 'テスト用キャンペーン'
-      click_button '内容を保存'
-    end
-    assert_text 'お試し延長を作成しました。'
-    visit_with_auth '/admin/users?target=campaign', 'komagata'
-    within('.page-body') do
-      assert_no_text 'アドバイザー'
-    end
-  end
-
-  test 'display advisor in lists other than the list of trial period users' do
-    start = Time.current - 20.years
-    seven_days_later = Time.current + 7.days
-    visit_with_auth new_admin_campaign_path, 'komagata'
-    within 'form[name=campaign]' do
-      fill_in 'campaign[start_at]', with: Time.zone.parse(start.to_s)
-      fill_in 'campaign[end_at]', with: Time.zone.parse(seven_days_later.to_s)
-      fill_in 'campaign[title]', with: 'テスト用キャンペーン'
-      click_button '内容を保存'
-    end
-    assert_text 'お試し延長を作成しました。'
-    visit_with_auth '/admin/users?target=adviser', 'komagata'
-    within('.page-body') do
-      assert_text 'アドバイザー'
-    end
-  end
-
   test 'should not show training end date if user is not trainee' do
     user = users(:kimura)
     visit_with_auth edit_admin_user_path(user.id), 'komagata'
     assert has_unchecked_field?('checkbox_trainee', visible: false)
     assert has_no_field?('user_training_ends_on')
-  end
-
-  test 'update value of training end date' do
-    user = users(:kensyu)
-    training_ends_on = Date.current.next_year
-    visit_with_auth edit_admin_user_path(user.id), 'komagata'
-    fill_in 'user_training_ends_on', with: training_ends_on
-    click_on '更新する'
-    assert_text 'ユーザー情報を更新しました。'
-    assert_equal training_ends_on, user.reload.training_ends_on
   end
 
   test 'reset value of training end date when unchecked' do
@@ -278,51 +151,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert has_field?('user_training_ends_on', with: '')
   end
 
-  test 'admin can change user course' do
-    user = users(:kensyu)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'machida'
-    within 'form[name=user]' do
-      select 'iOSエンジニア', from: 'user[course_id]'
-    end
-    click_on '更新する'
-    assert_text 'ユーザー情報を更新しました。'
-    assert_equal 'iOSエンジニア', user.reload.course.title
-  end
-
-  test 'administrator cannot update profiles of general users' do
-    user = users(:kimura)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_no_text 'プロフィール'
-    assert_no_text 'プロフィール画像'
-    assert_no_text 'プロフィール名'
-    assert_no_text 'プロフィール文'
-  end
-
-  test 'administrator can set user\'s special user attribute to mentor' do
-    user = users(:advijirou)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_no_text 'メンター紹介用公開プロフィール'
-    check 'checkbox_mentor', allow_label_click: true
-    assert has_checked_field?('checkbox_mentor', visible: false)
-    click_on '更新する'
-    assert_text 'ユーザー情報を更新しました'
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_text 'メンター紹介用公開プロフィール'
-  end
-
-  test 'administrator can update show profile of mentor' do
-    user = users(:mentormentaro)
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_text 'メンター紹介用公開プロフィール'
-    assert has_checked_field?('user_show_mentor_profile', visible: false)
-    uncheck 'user_show_mentor_profile', allow_label_click: true
-    assert_no_checked_field('user_show_mentor_profile', visible: false)
-    click_on '更新する'
-    assert_text 'ユーザー情報を更新しました'
-    visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
-    assert_no_checked_field('user_show_mentor_profile', visible: false)
-  end
-
   test 'administrator can set skipped_practice of general users' do
     user = users(:kensyu)
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
@@ -333,17 +161,6 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_text 'ユーザー情報を更新しました'
     visit_with_auth "/admin/users/#{user.id}/edit", 'komagata'
     assert_text 'UNIX (2/9)', normalize_ws: true
-  end
-
-  test 'shows diploma link on edit page after upload' do
-    user = users(:kimura)
-    visit_with_auth edit_admin_user_path(user), 'komagata'
-    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.pdf'), visible: false
-    click_on '更新する'
-    assert_text 'ユーザー情報を更新しました'
-    assert user.reload.diploma_file.attached?
-    visit edit_admin_user_path(user)
-    assert_link 'diploma.pdf'
   end
 
   test 'admin can delete diploma file' do
@@ -360,13 +177,5 @@ class Admin::UsersTest < ApplicationSystemTestCase
     assert_not user.reload.diploma_file.attached?
     visit edit_admin_user_path(user)
     assert_no_link 'diploma.pdf'
-  end
-
-  test 'rejects diploma upload if not PDF format' do
-    user = users(:kimura)
-    visit_with_auth edit_admin_user_path(user), 'komagata'
-    attach_file 'user[diploma_file]', file_fixture('users/diplomas/diploma.html'), visible: false
-    click_on '更新する'
-    assert_text '卒業証書(PDF)はPDF形式にしてください'
   end
 end
