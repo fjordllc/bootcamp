@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class SearchablesTest < ApplicationSystemTestCase
+  # 検索結果の出し分けは test/integration/search_results_test.rb で確かめる。
+  # ここでは、検索窓から検索する流れと、結果からプロフィールへ移る流れを確かめる。
   test 'search with word' do
     visit_with_auth '/', 'hatsuno'
     search_word = '検索結果テスト用'
@@ -16,17 +18,6 @@ class SearchablesTest < ApplicationSystemTestCase
     assert_selector '.card-list-item'
     # 検索結果が表示されていることを確認
     assert_text search_word
-  end
-
-  test 'matched_word is in bold' do
-    visit_with_auth '/', 'komagata'
-    find('.js-modal-search-shown-trigger').click
-    within('form[name=search]') do
-      select 'すべて'
-      fill_in 'word', with: '検索ワードが太字で表示されるかのテスト'
-    end
-    find('#test-search-modal').click
-    assert_selector 'strong.matched_word', text: '検索ワードが太字で表示されるかのテスト'
   end
 
   test 'show icon and go profile page when click icon' do
