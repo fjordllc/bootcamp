@@ -1,0 +1,5 @@
+// markdown-it-link-attributes@4.0.1 downloaded from https://ga.jspm.io/npm:markdown-it-link-attributes@4.0.1/index.js
+
+var r={};function findFirstMatchingConfig(r,t){var e,n;var a=r.attrs[r.attrIndex("href")][1];for(e=0;e<t.length;++e){n=t[e];if("function"!==typeof n.matcher)return n;if(n.matcher(a,n))return n}}function applyAttributes(r,t,e){Object.keys(e).forEach((function(n){var a;var i=e[n];"className"===n&&(n="class");a=t[r].attrIndex(n);a<0?t[r].attrPush([n,i]):t[r].attrs[a][1]=i}))}function markdownitLinkAttributes(r,t){t=t?Array.isArray(t)?t:[t]:[];Object.freeze(t);var e=r.renderer.rules.link_open||this.defaultRender;r.renderer.rules.link_open=function(r,n,a,i,u){var f=findFirstMatchingConfig(r[n],t);var s=f&&f.attrs;s&&applyAttributes(n,r,s);return e(r,n,a,i,u)}}markdownitLinkAttributes.defaultRender=function(r,t,e,n,a){return a.renderToken(r,t,e)};r=markdownitLinkAttributes;var t=r;export{t as default};
+
+//# sourceMappingURL=index.js.map

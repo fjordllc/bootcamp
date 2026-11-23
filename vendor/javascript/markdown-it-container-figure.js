@@ -1,0 +1,4 @@
+// markdown-it-container-figure@1.1.3 downloaded from https://ga.jspm.io/npm:markdown-it-container-figure@1.1.3/index.js
+
+import e from"markdown-it-container";const t=/^(<a [^>]+>\s*<img [^>]+>\s*<\/a>|<p><img [^>]+><\/p>|<img [^>]+>)([\s\S]*)$/;var n=t=>{t.use(e,"figure",{render:(e,t)=>e[t].nesting===1?"<figure>":"</figure>"});r(t)};const r=e=>{e.core.ruler.after("block","container-figure",(e=>{let n=false;e.tokens.forEach(((r,i)=>{r.type==="container_figure_open"&&(n=true);if(n){if(r.type==="inline"||r.type==="html_block"){const n=t.exec(r.content);if(!n)return;const o=n[1];const c=n[2].trim();r.content=`${o}<figcaption>${c}</figcaption>`;const s=e.tokens[i-1];const f=e.tokens[i+1];s.hidden=true;f.hidden=true}r.type==="container_figure_close"&&(n=false)}}));return true}))};export{n as default};
+//# sourceMappingURL=index.js.map

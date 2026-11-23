@@ -10,7 +10,7 @@ import MarkdownItTaskListsInitializer from 'markdown-it-task-lists-initializer'
 import MarkdownItHeadings from 'markdown-it-headings'
 import MarkDownItContainerMessage from 'markdown-it-container-message'
 import MarkDownItContainerDetails from 'markdown-it-container-details'
-import MarkDownItLinkAttributes from 'markdown-it-link-attributes'
+import MarkdownItExternalLink from 'markdown-it-external-link'
 import MarkDownItContainerSpeak from 'markdown-it-container-speak'
 import ReplaceLinkToCard from 'replace-link-to-card'
 import MarkDownItContainerFigure from 'markdown-it-container-figure'
@@ -44,19 +44,7 @@ export default class {
     md.use(MarkdownItHeadings)
     md.use(MarkDownItContainerMessage)
     md.use(MarkDownItContainerDetails)
-    md.use(MarkDownItLinkAttributes, {
-      matcher(href) {
-        return !(
-          href.startsWith(location.origin) ||
-          href.startsWith('/') ||
-          href.startsWith('#')
-        )
-      },
-      attrs: {
-        target: '_blank',
-        rel: 'noopener'
-      }
-    })
+    md.use(MarkdownItExternalLink)
     md.use(MarkDownItContainerSpeak)
     md.use(MarkDownItContainerFigure)
     md.use(MarkdownItVimeo)

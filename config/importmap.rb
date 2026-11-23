@@ -24,10 +24,10 @@ pin "escape-string-regexp", to: "https://ga.jspm.io/npm:escape-string-regexp@5.0
 pin "heic2any", to: "https://ga.jspm.io/npm:heic2any@0.0.4/dist/heic2any.js" # @0.0.4
 pin "markdown-it", to: "markdown-it.js" # @14.3.2 (official UMD distribution with an isolated ESM adapter)
 pin "markdown-it-anchor", to: "https://ga.jspm.io/npm:markdown-it-anchor@9.2.0/dist/markdownItAnchor.mjs" # @9.2.0
-pin "markdown-it-container", to: "https://ga.jspm.io/npm:markdown-it-container@3.0.0/index.js" # @3.0.0
-pin "markdown-it-container-figure", to: "https://ga.jspm.io/npm:markdown-it-container-figure@1.1.3/index.js" # @1.1.3
+pin "markdown-it-container" # @3.0.0
+pin "markdown-it-container-figure" # @1.1.3
 pin "markdown-it-emoji", to: "https://ga.jspm.io/npm:markdown-it-emoji@3.0.0/index.mjs" # @3.0.0
-pin "markdown-it-link-attributes", to: "https://ga.jspm.io/npm:markdown-it-link-attributes@4.0.1/index.js" # @4.0.1
+pin "markdown-it-link-attributes" # @4.0.1
 pin "markdown-it-regexp", to: "https://ga.jspm.io/npm:markdown-it-regexp@0.4.0/index.js" # @0.4.0
 pin "markdown-it-task-lists", to: "https://ga.jspm.io/npm:markdown-it-task-lists@2.1.1/index.js" # @2.1.1
 pin "prismjs", to: "https://ga.jspm.io/npm:prismjs@1.30.0/prism.js" # @1.30.0
