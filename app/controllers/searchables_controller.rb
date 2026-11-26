@@ -3,6 +3,10 @@
 class SearchablesController < ApplicationController
   PER_PAGE = 50
 
+  rescue_from Searcher::InvalidDocumentTypeError do
+    head :bad_request
+  end
+
   def index
     @word = params[:word].to_s
     @document_type = params[:document_type]&.to_sym || :all

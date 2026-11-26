@@ -494,7 +494,7 @@ class SearcherTest < ActiveSupport::TestCase
     end
 
     # Invalid type should raise error
-    assert_raises ArgumentError do
+    assert_raises Searcher::InvalidDocumentTypeError do
       Searcher.new(keyword: 'test', document_type: :invalid_type, current_user:)
     end
 
