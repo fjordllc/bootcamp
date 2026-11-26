@@ -66,4 +66,15 @@ class API::SearchablesControllerTest < ActionDispatch::IntegrationTest
     assert_response :bad_request
     assert_match 'Invalid document_type', response.parsed_body['message']
   end
+
+  test 'GET /api/searchables.json returns bad request with document_type given as array' do
+    token = create_token('kimura', 'testtest')
+
+    get api_searchables_path(format: :json),
+        headers: { 'Authorization' => "Bearer #{token}" },
+        params: { word: '作業', document_type: ['report'] }
+
+    assert_response :bad_request
+    assert_match 'Invalid document_type', response.parsed_body['message']
+  end
 end

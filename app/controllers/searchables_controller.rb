@@ -9,7 +9,6 @@ class SearchablesController < ApplicationController
 
   def index
     @word = params[:word].to_s
-    @document_type = params[:document_type]&.to_sym || :all
     @mode = params[:mode]&.to_sym || :keyword
 
     searcher = Searcher.new(
@@ -19,6 +18,7 @@ class SearchablesController < ApplicationController
       current_user:,
       mode: @mode
     )
+    @document_type = searcher.document_type
     results = searcher.search
     @searchables = Kaminari.paginate_array(results).page(params[:page]).per(PER_PAGE)
 

@@ -504,6 +504,20 @@ class SearcherTest < ActiveSupport::TestCase
     end
   end
 
+  test 'rejects document_type that is neither a string nor a symbol' do
+    [['report'], { name: 'report' }, 1].each do |document_type|
+      assert_raises Searcher::InvalidDocumentTypeError do
+        Searcher.new(keyword: 'test', document_type:, current_user:)
+      end
+    end
+  end
+
+  test 'uses all types when document_type is nil' do
+    searcher = Searcher.new(keyword: 'test', document_type: nil, current_user:)
+
+    assert_equal :all, searcher.document_type
+  end
+
   test 'search_label returns text label for all resources including User' do
     user = users(:komagata)
     report = reports(:report1)
