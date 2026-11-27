@@ -907,4 +907,32 @@ class UserTest < ActiveSupport::TestCase
     actual_ids = user.involved_events.ids.sort
     assert_equal expected_ids, actual_ids
   end
+
+  test 'student can sign up without description, job and os when profile is deferred' do
+    user = User.new(login_name: 'later', email: 'later@example.com', name: 'テスト 後子', name_kana: 'テスト アトコ',
+                    password: 'testtest', nda: true, course: courses(:course1))
+    assert_not user.valid?
+    assert user.errors.key?(:description)
+
+    user.profile_deferred = user.profile_deferrable_signup?
+    assert user.valid?, user.errors.full_messages.join(', ')
+  end
+
+  test 'profile is not deferrable for trainee sign up' do
+    user = User.new(trainee: true)
+    assert_not user.profile_deferrable_signup?
+  end
+
+  test 'user who has not entered description yet can be updated' do
+    user = users(:hatsuno)
+    user.update_columns(description: nil, job: nil, os: nil) # rubocop:disable Rails/SkipsModelValidations
+    user.reload
+    assert user.update(mail_notification: false)
+  end
+
+  test 'user cannot clear description once entered' do
+    user = users(:hatsuno)
+    assert_not user.update(description: '')
+    assert user.errors.key?(:description)
+  end
 end

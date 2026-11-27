@@ -1,4 +1,4 @@
-.form-item
+.form-item#form-job
   = f.label :job, class: 'a-form-label is-required'
   .a-button.is-md.is-secondary.is-select.is-block
     - options = options_for_select(User.jobs.map { |k, _| [t("activerecord.enums.user.job.#{k}"), k] }, selected: f.object.job)

@@ -23,12 +23,7 @@ module SignUp
         fill_in 'user[email]', with: 'jiro@example.com'
         fill_in 'user[name]', with: 'テスト 次郎'
         fill_in 'user[name_kana]', with: 'テスト ジロウ'
-        fill_in 'user[description]', with: 'テスト次郎です。'
         fill_in 'user[password]', with: 'testtest'
-        fill_in 'user[password_confirmation]', with: 'testtest'
-        select '学生', from: 'user[job]'
-        find('label', text: 'Mac（Intel チップ）').click
-        check 'Rubyの経験あり', allow_label_click: true
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
         find('label', text: '検索エンジン').click
@@ -49,12 +44,7 @@ module SignUp
         fill_in 'user[email]', with: 'saburo@example.com'
         fill_in 'user[name]', with: 'テスト 三郎'
         fill_in 'user[name_kana]', with: 'テスト サブロウ'
-        fill_in 'user[description]', with: 'テスト三郎です。'
         fill_in 'user[password]', with: 'testtest'
-        fill_in 'user[password_confirmation]', with: 'testtest'
-        select '学生', from: 'user[job]'
-        find('label', text: 'Mac（Intel チップ）').click
-        check 'Rubyの経験あり', allow_label_click: true
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
         find('label', text: '検索エンジン').click
@@ -75,12 +65,7 @@ module SignUp
         fill_in 'user[email]', with: 'hanako@example.com'
         fill_in 'user[name]', with: 'テスト 花子'
         fill_in 'user[name_kana]', with: 'テスト ハナコ'
-        fill_in 'user[description]', with: 'テスト花子です。'
         fill_in 'user[password]', with: 'testtest'
-        fill_in 'user[password_confirmation]', with: 'testtest'
-        select '学生', from: 'user[job]'
-        find('label', text: 'Mac（Intel チップ）').click
-        check 'Rubyの経験あり', allow_label_click: true
         find('label', text: 'アンチハラスメントポリシーに同意').click
         find('label', text: '利用規約に同意').click
         find('label', text: '検索エンジン').click

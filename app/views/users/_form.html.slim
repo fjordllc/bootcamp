@@ -11,11 +11,15 @@
   = f.hidden_field :course_id
   = hidden_field_tag :idempotency_token, SecureRandom.uuid
   = render 'errors', object: user
+  - if from == :new && user.errors.any?
+    div hidden=true data-controller='signup-error-tracking' data-signup-error-tracking-fields-value=user.errors.attribute_names.uniq.to_json
   - if !current_user && !@user.adviser? && !@user.trainee? && Campaign.today_campaign?
     = render 'checked_campaign'
   - unless @user.adviser? || @user.mentor?
     .form__items
       = render 'users/form/course_select', f: f, user: @user
+  / 生徒の参加登録では、お試しを始めるのに必要な項目だけを聞く。残りは登録後にダッシュボードから入力してもらう
+  - profile_deferred = from == :new && user.profile_deferrable_signup?
   .form__items
     = render 'users/form/login_name', f: f
     = render 'users/form/email', f: f, user: user
@@ -24,17 +28,18 @@
       = render 'users/form/pjord_comment', f: f
     = render 'users/form/name', f: f, user: user
     = render 'users/form/kana_name', f: f, user: user
-    = render 'users/form/avatar', f: f, user: user
-    = render 'users/form/description', f: f, user: user
-    = render 'users/form/tags', f: f, user: user
+    - unless profile_deferred
+      = render 'users/form/avatar', f: f, user: user
+      = render 'users/form/description', f: f, user: user
+      = render 'users/form/tags', f: f, user: user
     - if from == :edit && !@user.graduated? && !@user.adviser?
       = render 'users/form/learning_time_frames', f: f, user: user
-    - unless user.adviser?
+    - unless user.adviser? || profile_deferred
       - unless user.mentor?
         = render 'users/form/after_graduation_hope', f: f, user: user
         = render 'users/form/job', f: f
       = render 'users/form/os', f: f, user: user
-    - unless user.adviser? || user.mentor?
+    - unless user.adviser? || user.mentor? || profile_deferred
       = render 'users/form/experiences', f: f
 
     - if user.trainee? && from == :new && !user.grant_course?
@@ -55,9 +60,10 @@
 
     - if from == :edit
       = render 'users/form/editor', f: f, user: user
-    - if user.student?
+    - if user.student? && !profile_deferred
       = render 'users/form/job_seeker', f: f
-    = render 'users/form/register_address', f: f, user: user
+    - unless profile_deferred
+      = render 'users/form/register_address', f: f, user: user
   - if from == :edit
     .form__items
       h3.form__items-title パスワードの変更
@@ -79,7 +85,7 @@
   - else
     .form__items
       h3.form__items-title パスワード
-      = render 'users/form/password', f: f, from: from
+      = render 'users/form/password', f: f, from: from, confirmation: !profile_deferred
 
   - if user.mentor? || user.adviser? || user.graduated_on? || user.admin?
     .form__items
@@ -89,7 +95,7 @@
   - if from == :new && user.student? && !user.grant_course?
     .form__items
       h3.form__items-title クレジットカード情報
-      = render 'users/form/card'
+      = render 'users/form/card', notice_first: true
 
   - if user.mentor?
     .form__items
