@@ -6,6 +6,58 @@ require 'supports/mock_env_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   include MockEnvHelper
 
+  test 'GET new shows the signup form for HTML requests' do
+    get new_user_path
+
+    assert_response :success
+    assert_equal 'text/html', response.media_type
+    assert_select 'form[action=?]', users_path
+  end
+
+  test 'GET new shows the signup form when HTML is accepted after another format' do
+    get new_user_path, headers: { 'Accept' => 'application/json, text/html' }
+
+    assert_response :success
+    assert_equal 'text/html', response.media_type
+    assert_select 'form[action=?]', users_path
+  end
+
+  test 'GET new shows the signup form when any format is accepted' do
+    get new_user_path, headers: { 'Accept' => '*/*' }
+
+    assert_response :success
+    assert_equal 'text/html', response.media_type
+    assert_select 'form[action=?]', users_path
+  end
+
+  test 'GET new is not acceptable for JSON requests' do
+    get new_user_path, headers: { 'Accept' => 'application/json' }
+
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
+
+  test 'GET new is not acceptable for a JSON format path' do
+    get new_user_path(format: :json)
+
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
+
+  test 'GET new is not acceptable for an unregistered format path' do
+    get new_user_path(format: :unregistered)
+
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
+
+  test 'GET new with a signed invitation is not acceptable for JSON requests' do
+    get new_user_path, params: invitation_query(signed_invitation_token), headers: { 'Accept' => 'application/json' }
+
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
+
   test 'GET new rejects the shared legacy TOKEN even when it matches' do
     mock_env('TOKEN' => 'registration-test-token') do
       get new_user_path, params: { role: 'mentor', token: 'registration-test-token' }
