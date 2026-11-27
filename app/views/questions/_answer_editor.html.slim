@@ -1,0 +1,36 @@
+.a-card.is-answer.answer-editor[
+  id="answer_editor_#{answer.id}"
+  class=(editing ? nil : 'is-hidden')
+  data-controller="answer-form"
+  data-answer-editor-target="editor"
+  data-action="turbo:submit-start->answer-form#submitStart turbo:submit-end->answer-form#submitEnd answer-editor:cancel->answer-form#edit"]
+  = form_with model: answer, scope: :answer, url: api_answer_path(answer), method: :patch, local: true,
+    html: { class: 'thread-comment-form__form' }, data: { turbo: true, action: 'turbo:submit-end->answer-editor#submitEnd' } do |f|
+    = render 'errors', object: answer
+    .a-form-tabs.js-tabs
+      .a-form-tabs__tab.js-tabs__tab.edit-answer-tab.is-active data-answer-form-target="editTab" data-action="click->answer-form#edit"
+        | コメント
+      .a-form-tabs__tab.js-tabs__tab.answer-preview-tab data-answer-form-target="previewTab" data-action="click->answer-form#preview"
+        | プレビュー
+    .a-markdown-input.js-markdown-parent
+      .a-markdown-input__inner.is-editor.js-tabs__content.is-active data-answer-form-target="editor"
+        .form-textarea
+          .form-textarea__body
+            = f.text_area :description, id: "js-comment-#{answer.id}", class: 'a-text-input a-markdown-input__textarea markdown-textarea',
+              data: { preview: "#js-comment-preview-#{answer.id}", input: ".js-comment-file-input-#{answer.id}", answer_form_target: 'textarea', action: 'input->answer-form#input' }
+          .form-textarea__footer
+            .form-textarea__insert
+              label.a-file-insert.a-button.is-xs.is-text-reversal.is-block
+                | ファイルを挿入
+                input(class="js-comment-file-input-#{answer.id}" type='file' multiple)
+      .a-markdown-input__inner.is-preview.js-tabs__content.preview-content data-answer-form-target="previewPanel"
+        .js-preview.a-long-text.is-md.a-markdown-input__preview.markdown-preview data-answer-form-target="previewContent" id="js-comment-preview-#{answer.id}"
+    .card-footer
+      .card-main-actions
+        .card-main-actions__items
+          .card-main-actions__item
+            button.a-button.is-sm.is-primary.is-block.save-button type="submit" data-answer-form-target="submit"
+              | 保存する
+          .card-main-actions__item
+            = link_to 'キャンセル', question_path(question, anchor: "answer_#{answer.id}"),
+              class: 'a-button is-sm is-secondary is-block cancel-button', data: { turbo: false, action: 'click->answer-editor#cancel' }

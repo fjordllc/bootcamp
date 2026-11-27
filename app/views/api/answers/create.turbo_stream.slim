@@ -1,0 +1,7 @@
+- if @answer.persisted?
+  = turbo_stream.append dom_id(@question, :answers) do
+    = render 'questions/answer', question: @question, answer: @answer, user: current_user
+  = turbo_stream.replace dom_id(@question, :answer_count) do
+    = render 'questions/answer_count', question: @question
+= turbo_stream.replace dom_id(@question, :new_answer) do
+  = render 'questions/new_answer', question: @question, answer: @answer.persisted? ? Answer.new : @answer, user: current_user
