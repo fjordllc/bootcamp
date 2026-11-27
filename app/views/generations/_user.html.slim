@@ -70,7 +70,8 @@
                     span 自社研修生
               - else
                 li.card-main-actions__item
-                  = render partial: 'users/following', locals: { user:, current_user: }
+                  = turbo_frame_tag "follow_details_#{user.id}" do
+                    = render 'followings/following', user:
             - if current_user&.admin && user.talk.present?
               li.card-main-actions__item.is-only-mentor
                 = link_to talk_path(user.talk), class: 'a-button is-secondary is-sm is-block' do
