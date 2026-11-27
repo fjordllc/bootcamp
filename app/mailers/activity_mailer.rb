@@ -289,7 +289,7 @@ class ActivityMailer < ApplicationMailer # rubocop:todo Metrics/ClassLength
       link: "/users/#{@sender.id}",
       kind: Notification.kinds[:hibernated]
     )
-    @hibernation = Hibernation.find_by(user_id: @sender.id)
+    @hibernation = @sender.last_hibernation
 
     subject = "[FBC] #{@sender.login_name}さんが休会しました。"
     message = mail(to: @user.email, subject:)
