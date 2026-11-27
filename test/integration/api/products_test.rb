@@ -118,6 +118,43 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'GET /api/products/:id returns not acceptable for an HTML request without raising' do
+    product = products(:product1)
+
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_product_path(product),
+        headers: { 'Authorization' => "Bearer #{token}", 'Accept' => 'text/html' }
+
+    assert_response :not_acceptable
+    assert_empty response.body
+    assert_nil request.get_header('action_dispatch.exception')
+  end
+
+  test 'GET /api/products/:id returns JSON when any format is accepted' do
+    product = products(:product1)
+
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_product_path(product),
+        headers: { 'Authorization' => "Bearer #{token}", 'Accept' => '*/*' }
+
+    assert_response :ok
+    assert_equal 'application/json', response.media_type
+    assert_equal product.id, response.parsed_body['id']
+  end
+
+  test 'GET /api/products/:id returns forbidden for an HTML request to an incomplete practice by student' do
+    product = products(:product6)
+
+    token = create_token('kimura', 'testtest')
+
+    get api_product_path(product),
+        headers: { 'Authorization' => "Bearer #{token}", 'Accept' => 'text/html' }
+
+    assert_response :forbidden
+  end
+
   test 'returns json error with invalid token' do
     get api_products_path(format: :json),
         headers: { Authorization: 'Bearer invalid-token' }
