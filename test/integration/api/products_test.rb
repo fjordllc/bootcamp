@@ -31,6 +31,40 @@ class API::ProductsTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test 'GET /api/products without a JSON format is not acceptable' do
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_products_path, headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
+
+  test 'GET /api/products.html is not acceptable' do
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_products_path(format: :html), headers: { 'Authorization' => "Bearer #{token}" }
+
+    assert_response :not_acceptable
+    assert_empty response.body
+  end
+
+  test 'GET /api/products accepting any format returns JSON' do
+    token = create_token('mentormentaro', 'testtest')
+
+    get api_products_path, headers: { 'Authorization' => "Bearer #{token}", 'Accept' => '*/*' }
+
+    assert_response :ok
+    assert_equal 'application/json', response.media_type
+    assert response.parsed_body.key?('products')
+  end
+
+  test 'GET /api/products without a JSON format requires login first' do
+    get api_products_path
+
+    assert_response :unauthorized
+  end
+
   test 'GET /api/products/:id.json returns review information' do
     product = products(:product1)
 
