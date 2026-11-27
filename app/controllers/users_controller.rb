@@ -59,6 +59,11 @@ class UsersController < ApplicationController # rubocop:todo Metrics/ClassLength
   def new
     @user = User.new(@registration_invitation || params.permit(:course_id, :company_id))
     assign_role(@user)
+
+    respond_to do |format|
+      format.html
+      format.any { head :not_acceptable }
+    end
   end
 
   def create
