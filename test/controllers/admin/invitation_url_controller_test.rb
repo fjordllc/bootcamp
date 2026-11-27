@@ -10,7 +10,7 @@ class Admin::InvitationUrlControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     query = Rack::Utils.parse_query(URI.parse(response.parsed_body.fetch('url')).query)
     assert_equal invitation_attributes.stringify_keys, query.except('token')
-    assert_equal invitation_attributes.stringify_keys, RegistrationInvitation.verify(query.fetch('token'))
+    assert_equal invitation_attributes.stringify_keys, RegistrationInvitation.verify(query.fetch('token')).claims
   end
 
   test 'HTML supplies an authorized signing endpoint without a token template' do

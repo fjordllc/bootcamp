@@ -6,21 +6,21 @@ class RegistrationInvitationTest < ActiveSupport::TestCase
   test 'signs only the issued role company and course' do
     token = RegistrationInvitation.generate(role: 'trainee_invoice_payment', company_id: 123, course_id: '456')
 
-    assert_equal({ 'role' => 'trainee_invoice_payment', 'company_id' => '123', 'course_id' => '456' }, RegistrationInvitation.verify(token))
+    assert_equal({ 'role' => 'trainee_invoice_payment', 'company_id' => '123', 'course_id' => '456' }, RegistrationInvitation.verify(token).claims)
     assert_nil RegistrationInvitation.verify("#{token}tampered")
   end
 
   test 'normalizes the legacy trainee role and leaves omitted selections unbound' do
     token = RegistrationInvitation.generate(role: 'trainee')
 
-    assert_equal({ 'role' => 'trainee_select_a_payment_method' }, RegistrationInvitation.verify(token))
+    assert_equal 'trainee_select_a_payment_method', RegistrationInvitation.verify(token).claims['role']
   end
 
   test 'expires after thirty days' do
     token = RegistrationInvitation.generate(role: 'mentor')
 
     travel 29.days do
-      assert_equal({ 'role' => 'mentor' }, RegistrationInvitation.verify(token))
+      assert_equal({ 'role' => 'mentor' }, RegistrationInvitation.verify(token).claims)
     end
     travel 31.days do
       assert_nil RegistrationInvitation.verify(token)

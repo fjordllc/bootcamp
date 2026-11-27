@@ -26,6 +26,6 @@ class CompanyDecoratorTest < ActiveDecoratorTestCase
     query = Rack::Utils.parse_query(uri.query)
     assert_equal 'http://test.host/users/new', "#{uri.scheme}://#{uri.host}#{uri.path}"
     assert_equal @company1.id.to_s, query.fetch('company_id')
-    assert_equal({ 'role' => role, 'company_id' => @company1.id.to_s }, RegistrationInvitation.verify(query.fetch('token')))
+    assert_equal({ 'role' => role, 'company_id' => @company1.id.to_s }, RegistrationInvitation.verify(query.fetch('token')).claims)
   end
 end
