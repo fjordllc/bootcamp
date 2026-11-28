@@ -67,6 +67,37 @@ class OauthAuthorizationsTest < ActionDispatch::IntegrationTest
     assert_select "input[type='submit'][value='#{I18n.t('doorkeeper.authorizations.buttons.deny')}']", count: 1
   end
 
+  test 'trusted application is authorized without the consent screen' do
+    @application.update!(trusted: true)
+
+    assert_difference('Doorkeeper::AccessGrant.count') do
+      get oauth_authorization_path, params: authorization_params
+    end
+    assert_response :redirect
+    assert_match %r{\Ahttps://example\.invalid/callback\?code=[^&]+&state=oauth-test-state\z}, response.location
+  end
+
+  test 'untrusted application still shows the consent screen' do
+    assert_no_difference('Doorkeeper::AccessGrant.count') do
+      get oauth_authorization_path, params: authorization_params
+    end
+    assert_response :ok
+    assert_select '#oauth-permissions', count: 1
+  end
+
+  test 'trusted application returns to the authorization after logging in' do
+    @application.update!(trusted: true)
+    reset!
+
+    get oauth_authorization_path, params: authorization_params
+    assert_redirected_to login_path
+
+    sign_in(:kimura)
+    get oauth_authorization_path, params: authorization_params
+    assert_response :redirect
+    assert_match %r{\Ahttps://example\.invalid/callback\?code=}, response.location
+  end
+
   private
 
   def authorization_params
