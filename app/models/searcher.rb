@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Searcher
+  class InvalidDocumentTypeError < ArgumentError; end
+
   MODES = %i[keyword semantic hybrid].freeze
   MODES_FOR_SELECT = [
     %w[キーワード検索 keyword],
@@ -79,12 +81,14 @@ class Searcher
   end
 
   def validate_document_type(document_type)
-    type_sym = document_type&.to_sym || :all
+    return :all if document_type.nil?
+
     available_keys = Configuration.available_types + [:all]
+    type_sym = document_type.to_sym if document_type.respond_to?(:to_sym)
 
     return type_sym if available_keys.include?(type_sym)
 
-    raise ArgumentError, "Invalid document_type: #{document_type}. Available types: #{available_keys.join(', ')}"
+    raise InvalidDocumentTypeError, "Invalid document_type: #{document_type}. Available types: #{available_keys.join(', ')}"
   end
 
   def validate_mode(mode)

@@ -89,6 +89,24 @@ class SearchResultsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'responds with bad request to unknown document type' do
+    post user_sessions_path, params: { user: { login: 'hatsuno', password: 'testtest' } }
+    get searchables_path, params: { document_type: 'pages', word: 'テスト' }
+    assert_response :bad_request
+  end
+
+  test 'responds with bad request to document type given as array' do
+    post user_sessions_path, params: { user: { login: 'hatsuno', password: 'testtest' } }
+    get searchables_path, params: { document_type: ['pages'], word: 'テスト' }
+    assert_response :bad_request
+  end
+
+  test 'responds with bad request to document type given as hash' do
+    post user_sessions_path, params: { user: { login: 'hatsuno', password: 'testtest' } }
+    get searchables_path, params: { document_type: { name: 'report' }, word: 'テスト' }
+    assert_response :bad_request
+  end
+
   private
 
   def search(login_name, word, document_type = :all)
