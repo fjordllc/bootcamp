@@ -6,16 +6,10 @@ class API::ProductsController < API::BaseController
   before_action :authorize_product, only: %i[update destroy]
 
   def index
-    @company = Company.find(params[:company_id]) if params[:company_id]
-    per = params[:per] || 50
-    @products = Product
-                .list
-                .order_for_all_list
-                .page(params[:page])
-                .per(per)
-    @products_grouped_by_elapsed_days = @products.group_by(&:elapsed_days)
-    @products = @products.joins(:user).where(users: { company_id: params[:company_id] }) if params[:company_id]
-    @products = @products.where(user_id: params[:user_id]) if params[:user_id].present?
+    respond_to do |format|
+      format.json { set_products }
+      format.any { head :not_acceptable }
+    end
   end
 
   def show
@@ -63,6 +57,19 @@ class API::ProductsController < API::BaseController
   end
 
   private
+
+  def set_products
+    @company = Company.find(params[:company_id]) if params[:company_id]
+    per = params[:per] || 50
+    @products = Product
+                .list
+                .order_for_all_list
+                .page(params[:page])
+                .per(per)
+    @products_grouped_by_elapsed_days = @products.group_by(&:elapsed_days)
+    @products = @products.joins(:user).where(users: { company_id: params[:company_id] }) if params[:company_id]
+    @products = @products.where(user_id: params[:user_id]) if params[:user_id].present?
+  end
 
   def set_product
     @product = Product.find_by(id: params[:id])
