@@ -28,6 +28,49 @@ class API::UsersTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'GET /api/users.json filters users by search_word' do
+    token = create_token('kimura', 'testtest')
+    get api_users_path(format: :json, search_word: 'kimura'),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    login_names = response.parsed_body.fetch('users').pluck('login_name')
+    assert_includes login_names, 'kimura'
+    assert_includes login_names, 'kimuramitai'
+    assert_not_includes login_names, 'hatsuno'
+  end
+
+  test 'GET /api/users.json returns no users for a blank search_word' do
+    token = create_token('kimura', 'testtest')
+    ['', '   ', "\u3000"].each do |word|
+      get api_users_path(format: :json, search_word: word),
+          headers: { 'Authorization' => "Bearer #{token}" }
+      assert_response :ok
+      assert_empty response.parsed_body.fetch('users')
+    end
+  end
+
+  test 'GET /api/users.json filters retired users by search_word for a mentor' do
+    token = create_token('mentormentaro', 'testtest')
+    get api_users_path(format: :json, target: 'retired', search_word: 'yame'),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    login_names = response.parsed_body.fetch('users').pluck('login_name')
+    assert_includes login_names, 'yameo'
+    assert_not_includes login_names, 'taikai'
+  end
+
+  test 'GET /api/users.json excludes retired users from search_word results for a student' do
+    token = create_token('kimura', 'testtest')
+    get api_users_path(format: :json, target: 'retired', search_word: 'yame'),
+        headers: { 'Authorization' => "Bearer #{token}" }
+    assert_response :ok
+
+    login_names = response.parsed_body.fetch('users').pluck('login_name')
+    assert_not_includes login_names, 'yameo'
+  end
+
   test 'GET /api/users/1234.json as admin' do
     get api_users_path(users(:kimura).id, format: :json)
     assert_response :unauthorized
