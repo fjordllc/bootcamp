@@ -9,16 +9,10 @@ class TrustFjordOauthApplications < ActiveRecord::Migration[8.1]
   ].freeze
 
   def up
-    execute <<~SQL.squish
-      UPDATE oauth_applications SET trusted = TRUE
-      WHERE uid IN (#{FJORD_APP_UIDS.map { |uid| connection.quote(uid) }.join(', ')})
-    SQL
+    Doorkeeper::Application.where(uid: FJORD_APP_UIDS).update_all(trusted: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def down
-    execute <<~SQL.squish
-      UPDATE oauth_applications SET trusted = FALSE
-      WHERE uid IN (#{FJORD_APP_UIDS.map { |uid| connection.quote(uid) }.join(', ')})
-    SQL
+    Doorkeeper::Application.where(uid: FJORD_APP_UIDS).update_all(trusted: false) # rubocop:disable Rails/SkipsModelValidations
   end
 end
