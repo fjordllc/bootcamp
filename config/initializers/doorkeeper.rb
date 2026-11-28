@@ -27,6 +27,13 @@ Doorkeeper.configure do
   end
 
   # 本番・ステージング環境でもリダイレクトURLに「http://」を許可
+  # 自社のアプリ(trusted が true のもの)は、許可の確認画面を出さずに認可する。
+  # bootcamp にログイン済みなら、利用者は何も押さずに FJORD Classroom などへログインできる。
+  # MCP のクライアントは利用者が自分で登録するものなので、対象にしない。
+  skip_authorization do |_resource_owner, client|
+    client.application.trusted? && !client.application.mcp_client?
+  end
+
   force_ssl_in_redirect_uri false
 
   # クライアントアプリが、BootCampアプリのリソースをどの範囲まで使用できるかを設定
